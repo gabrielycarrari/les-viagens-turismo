@@ -9,15 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import ViagensETurismo.dtos.ClienteRecordDto;
 import ViagensETurismo.dtos.ComodidadeRecordDto;
 import ViagensETurismo.dtos.HotelRecordDto;
-import ViagensETurismo.models.Cliente;
 import ViagensETurismo.models.Comodidade;
 import ViagensETurismo.models.Endereco;
 import ViagensETurismo.models.Hotel;
-import ViagensETurismo.services.ClienteService;
 import ViagensETurismo.services.HotelService;
 import jakarta.validation.Valid;
 
