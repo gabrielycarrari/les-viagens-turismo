@@ -35,4 +35,12 @@ public class CompanhiaTransporteService {
         return companhiaTransporteRepository.save(companhiaTransporte);
     }
 
+    public Optional<CompanhiaTransporte> findById(int id){
+        return companhiaTransporteRepository.findById(id);
+    }
+
+    // public Optional<List<Veiculo>> veiculosPorCompanhia(int id){
+
+    // }
+
 }

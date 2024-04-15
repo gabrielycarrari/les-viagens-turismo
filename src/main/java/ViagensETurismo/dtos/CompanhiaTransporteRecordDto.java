@@ -13,5 +13,4 @@ public record CompanhiaTransporteRecordDto(
      String descricao,
      List<Veiculo> veiculos
 ) {
-
 }

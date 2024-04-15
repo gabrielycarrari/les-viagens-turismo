@@ -1,5 +1,6 @@
 package ViagensETurismo.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -17,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Hotel")
-public class Hotel {
+public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hotel_sequence")
     @SequenceGenerator(name = "hotel_sequence", sequenceName = "hotel_seq", allocationSize = 1)
