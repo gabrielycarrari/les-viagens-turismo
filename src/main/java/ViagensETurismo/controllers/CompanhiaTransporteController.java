@@ -8,15 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ViagensETurismo.dtos.CompanhiaTransporteRecordDto;
 import ViagensETurismo.models.CompanhiaTransporte;
 import ViagensETurismo.services.CompanhiaTransporteService;
-import ViagensETurismo.services.VeiculoService;
 import jakarta.validation.Valid;
 
 @RestController
 public class CompanhiaTransporteController {
     @Autowired
     CompanhiaTransporteService companhiaTransporteService;
-    @Autowired
-    VeiculoService veiculoService;
+    
     
     
     @PostMapping("/companhiaTransporte")

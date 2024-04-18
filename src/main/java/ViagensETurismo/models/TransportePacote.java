@@ -29,8 +29,8 @@ public class TransportePacote implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name="companhiaTransporte_id")
-    private CompanhiaTransporte companhiaTransporte;
+    @JoinColumn(name="veiculo_id")
+    private Veiculo veiculo;
     
 
     @OneToOne(cascade = CascadeType.ALL)

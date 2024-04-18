@@ -1,8 +1,5 @@
 package ViagensETurismo.dtos;
 
-import java.util.List;
-
-import ViagensETurismo.models.Veiculo;
 
 public record CompanhiaTransporteRecordDto(
      String nome,
@@ -10,7 +7,6 @@ public record CompanhiaTransporteRecordDto(
      String categoria,
      String telefone,
      String email,
-     String descricao,
-     List<Veiculo> veiculos
+     String descricao
 ) {
 }

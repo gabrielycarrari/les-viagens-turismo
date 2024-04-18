@@ -1,4 +1,6 @@
 package ViagensETurismo.services;
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,10 @@ public class ClienteService {
         BeanUtils.copyProperties(clienteRecordDto.endereco(), endereco);
         cliente.setEndereco(endereco);
         return clienteRepository.save(cliente);
+    }
+    
+    public Optional<Cliente> findById(int id){
+        return clienteRepository.findById(id);
     }
 
 }
