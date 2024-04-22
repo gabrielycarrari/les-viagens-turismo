@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1 class="mb-3 fw-normal titulo fw-bold pt-5 text-center">Cadastro</h1>
+  <form>
+    <div class="row row-cols-lg-2 py-3 my-5">
+      <div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="nome" placeholder="Nome Completo" required>
+          <label for="nome">Nome Completo</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="cpf" placeholder="CPF" required>
+          <label for="cpf">CPF</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating mb-3">
+          <input type="date" class="form-control" id="data_nascimento" placeholder="Data Nascimento" required>
+          <label for="data_nascimento">Data de Nascimento</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="telefone" placeholder="Telefone" required>
+          <label for="telefone">Telefone</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" placeholder="email@email.com" required>
+          <label for="email">Email</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="username" placeholder="username" required>
+          <label for="username">Username</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating my-3">
+          <input type="password" class="form-control" id="password" placeholder="senha" required>
+          <label for="password">Senha</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-floating my-3">
+          <input type="password" class="form-control" id="passwordConfirm" placeholder="senha" required>
+          <label for="passwordConfirm">Confirme sua senha</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col col-md-4">
+        <button class="btn btn-primary w-100 mt-2" type="submit">Cadastrar</button>
+      </div>
+    </div>
+    <div class="py-3 text-body-secondary text-center">
+      <p>Já possui uma conta? <a class="text-body-secondary" href="login"> Faça o login</a></p>
+    </div>
+
+  </form>
+</div>
+<app-footer></app-footer>
