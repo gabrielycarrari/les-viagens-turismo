@@ -1,39 +1,37 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="../../../assets/images/logo-sem-texto.png" alt="Logo" width="5%"/>
-            Nome da Empresa
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="../../../assets/images/logo-sem-texto.png" alt="Logo" width="5%"/>
+          Nome da Empresa
+      </a>
 
-        <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Pacotes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Desativado</a>
-            </li>
-          </ul>
+      <div class="collapse navbar-collapse justify-content-end text-nowrap text-center" id="navbarNav">
+        <div class="navbar-nav">
 
-          <div>
+            <a class="nav-link" aria-current="page" href="#">Pacotes</a>
 
-          </div>
+          <!--
+            <a class="nav-link" href="#">Features</a>
 
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-            <i class="bi bi-person"></i>
-            Login
-          </button>
+
+            <a class="nav-link" href="#">Pricing</a>
+           -->
+
+            <button class="btn btn-outline-primary my-2 my-sm-0" (click)="login()">
+              <i class="bi bi-person"></i>
+                Login
+            </button>
 
         </div>
       </div>
-    </nav>
+
+
+    </div>
+  </nav>
 </header>
 
