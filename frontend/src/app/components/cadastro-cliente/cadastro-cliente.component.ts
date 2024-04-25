@@ -6,9 +6,10 @@ import { FooterComponent } from '../footer/footer.component';
   selector: 'app-cadastro',
   standalone: true,
   imports: [NavbarComponent, FooterComponent],
-  templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.scss'
+  templateUrl: './cadastro-cliente.component.html',
+  styleUrl: './cadastro-cliente.component.scss'
 })
-export class CadastroComponent {
+export class CadastroClienteComponent {
 
+  
 }
