@@ -12,17 +12,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Veiculo")
-public class Veiculo {
+@Table(name = "Reserva")
+public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "veiculo_sequence")
-    @SequenceGenerator(name = "veiculo_sequence", sequenceName = "veiculo_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reserva_sequence")
+    @SequenceGenerator(name = "reserva_sequence", sequenceName = "reserva_seq", allocationSize = 1)
     private int id;
-    private String nome;
-    private int vagas;
-    private String registro;
-    
+
     @ManyToOne
-    @JoinColumn(name="companhia_transporte_id")
-    private CompanhiaTransporte companhiaTransporte; 
+    @JoinColumn(name="pacote_id")
+    private Pacote pacote;
+
+    @ManyToOne
+    @JoinColumn(name="cliente_id")
+    private Cliente cliente;
+
+    private String observacoes;
+    
 }

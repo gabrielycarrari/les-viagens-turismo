@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import ViagensETurismo.dtos.HotelPacoteDto;
 import ViagensETurismo.dtos.PacoteRecordDto;
 import ViagensETurismo.dtos.TransportePacoteDto;
-import ViagensETurismo.models.CompanhiaTransporte;
 import ViagensETurismo.models.Endereco;
 import ViagensETurismo.models.Hotel;
 import ViagensETurismo.models.HotelPacote;
 import ViagensETurismo.models.Pacote;
 import ViagensETurismo.models.TransportePacote;
+import ViagensETurismo.models.Veiculo;
 import ViagensETurismo.repositories.PacoteRepository;
 
 @Service
@@ -28,9 +28,6 @@ public class PacoteService {
     
     @Autowired
     private VeiculoService veiculoService;
-
-    @Autowired
-    private CompanhiaTransporteService companhiaTransporteService;
 
     public Pacote save(PacoteRecordDto pacoteRecordDto){
          
@@ -63,10 +60,10 @@ public class PacoteService {
         List<TransportePacote> transportePacotes = new ArrayList<>();
         
         for(TransportePacoteDto transportePacoteDto : pacoteRecordDto.transportePacote()){
-            Optional<CompanhiaTransporte> optionalCompanhiaTransporte = companhiaTransporteService.findById(transportePacoteDto.companhiaTransporte().getId());
-            if(optionalCompanhiaTransporte.isPresent()){
+            Optional<Veiculo> optionalVeiculo = veiculoService.findById(transportePacoteDto.veiculo().getId());
+            if(optionalVeiculo.isPresent()){
                 TransportePacote transportePacote = new TransportePacote();
-                transportePacote.setCompanhiaTransporte(optionalCompanhiaTransporte.get());
+                transportePacote.setVeiculo(optionalVeiculo.get());
                 transportePacote.setPacote(pacote);
                 BeanUtils.copyProperties(transportePacoteDto.enderecoChegada(), enderecoChegadaTransporte);
                 transportePacote.setEnderecoChegada(enderecoChegadaTransporte);
@@ -74,7 +71,7 @@ public class PacoteService {
                 transportePacote.setEnderecoSaida(enderecoSaidaTransporte);
                 transportePacotes.add(transportePacote);
             } else {
-                throw new RuntimeException("Companhia com ID: " + transportePacoteDto.companhiaTransporte().getId() + " não encontrado.");
+                throw new RuntimeException("Veiculo com ID: " + transportePacoteDto.veiculo().getId() + " não encontrado.");
             } 
         }
 
@@ -87,6 +84,11 @@ public class PacoteService {
         return pacoteRepository.save(pacote);
     }
 
+
+
+    public Optional<Pacote> findById(int id){
+        return pacoteRepository.findById(id);
+    }
 
 
 }

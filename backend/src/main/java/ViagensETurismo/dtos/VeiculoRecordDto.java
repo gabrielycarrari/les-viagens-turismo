@@ -1,8 +1,12 @@
 package ViagensETurismo.dtos;
 
+import ViagensETurismo.models.CompanhiaTransporte;
+
 public record VeiculoRecordDto( 
      String nome,
-     int vagas
+     int vagas,
+     String registro,
+     CompanhiaTransporte companhiaTransporte
     ) {
 
 }

@@ -1,10 +1,10 @@
 package ViagensETurismo.dtos;
 
-import ViagensETurismo.models.CompanhiaTransporte;
+import ViagensETurismo.models.Veiculo;
 
 
 public record TransportePacoteDto(
-    CompanhiaTransporte companhiaTransporte,
+    Veiculo veiculo,
     EnderecoRecordDto enderecoSaida,
     EnderecoRecordDto enderecoChegada
 ) {
