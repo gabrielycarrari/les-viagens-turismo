@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 import viagens_e_turismo.models.Cliente;
 
 
-
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
-
+    Cliente findByLogin(String login);
 }

@@ -2,16 +2,27 @@
 
 <div class="container">
   <div class="row row-cols-1 row-cols-lg-3 text-center text-lg-start ">
-    <form class="mt-5 needs-validation"  >
+    <form class="mt-5" [formGroup]="form" >
       <h1 class="mb-3 fw-normal titulo fw-bold py-5">Login</h1>
 
-      <div class="form-floating my-3">
-        <input type="text" class="form-control" id="username" placeholder="username" required>
-        <label for="username">Username</label>
+      <div class="row-cols-1">
+        <mat-form-field class="mb-3" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="login"/>
+          @if (form.get('login')?.invalid) {
+            <mat-error>{{"login"}}</mat-error>
+          }
+        </mat-form-field>
       </div>
-      <div class="form-floating my-3">
-        <input type="password" class="form-control" id="password" placeholder="senha" required>
-        <label for="password">Senha</label>
+
+      <div class="row-cols-1">
+        <mat-form-field class="mb-3" appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" formControlName="senha"/>
+          @if (form.get('senha')?.invalid) {
+            <mat-error>{{"senha"}}</mat-error>
+          }
+        </mat-form-field>
       </div>
 
       <div class="row">
@@ -29,7 +40,7 @@
           </div>
         </div>
       </div>
-        <button class="btn btn-primary w-100 mt-3 py-2 " type="submit">Entrar</button>
+        <button class="btn btn-primary w-100 mt-3 py-2 " type="submit" (click)="onSubmit()">Entrar</button>
 
         <div class="py-3 text-body-secondary text-center">
           <p>Não possui uma conta? <a class="text-body-secondary" href="cadastro"> Cadastre-se</a></p>

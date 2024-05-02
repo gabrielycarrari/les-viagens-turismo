@@ -29,20 +29,6 @@ export class CadastroClienteComponent implements OnInit {
   form!: FormGroup;
   passwordConfirm!: FormControl;
 
-  // public form = this.formBuilder.group({
-  //   id: [''],
-  //   login: ['', [Validators.required] ],
-  //   senha: ['', [Validators.required] ],
-  //   cpf: ['', [Validators.required] ],
-  //   nome: ['', [Validators.required] ],
-  //   data_nascimento: ['', [Validators.required] ],
-  //   telefone: ['', [Validators.required] ],
-  //   email: ['', [Validators.required] ],
-  //   endereco: this.formBuilder.group({
-  //     id: [0],
-  //   })
-  // });
-
   constructor(
     private formBuilder: FormBuilder,
     private service: ClienteService,
@@ -82,7 +68,6 @@ export class CadastroClienteComponent implements OnInit {
     }else{
       this.form.markAllAsTouched();
       this.passwordConfirm.markAsTouched();
-      return;
     }
   }
 

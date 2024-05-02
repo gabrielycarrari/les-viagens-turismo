@@ -27,6 +27,10 @@ export class ClienteService {
     return this.create(record);
   }
 
+  login(record: Partial<Cliente>){
+    return this.http.post(`${this.API}/login`, record).pipe(first());
+  }
+
   private create(record: Partial<Cliente>) {
     return this.http.post<Cliente>(this.API, record).pipe(first());
   }
@@ -34,4 +38,5 @@ export class ClienteService {
   private update(record: Partial<Cliente>) {
     return this.http.put<Cliente>(`${this.API}/${record.id}`, record).pipe(first());
   }
+
 }

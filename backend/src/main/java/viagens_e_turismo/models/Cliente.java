@@ -21,8 +21,9 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_sequence")
     @SequenceGenerator(name = "cliente_sequence", sequenceName = "cliente_seq", allocationSize = 1)
     private int id;
-    private String login;
     private String senha;
+    
+    private String login;
     private String cpf;
     private String nome;
     private LocalDate data_nascimento;
