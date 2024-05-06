@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../autenticacao/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,5 +9,15 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard-clientes.component.html',
   styleUrl: './dashboard-clientes.component.scss'
 })
-export class DashboardClientesComponent {  
+export class DashboardClientesComponent {
+
+  constructor(
+    private authService : AuthService,
+    private router: Router
+  ) { }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['']).then(() => window.location.reload());
+  }
 }

@@ -41,6 +41,10 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
+    public Cliente findByLogin(String login){
+        return clienteRepository.findByLogin(login);
+    }
+
     public boolean login(ClienteRecordDto clienteRecordDto){
         Cliente cliente = clienteRepository.findByLogin(clienteRecordDto.login());
         if(cliente != null){

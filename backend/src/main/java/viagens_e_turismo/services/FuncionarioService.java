@@ -17,8 +17,18 @@ public class FuncionarioService {
     public Funcionario save(FuncionarioRecordDto funcionarioRecordDto){
         var funcionario = new Funcionario();
         BeanUtils.copyProperties(funcionarioRecordDto, funcionario);
+
+        saveValidation(funcionario);
         return funcionarioRepository.save(funcionario);
     }
 
+    public Funcionario findByLogin(String login){
+        return funcionarioRepository.findByLogin(login);
+    }
 
+    private void saveValidation(Funcionario funcionario){
+        if(funcionarioRepository.findByLogin(funcionario.getLogin()) != null){
+            throw new IllegalArgumentException("Login já cadastrado");
+        }
+    }
 }

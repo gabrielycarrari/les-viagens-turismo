@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import {MatInputModule} from '@angular/material/input';
 import { Router } from '@angular/router';
+import { AuthService } from '../../autenticacao/auth.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -34,7 +35,8 @@ export class CadastroClienteComponent implements OnInit {
     private service: ClienteService,
     private location: Location,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +79,7 @@ export class CadastroClienteComponent implements OnInit {
 
   private onSuccess(){
     this.snackBar.open('Cadastro realizado com sucesso!', '', { duration: 5000 });
+    this.authService.saveSession("CLIENTE", this.form.controls['login'].value);
     this.router.navigate(['/']);
   }
 

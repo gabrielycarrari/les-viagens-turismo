@@ -14,17 +14,30 @@
 
             <a class="nav-link" aria-current="page" href="#">Pacotes</a>
 
-          <!--
-            <a class="nav-link" href="#">Features</a>
+            @if ((autenticado$ | async) === false) {
+              <button class="btn btn-outline-primary my-2 my-sm-0" (click)="login()">
+                <i class="bi bi-person"></i>
+                  Login
+              </button>
+            }@else {
+              <button mat-stroked-button [matMenuTriggerFor]="informacoesUsuarioMenu" class="ms-4 my-2 my-sm-0">
+                <span class="circle-icon">
 
-
-            <a class="nav-link" href="#">Pricing</a>
-           -->
-
-            <button class="btn btn-outline-primary my-2 my-sm-0" (click)="login()">
-              <i class="bi bi-person"></i>
-                Login
-            </button>
+                  <div class="small-circle"></div>
+                </span>
+                <span>Olá, {{userName$ | async}}</span>
+              </button>
+              <mat-menu #informacoesUsuarioMenu="matMenu">
+                <mat-list class="dropdown-list" (click)="$event.stopPropagation()" onKeyPress="" onKeyDown="" onKeyUp="">
+                  <mat-action-list>
+                      <a mat-list-item routerLink="/perfil">Meu Perfil</a>
+                      <a mat-list-item routerLink="/reservas">Reservas</a>
+                    <mat-divider></mat-divider>
+                      <a (click)="logout()" mat-list-item>Sair</a>
+                  </mat-action-list>
+                </mat-list>
+              </mat-menu>
+            }
 
         </div>
       </div>

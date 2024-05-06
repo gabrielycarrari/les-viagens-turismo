@@ -7,5 +7,5 @@ import viagens_e_turismo.models.Funcionario;
 
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer>{
-
+    Funcionario findByLogin(String login);
 }

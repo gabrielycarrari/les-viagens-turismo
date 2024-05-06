@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ClienteService } from '../cliente/cliente.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from '../autenticacao/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent {
     private service: ClienteService,
     private location: Location,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -44,21 +46,25 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      const formValue = this.form.value;
-      this.service.login(formValue).subscribe({
-        next: (response) => {
-          console.log(response);
-          this.onSuccess()},
-        error: (response) => {
-          console.error(response);
-          this.onError(response.error)
+  onSubmit(): void {
+    if(this.form.valid){
+      let login: string = this.form.get('login')?.value;
+      let password: string = this.form.get('senha')?.value;
+
+      this.authService.login(login, password).subscribe({
+        next: response => {
+          // Redirecionar com base no tipo de usuário
+          if (response.userType === 'FUNCIONARIO') {
+            this.router.navigate(['dashboard']);
+          } else {
+            this.router.navigate(['']);
+          }
+        },
+        error: error => {
+          console.error('Falha na autenticação', error);
+          alert('Usuário ou senha inválidos!');
         }
       });
-    }else{
-      this.form.markAllAsTouched();
-
     }
   }
 
