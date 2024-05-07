@@ -1,20 +1,19 @@
 <div class="d-flex">
     <div class="d-flex flex-column justify-content-center offset-1 tituloSecao">
         <div style="max-width: 180px;">
-            <h1 class="" style="font-size: 30px; "><strong>Pacotes <br> imbatíveis!</strong></h1>
+            <h1 style="font-size: 30px; "><strong>Pacotes <br> imbatíveis!</strong></h1>
 
         </div>
-        <div class="btn btn-outline-primary rounded-pill mt-2 me-1 d-flex ps-3 justify-content-between align-items-center">
+        <div class="btn btn-outline-primary rounded-pill mt-2 me-1 d-flex ps-3 justify-content-between align-items-center" (click)="verPacotes()">
                 <p class="mb-1 pe-2">Ver mais pacotes</p>
                 <i class="bi bi-arrow-right-short"></i>
-                   
         </div>
     </div>
     <div class="d-flex">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center ">
             <app-card></app-card>
             <app-card class="d-none d-lg-block"></app-card>
-            <app-card class="d-none d-lg-block"></app-card>     
+            <app-card class="d-none d-lg-block"></app-card>
         </div>
     </div>
 </div>
