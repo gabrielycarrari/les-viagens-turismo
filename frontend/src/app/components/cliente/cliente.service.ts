@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
-import { first } from 'rxjs';
+import { Observable, catchError, first, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,14 @@ export class ClienteService {
 
   private readonly API = 'api/clientes';
 
+  private readonly API2 = 'http://localhost:8080/api/clientes';
+
+
   constructor(private http: HttpClient) { }
 
-  list(page = 0, pageSize = 10) {
-    return this.http.get<Cliente[]>(this.API).pipe(
-      first(),
-      // map(data => data.courses),
-      // tap(data => (this.cache = data.courses))
+  list(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${this.API2}`).pipe(
+      first()
     );
   }
 
@@ -39,4 +40,13 @@ export class ClienteService {
     return this.http.put<Cliente>(`${this.API}/${record.id}`, record).pipe(first());
   }
 
+  remove(id: number) {
+    return this.http.delete<any>(`${this.API}/${id}`).pipe(
+      tap(() => console.log('Cliente removido com sucesso')),
+      catchError(error => {
+        console.error('Erro ao remover cliente:', error);
+        throw error; // Re-throw o erro para que o componente possa lidar com ele, se necessário.
+      })
+    );
+  }
 }

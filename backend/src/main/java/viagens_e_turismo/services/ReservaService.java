@@ -58,4 +58,10 @@ public class ReservaService {
         return reservaRepository.findById(id);
     }
 
+
+    public void excluirReservasPorCliente(Cliente cliente) {
+        List<Reserva> reservas = reservaRepository.findByCliente(cliente);
+        reservaRepository.deleteAll(reservas);
+    }
+
 }

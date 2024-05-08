@@ -1,4 +1,5 @@
 package viagens_e_turismo.services;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -6,16 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import viagens_e_turismo.dtos.ClienteRecordDto;
 import viagens_e_turismo.models.Cliente;
 import viagens_e_turismo.models.Endereco;
+import viagens_e_turismo.models.Reserva;
 import viagens_e_turismo.repositories.ClienteRepository;
+import viagens_e_turismo.repositories.ReservaRepository;
+
 
 @Service
 public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private ReservaRepository reservaRepository;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
  
@@ -41,6 +48,12 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
+
+    public List<Cliente> findAll(){
+        return clienteRepository.findAll();
+    }
+
+
     public Cliente findByLogin(String login){
         return clienteRepository.findByLogin(login);
     }
@@ -59,4 +72,13 @@ public class ClienteService {
             throw new IllegalArgumentException("Login já cadastrado");
         }
     }
+
+    public void delete(int id){
+        Cliente cliente = findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + id));
+        List<Reserva> reservas = reservaRepository.findByCliente(cliente);
+        reservaRepository.deleteAll(reservas);
+        clienteRepository.delete(cliente);
+    }
+
+
 }
