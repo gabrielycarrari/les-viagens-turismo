@@ -42,7 +42,7 @@ export class DashboardClientesComponent implements OnInit {
     this.service.remove(clienteId).subscribe({
       next: () => {
         console.log('Cliente removido com sucesso!');
-        // Aqui você pode atualizar a lista de clientes ou fazer qualquer outra coisa necessária
+        this.clientes = this.clientes.filter(cliente => cliente.id !== clienteId);
       },
       error:(error) => {
         console.error('Erro ao remover cliente:', error);

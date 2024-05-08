@@ -10,13 +10,12 @@ export class ClienteService {
 
   private readonly API = 'api/clientes';
 
-  private readonly API2 = 'http://localhost:8080/api/clientes';
 
 
   constructor(private http: HttpClient) { }
 
   list(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.API2}`).pipe(
+    return this.http.get<Cliente[]>(`${this.API}`).pipe(
       first()
     );
   }
@@ -45,7 +44,7 @@ export class ClienteService {
       tap(() => console.log('Cliente removido com sucesso')),
       catchError(error => {
         console.error('Erro ao remover cliente:', error);
-        throw error; // Re-throw o erro para que o componente possa lidar com ele, se necessário.
+        throw error;
       })
     );
   }

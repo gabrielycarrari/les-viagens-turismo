@@ -79,7 +79,7 @@ export class CadastroClienteComponent implements OnInit {
 
   private onSuccess(){
     this.snackBar.open('Cadastro realizado com sucesso!', '', { duration: 5000 });
-    this.authService.saveSession("CLIENTE", this.form.controls['login'].value);
+    this.authService.saveSession("CLIENTE", this.form.controls['nome'].value);
     this.router.navigate(['/']);
   }
 

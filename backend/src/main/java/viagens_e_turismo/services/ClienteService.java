@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 import viagens_e_turismo.dtos.ClienteRecordDto;
+import viagens_e_turismo.models.Avaliacao;
 import viagens_e_turismo.models.Cliente;
 import viagens_e_turismo.models.Endereco;
 import viagens_e_turismo.models.Reserva;
+import viagens_e_turismo.repositories.AvaliacaoRepository;
 import viagens_e_turismo.repositories.ClienteRepository;
 import viagens_e_turismo.repositories.ReservaRepository;
 
@@ -23,6 +25,8 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     @Autowired
     private ReservaRepository reservaRepository;
+    @Autowired
+    private AvaliacaoRepository avaliacaoRepository;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
  
@@ -77,6 +81,8 @@ public class ClienteService {
         Cliente cliente = findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + id));
         List<Reserva> reservas = reservaRepository.findByCliente(cliente);
         reservaRepository.deleteAll(reservas);
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByCliente(cliente);
+        avaliacaoRepository.deleteAll(avaliacoes);
         clienteRepository.delete(cliente);
     }
 
