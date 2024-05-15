@@ -4,6 +4,7 @@ import { DashboardClientesComponent } from './components/dashboard-clientes/dash
 import { CadastroClienteComponent } from './components/cliente/cadastro-cliente/cadastro-cliente.component';
 import { LoginComponent } from './components/login/login.component';
 import { PacotesComponent } from './components/pacotes/pacotes.component';
+import { DashboardFuncionariosComponent } from './components/dashboard-funcionarios/dashboard-funcionarios.component';
 
 export const routes: Routes = [
   {
@@ -15,8 +16,12 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "dashboard",
+    path: "dashboard-clientes",
     component: DashboardClientesComponent
+  },
+  {
+    path: "dashboard-funcionarios",
+    component: DashboardFuncionariosComponent
   },
   {
     path: "cadastro",

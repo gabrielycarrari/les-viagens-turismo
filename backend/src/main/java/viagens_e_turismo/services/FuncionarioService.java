@@ -1,4 +1,6 @@
 package viagens_e_turismo.services;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +32,9 @@ public class FuncionarioService {
         if(funcionarioRepository.findByLogin(funcionario.getLogin()) != null){
             throw new IllegalArgumentException("Login já cadastrado");
         }
+    }
+
+    public List<Funcionario> findAll(){
+        return funcionarioRepository.findAll();
     }
 }
