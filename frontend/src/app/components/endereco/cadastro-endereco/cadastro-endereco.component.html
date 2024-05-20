@@ -1,0 +1,54 @@
+<!-- <div class="row row-cols-lg-2 py-3"> -->
+<!-- <form [formGroup]="form"> -->
+  <div class="row row-cols-lg-2 py-3" [formGroup]="form">
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>CEP</mat-label>
+    <input matInput type="text" formControlName="CEP" />
+    <!-- @if (form.get('endereco')?.get('CEP')?.hasError('required')) {
+      <mat-error>Campo obrigatório</mat-error>
+    } -->
+  </mat-form-field>
+  <!-- <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>CEP</mat-label>
+    <input matInput type="text" formControlName="CEP" />
+    <mat-error *ngIf="form.get('CEP')?.hasError('required')">Campo obrigatório</mat-error>
+  </mat-form-field> -->
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>UF</mat-label>
+    <input matInput type="text" formControlName="UF" />
+    <!-- <mat-error *ngIf="form.get('endereco')?.get('UF')?.hasError('required')">Campo obrigatório</mat-error> -->
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Cidade</mat-label>
+    <input matInput type="text" formControlName="cidade" />
+    <!-- <mat-error *ngIf="form.get('endereco')?.get('cidade')?.hasError('required')">Campo obrigatório</mat-error> -->
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Bairro</mat-label>
+    <input matInput type="text" formControlName="bairro" />
+    <!-- <mat-error *ngIf="form.get('endereco')?.get('bairro')?.hasError('required')">Campo obrigatório</mat-error> -->
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Rua</mat-label>
+    <input matInput type="text" formControlName="rua" />
+    <!-- <mat-error *ngIf="form.get('endereco')?.get('rua')?.hasError('required')">Campo obrigatório</mat-error> -->
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Número</mat-label>
+    <input matInput type="text" formControlName="numero" />
+    <!-- <mat-error *ngIf="form.get('endereco')?.get('numero')?.hasError('required')">Campo obrigatório</mat-error> -->
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Ponto de Referência</mat-label>
+    <input matInput type="text" formControlName="pontoReferencia" />
+  </mat-form-field>
+
+</div>
+<!-- </form> -->

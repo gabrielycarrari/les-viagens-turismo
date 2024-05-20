@@ -1,0 +1,34 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <div class="collapse navbar-collapse justify-content-end text-nowrap text-center" id="navbarNav">
+        <div class="navbar-nav">
+            @if ((autenticado$ | async) === false) {
+              <button class="btn btn-outline-primary my-2 my-sm-0" (click)="login()">
+                <i class="bi bi-person"></i>
+                  Login
+              </button>
+            }@else {
+              <button mat-stroked-button [matMenuTriggerFor]="informacoesUsuarioMenu" class="ms-4 my-2 my-sm-0">
+                <span class="circle-icon">
+                  <div class="small-circle"></div>
+                </span>
+                <span>Olá, {{userName$ | async}}</span>
+              </button>
+              <mat-menu #informacoesUsuarioMenu="matMenu">
+                <mat-list class="dropdown-list" (click)="$event.stopPropagation()" onKeyPress="" onKeyDown="" onKeyUp="">
+                  <mat-action-list>
+                      <a mat-list-item (click)="navigatePerfil()">Meu Perfil</a>
+                    <mat-divider></mat-divider>
+                      <a (click)="logout()" mat-list-item>Sair</a>
+                  </mat-action-list>
+                </mat-list>
+              </mat-menu>
+            }
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
