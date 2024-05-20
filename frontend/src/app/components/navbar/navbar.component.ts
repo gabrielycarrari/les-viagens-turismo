@@ -32,6 +32,10 @@ export class NavbarComponent {
     this.router.navigate(['/login']);
   }
 
+  public navigatePerfil() {
+    this.router.navigate(['/perfil']);
+  }
+
   public logout() {
     this.authService.logout();
     this.router.navigate(['']).then(() => window.location.reload());

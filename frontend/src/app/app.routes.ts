@@ -4,6 +4,7 @@ import { DashboardClientesComponent } from './components/dashboard-clientes/dash
 import { CadastroClienteComponent } from './components/cliente/cadastro-cliente/cadastro-cliente.component';
 import { LoginComponent } from './components/login/login.component';
 import { PacotesComponent } from './components/pacotes/pacotes.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 import { DashboardFuncionariosComponent } from './components/dashboard-funcionarios/dashboard-funcionarios.component';
 import { DashboardHoteisComponent } from './components/dashboard-hoteis/dashboard-hoteis.component';
 import { DashboardCompanhiasDeTransporteComponent } from './components/dashboard-companhias-de-transporte/dashboard-companhias-de-transporte.component';
@@ -41,6 +42,10 @@ export const routes: Routes = [
   {
     path: "pacotes",
     component: PacotesComponent
+  },
+  {
+    path: "perfil",
+    component: PerfilComponent
   },
   {
     path: "dashboard-pacotes",

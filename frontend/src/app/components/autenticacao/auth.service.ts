@@ -16,17 +16,22 @@ export class AuthService {
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}`, { username, password })
       .pipe(
-        tap(response => this.saveSession(response.userType, response.name))
+        tap(response => this.saveSession(response.id, response.userType, response.name))
       );
   }
 
-  saveSession(userType: string, name: string): void {
+  saveSession(id: number, userType: string, name: string): void {
+    sessionStorage.setItem('id', id.toString());
     sessionStorage.setItem('userType', userType);
     sessionStorage.setItem('userName', name);
   }
 
   isLoggedIn(): Observable<boolean> {
     return of(sessionStorage.getItem('userType') !== null);
+  }
+
+  getId(): number {
+    return Number(sessionStorage.getItem('id')) ?? 0;
   }
 
   getUserType(): string {
@@ -38,6 +43,7 @@ export class AuthService {
   }
 
   logout(): void {
+    sessionStorage.removeItem('id');
     sessionStorage.removeItem('userType');
     sessionStorage.removeItem('userName');
   }

@@ -64,7 +64,7 @@ export class CadastroClienteComponent implements OnInit {
     if (this.validateForm(this.form)) {
       const formValue = this.form.value;
       this.service.save(formValue).subscribe({
-        next: () => this.onSuccess(),
+        next: response => this.onSuccess(response.id? response.id : 0),
         error: () => this.onError()
       });
     }else{
@@ -77,23 +77,23 @@ export class CadastroClienteComponent implements OnInit {
     this.location.back();
   }
 
-  private onSuccess(){
-    this.snackBar.open('Cadastro realizado com sucesso!', '', { duration: 5000 });
-    this.authService.saveSession("CLIENTE", this.form.controls['nome'].value);
+  private onSuccess(id: number){
+    this.snackBar.open('Cadastro realizado com sucesso!', '', { duration: 5000, panelClass: ["snackbar-success"] });
+    this.authService.saveSession(id, "CLIENTE", this.form.controls['nome'].value);
     this.router.navigate(['/']);
   }
 
   private onError() {
-    this.snackBar.open('Ocorreu um erro...', '', { duration: 5000 });
+    this.snackBar.open('Ocorreu um erro...', '', { duration: 5000, panelClass: ["snackbar-error"] });
   }
 
   private validateForm(form: FormGroup): boolean {
     if (form.invalid) {
-      this.snackBar.open('Formulário inválido.', '', { duration: 5000 });
+      this.snackBar.open('Formulário inválido.', '', { duration: 5000, panelClass: ["snackbar-error"] });
       return false;
     }
     if (form.get('senha')?.value !== this.passwordConfirm.value) {
-      this.snackBar.open('As senhas não conferem.', '', { duration: 5000 });
+      this.snackBar.open('As senhas não conferem.', '', { duration: 5000, panelClass: ["snackbar-error"] });
       return false;
     }
     return true;

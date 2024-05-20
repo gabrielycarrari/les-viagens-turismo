@@ -10,14 +10,16 @@ export class ClienteService {
 
   private readonly API = 'api/clientes';
 
-
-
   constructor(private http: HttpClient) { }
 
   list(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${this.API}`).pipe(
       first()
     );
+  }
+
+  getById(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.API}/${id}`).pipe(first());
   }
 
   save(record: Partial<Cliente>) {
@@ -29,6 +31,10 @@ export class ClienteService {
 
   login(record: Partial<Cliente>){
     return this.http.post(`${this.API}/login`, record).pipe(first());
+  }
+
+  alterarSenha(record: any){
+    return this.http.post(`${this.API}/alterarSenha`, record).pipe(first());
   }
 
   private create(record: Partial<Cliente>) {

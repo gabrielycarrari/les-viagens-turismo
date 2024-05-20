@@ -25,14 +25,14 @@ public class AuthService {
         Funcionario funcionario = funcionarioService.findByLogin(username);
 
         if(funcionario != null && passwordEncoder.matches(password, funcionario.getSenha())) {
-                return new LoginResponse("FUNCIONARIO", funcionario.getNome()); 
+                return new LoginResponse( funcionario.getId(), "FUNCIONARIO", funcionario.getNome()); 
             }
         
 
         Cliente cliente = clienteService.findByLogin(username);
         
         if(cliente != null && passwordEncoder.matches(password, cliente.getSenha())) {
-                return new LoginResponse("CLIENTE", cliente.getNome()); 
+                return new LoginResponse( cliente.getId(), "CLIENTE", cliente.getNome()); 
             }
         
 

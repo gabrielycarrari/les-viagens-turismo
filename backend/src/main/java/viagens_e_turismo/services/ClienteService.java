@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
+import viagens_e_turismo.dtos.AlterarSenhaRecordDto;
 import viagens_e_turismo.dtos.ClienteRecordDto;
 import viagens_e_turismo.models.Avaliacao;
 import viagens_e_turismo.models.Cliente;
@@ -47,6 +48,26 @@ public class ClienteService {
 
         return clienteRepository.save(cliente);
     }
+
+    public Cliente update(int id, ClienteRecordDto clienteRecordDto){
+        var cliente = new Cliente();
+        var endereco = new Endereco();
+
+        BeanUtils.copyProperties(clienteRecordDto, cliente);
+        BeanUtils.copyProperties(clienteRecordDto.endereco(), endereco);
+        
+        cliente.setId(id);
+        if(clienteRecordDto.senha() != null ){
+            String encodedPassword = passwordEncoder.encode(clienteRecordDto.senha());
+            cliente.setSenha(encodedPassword);
+        }
+        
+        cliente.setEndereco(endereco);
+        
+        saveValidation(cliente);
+
+        return clienteRepository.save(cliente);
+    }
     
     public Optional<Cliente> findById(int id){
         return clienteRepository.findById(id);
@@ -71,10 +92,26 @@ public class ClienteService {
         return false;
     }
 
-    private void saveValidation(Cliente cliente){
-        if(clienteRepository.findByLogin(cliente.getLogin()) != null){
-            throw new IllegalArgumentException("Login já cadastrado");
+    public boolean alterarSenha(AlterarSenhaRecordDto alterarSenhaRecordDto){
+        Cliente cliente = clienteRepository.findByLogin(alterarSenhaRecordDto.login());
+        if(cliente != null){
+            if(passwordEncoder.matches(alterarSenhaRecordDto.senhaAtual(), cliente.getSenha())){
+                String encodedPassword = passwordEncoder.encode(alterarSenhaRecordDto.senhaNova());
+                cliente.setSenha(encodedPassword);
+                clienteRepository.save(cliente);
+                return true;
+            }
         }
+        return false;
+    }
+
+    private void saveValidation(Cliente cliente){
+        if(cliente.getId() == 0){
+            if(clienteRepository.findByLogin(cliente.getLogin()) != null){
+                throw new IllegalArgumentException("Login já cadastrado");
+            }
+        }
+        
     }
 
     public void delete(int id){

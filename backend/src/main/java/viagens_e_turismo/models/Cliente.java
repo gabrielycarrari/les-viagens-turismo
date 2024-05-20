@@ -22,7 +22,6 @@ public class Cliente {
     @SequenceGenerator(name = "cliente_sequence", sequenceName = "cliente_seq", allocationSize = 1)
     private int id;
     private String senha;
-    
     private String login;
     private String cpf;
     private String nome;

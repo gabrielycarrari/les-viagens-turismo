@@ -3,11 +3,12 @@ import { AuthService } from './../autenticacao/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ClienteService } from '../cliente/cliente.service';
 import { Cliente } from '../cliente/cliente';
+import { NavbarFuncionarioComponent } from '../navbar-funcionario/navbar-funcionario.component';
 
 @Component({
   selector: 'app-dashboard-clientes',
   standalone: true,
-  imports: [],
+  imports: [ NavbarFuncionarioComponent],
   templateUrl: './dashboard-clientes.component.html',
   styleUrl: './dashboard-clientes.component.scss'
 })
