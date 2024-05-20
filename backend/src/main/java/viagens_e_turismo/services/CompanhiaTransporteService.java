@@ -1,4 +1,5 @@
 package viagens_e_turismo.services;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,7 @@ public class CompanhiaTransporteService {
         return companhiaTransporteRepository.findById(id);
     }
 
+     public List<CompanhiaTransporte> findAll(){
+        return companhiaTransporteRepository.findAll();
+    }
 }

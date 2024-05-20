@@ -40,4 +40,9 @@ public class HotelService {
     public Optional<Hotel> findById(int id){
         return hotelRepository.findById(id);
     }
+
+    public List<Hotel> findAll(){
+        return hotelRepository.findAll();
+    }
+    
 }

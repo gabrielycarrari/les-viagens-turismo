@@ -35,15 +35,15 @@
           </div>
 
           <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item ">
+          <li class="nav-item">
               <a class="nav-link"  href="dashboard-clientes">
                   <i class="bi bi-people-fill"></i>
                   <span class="ps-1">Clientes</span>
               </a>
           </li>
 
-          <li class="nav-item active">
-              <a class="nav-link "  href="dashboard-funcionarios">
+          <li class="nav-item">
+              <a class="nav-link" href="dashboard-funcionarios" >
                   <i class="bi bi-person-vcard-fill"></i>
                   <span class="ps-1">Funcionários</span>
               </a>
@@ -60,8 +60,8 @@
 
 
 
-          <li class="nav-item">
-              <a class="nav-link" href="dashboard-companhiasTransporte">
+          <li class="nav-item active">
+              <a class="nav-link" href="dashboard-companhias-de-transporte">
                   <i class="bi bi-bus-front-fill"></i>
                   <span class="ps-1">Companhias de Transporte</span>
               </a>
@@ -125,7 +125,7 @@
               <div class="container-fluid bg-white">
 
                   <!-- Page Heading -->
-                  <h1 class="h3 mb-2 text-gray-800">Listagem de Funcionários</h1>
+                  <h1 class="h3 mb-2 text-gray-800">Listagem de Companhias de Transporte</h1>
                   <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                       For more information about DataTables, please visit the.</p> -->
 
@@ -142,26 +142,24 @@
                                       <tr>
                                           <th>Id</th>
                                           <th>Nome</th>
-                                          <th>CPF</th>
-                                          <th>Data de Nascimento</th>
+                                          <th>Categoria</th>
                                           <th>Telefone</th>
                                           <th>Email</th>
-                                          <th>Login</th>
-                                          <th>Senha</th>
+                                          <th>Descrição</th>
+                                          <th>CNPJ</th>
                                           <th>Ações</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      @for (funcionario of funcionarios; track funcionario) {
+                                      @for (companhiaTransporte of companhiasTransporte; track companhiaTransporte) {
                                           <tr>
-                                              <td>{{funcionario.id}}</td>
-                                              <td>{{funcionario.nome}}</td>
-                                              <td>{{funcionario.cpf}}</td>
-                                              <td>{{funcionario.data_nascimento}}</td>
-                                              <td>{{funcionario.telefone}}</td>
-                                              <td>{{funcionario.email}}</td>
-                                              <td>{{funcionario.login}}</td>
-                                              <td>{{funcionario.senha}}</td>
+                                              <td>{{companhiaTransporte.id}}</td>
+                                              <td>{{companhiaTransporte.nome}}</td>
+                                              <td>{{companhiaTransporte.categoria}}</td>
+                                              <td>{{companhiaTransporte.telefone}}</td>
+                                              <td>{{companhiaTransporte.email}}</td>
+                                              <td>{{companhiaTransporte.descricao}}</td>
+                                              <td>{{companhiaTransporte.cnpj}}</td>
                                               <td>
                                                 <div class="d-flex justify-content-around mx-auto">
                                                   <button class="btn btn-outline-danger btn-sm ">

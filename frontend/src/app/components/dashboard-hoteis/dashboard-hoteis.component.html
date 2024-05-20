@@ -42,8 +42,8 @@
               </a>
           </li>
 
-          <li class="nav-item active">
-              <a class="nav-link "  href="dashboard-funcionarios">
+          <li class="nav-item">
+              <a class="nav-link" href="dashboard-funcionarios" >
                   <i class="bi bi-person-vcard-fill"></i>
                   <span class="ps-1">Funcionários</span>
               </a>
@@ -51,8 +51,8 @@
 
 
 
-          <li class="nav-item">
-              <a class="nav-link" href="dashboard-hoteis">
+          <li class="nav-item active">
+              <a class="nav-link"  href="dashboard-hoteis">
                   <i class="bi bi-buildings-fill"></i>
                   <span class="ps-1">Hotéis</span>
               </a>
@@ -125,7 +125,7 @@
               <div class="container-fluid bg-white">
 
                   <!-- Page Heading -->
-                  <h1 class="h3 mb-2 text-gray-800">Listagem de Funcionários</h1>
+                  <h1 class="h3 mb-2 text-gray-800">Listagem de Hotéis</h1>
                   <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                       For more information about DataTables, please visit the.</p> -->
 
@@ -142,26 +142,41 @@
                                       <tr>
                                           <th>Id</th>
                                           <th>Nome</th>
-                                          <th>CPF</th>
-                                          <th>Data de Nascimento</th>
-                                          <th>Telefone</th>
+                                          <th>Descrição</th>
                                           <th>Email</th>
-                                          <th>Login</th>
-                                          <th>Senha</th>
+                                          <th>Telefone</th>
+                                          <th>Classificação</th>
+                                          <th>Endereço</th>
+                                          <th>Comodidades</th>
                                           <th>Ações</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      @for (funcionario of funcionarios; track funcionario) {
+                                      @for (hotel of hoteis; track hotel) {
                                           <tr>
-                                              <td>{{funcionario.id}}</td>
-                                              <td>{{funcionario.nome}}</td>
-                                              <td>{{funcionario.cpf}}</td>
-                                              <td>{{funcionario.data_nascimento}}</td>
-                                              <td>{{funcionario.telefone}}</td>
-                                              <td>{{funcionario.email}}</td>
-                                              <td>{{funcionario.login}}</td>
-                                              <td>{{funcionario.senha}}</td>
+                                              <td>{{hotel.id}}</td>
+                                              <td>{{hotel.nome}}</td>
+                                              <td>{{hotel.descricao}}</td>
+                                              <td>{{hotel.email}}</td>
+                                              <td>{{hotel.telefone}}</td>
+                                              <td class="flex justify-end">
+                                                @for (estrela of [].constructor(hotel.classificacao); track estrela) {
+                                                  <i class="bi bi-star-fill"></i>
+                                                }
+                                              </td>
+                                              <td>{{hotel.endereco?.bairro +", "+hotel.endereco?.cidade+"."}}</td>
+                                              <td>
+                                                @for(comodidade of hotel.comodidades; track comodidade;let index = $index,last = $last){
+                                                  @if (!last) {
+                                                    {{comodidade.nome+","}}
+                                                  }@else{
+                                                    {{comodidade.nome+"."}}
+                                                  }
+                                                }@empty {
+                                                  <td>Sem Comodidades Cadastradas</td>
+                                                }
+                                              </td>
+
                                               <td>
                                                 <div class="d-flex justify-content-around mx-auto">
                                                   <button class="btn btn-outline-danger btn-sm ">
