@@ -9,7 +9,7 @@ import { Hotel } from '../hotel/hotel';
   standalone: true,
   imports: [],
   templateUrl: './dashboard-hoteis.component.html',
-  styleUrl: './dashboard-hoteis.component.scss'
+  styleUrl: '../dashboard/dashboard.component.scss'
 })
 export class DashboardHoteisComponent implements OnInit {
   constructor(

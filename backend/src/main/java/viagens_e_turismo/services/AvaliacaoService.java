@@ -55,5 +55,11 @@ public class AvaliacaoService {
         avaliacaoRepository.deleteAll(avaliacoes);
     }
 
+
+    public List<Avaliacao> findAll(){
+        return avaliacaoRepository.findAll();
+    }
+
+
 }
 

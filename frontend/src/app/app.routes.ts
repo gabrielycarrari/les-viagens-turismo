@@ -9,6 +9,8 @@ import { DashboardFuncionariosComponent } from './components/dashboard-funcionar
 import { DashboardHoteisComponent } from './components/dashboard-hoteis/dashboard-hoteis.component';
 import { DashboardCompanhiasDeTransporteComponent } from './components/dashboard-companhias-de-transporte/dashboard-companhias-de-transporte.component';
 import { DashboardPacotesComponent } from './components/dashboard-pacotes/dashboard-pacotes.component';
+import { DashboardReservasComponent } from './components/dashboard-reservas/dashboard-reservas.component';
+import { DashboardAvaliacoesComponent } from './components/dashboard-avaliacoes/dashboard-avaliacoes.component';
 
 export const routes: Routes = [
   {
@@ -50,5 +52,13 @@ export const routes: Routes = [
   {
     path: "dashboard-pacotes",
     component: DashboardPacotesComponent
+  },
+  {
+    path: "dashboard-reservas",
+    component: DashboardReservasComponent
+  },
+  {
+    path: "dashboard-avaliacoes",
+    component: DashboardAvaliacoesComponent
   }
 ];

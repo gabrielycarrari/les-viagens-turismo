@@ -79,7 +79,7 @@
 
 
           <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" href="dashboard-reservas">
                   <i class="bi bi-bookmark-check-fill"></i>
                   <span class="ps-1">Reservas</span>
               </a>
@@ -88,7 +88,7 @@
 
 
           <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" href="dashboard-avaliacoes">
                   <i class="bi bi-star-fill"></i>
                   <span class="ps-1">Avaliações</span>
               </a>
@@ -163,6 +163,9 @@
                                                 @for (estrela of [].constructor(hotel.classificacao); track estrela) {
                                                   <i class="bi bi-star-fill"></i>
                                                 }
+                                                @for (estrela of [].constructor((hotel.classificacao-5)*-1); track estrela) {
+                                                  <i class="bi bi-star"></i>
+                                                }
                                               </td>
                                               <td>{{hotel.endereco?.bairro +", "+hotel.endereco?.cidade+"."}}</td>
                                               <td>
@@ -177,7 +180,7 @@
                                                 }
                                               </td>
 
-                                              <td>
+                                              <td class="acoes">
                                                 <div class="d-flex justify-content-around mx-auto">
                                                   <button class="btn btn-outline-danger btn-sm ">
                                                     <i class="bi bi-trash3-fill"></i>

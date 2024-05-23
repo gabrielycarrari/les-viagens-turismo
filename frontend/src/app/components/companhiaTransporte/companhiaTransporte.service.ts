@@ -8,7 +8,7 @@ import { Observable, catchError, first, tap } from 'rxjs';
 })
 export class CompanhiaTransporteService {
 
-  private readonly API = 'api/companhiaTransporte';
+  private readonly API = 'api/companhiasTransporte';
 
 
   constructor(private http: HttpClient) { }

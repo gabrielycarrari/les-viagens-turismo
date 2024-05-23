@@ -79,7 +79,7 @@
 
 
           <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" href="dashboard-reservas">
                   <i class="bi bi-bookmark-check-fill"></i>
                   <span class="ps-1">Reservas</span>
               </a>
@@ -88,7 +88,7 @@
 
 
           <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" href="dashboard-avaliacoes">
                   <i class="bi bi-star-fill"></i>
                   <span class="ps-1">Avaliações</span>
               </a>
@@ -156,16 +156,16 @@
                                           <tr>
                                               <td>{{funcionario.id}}</td>
                                               <td>{{funcionario.nome}}</td>
-                                              <td>{{funcionario.cpf}}</td>
+                                              <td style="text-wrap: nowrap;">{{funcionario.cpf}}</td>
                                               <td>{{funcionario.data_nascimento}}</td>
                                               <td>{{funcionario.telefone}}</td>
                                               <td>{{funcionario.email}}</td>
                                               <td>{{funcionario.login}}</td>
                                               <td>{{funcionario.senha}}</td>
-                                              <td>
+                                              <td class="acoes">
                                                 <div class="d-flex justify-content-around mx-auto">
                                                   <button class="btn btn-outline-danger btn-sm ">
-                                                    <i class="bi bi-trash3-fill"></i>
+                                                    <i class="bi bi-trash3-fill" (click)="funcionario.id && remove(funcionario.id)"></i>
                                                   </button>
                                                   <button class="btn btn-outline-primary btn-sm">
                                                     <i class="bi bi-pencil-square"></i>

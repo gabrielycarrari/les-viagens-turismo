@@ -9,7 +9,7 @@ import { CompanhiaTransporte } from '../companhiaTransporte/companhiaTransporte'
   standalone: true,
   imports: [],
   templateUrl: './dashboard-companhias-de-transporte.component.html',
-  styleUrl: './dashboard-companhias-de-transporte.component.scss'
+  styleUrl: '../dashboard/dashboard.component.scss'
 })
 export class DashboardCompanhiasDeTransporteComponent implements OnInit {
   constructor(

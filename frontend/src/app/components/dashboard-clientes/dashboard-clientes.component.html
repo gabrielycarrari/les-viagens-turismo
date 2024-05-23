@@ -79,7 +79,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link" href="dashboard-reservas">
                     <i class="bi bi-bookmark-check-fill"></i>
                     <span class="ps-1">Reservas</span>
                 </a>
@@ -88,7 +88,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link" href="dashboard-avaliacoes">
                     <i class="bi bi-star-fill"></i>
                     <span class="ps-1">Avaliações</span>
                 </a>
@@ -163,8 +163,8 @@
                                                 <td>{{cliente.email}}</td>
                                                 <td>{{cliente.endereco?.bairro +", "+cliente.endereco?.cidade}}</td>
                                                 <td>{{cliente.login}}</td>
-                                                <td>{{cliente.senha}}</td>
-                                                <td>
+                                                <td style="max-width: 200px; text-wrap: wrap;">{{cliente.senha}}</td>
+                                                <td class="acoes">
                                                   <div class="d-flex justify-content-around mx-auto">
                                                     <button class="btn btn-outline-danger btn-sm " (click)="cliente.id && remove(cliente.id)">
                                                       <i class="bi bi-trash3-fill"></i>
