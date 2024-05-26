@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { HotelService } from '../hotel/hotel.service';
+import { ReservaService } from '../reservas/reserva.service';
 import { AuthService } from '../autenticacao/auth.service';
 import { Router } from '@angular/router';
-import { Hotel } from '../hotel/hotel';
+import { Reserva } from '../reservas/reserva';
 
 @Component({
-  selector: 'app-dashboard-hoteis',
+  selector: 'app-dashboard-reservas',
   standalone: true,
   imports: [],
-  templateUrl: './dashboard-hoteis.component.html',
+  templateUrl: './dashboard-reservas.component.html',
   styleUrl: '../dashboard/dashboard.component.scss'
 })
-export class DashboardHoteisComponent implements OnInit {
+export class DashboardReservasComponent  implements OnInit {
   constructor(
-    private service: HotelService,
+    private service: ReservaService,
     private authService : AuthService,
     private router: Router
   ) { }
 
 
-  hoteis: Hotel[] = [];
+  reservas: Reserva[] = [];
 
   ngOnInit() {
     this.listar();
@@ -27,13 +27,13 @@ export class DashboardHoteisComponent implements OnInit {
 
   listar(): void {
     this.service.list().subscribe({
-      next: (hoteis) => {
-        this.hoteis = hoteis;
-        console.log("Hoteis recebidos:", hoteis);
+      next: (reservas) => {
+        this.reservas = reservas;
+        console.log("Reservas recebidas:", reservas);
       },
       error: (error) => {
-        console.error('Erro ao buscar hoteis', error);
-        alert('Erro ao buscar hoteis: ' + error.message);
+        console.error('Erro ao buscar reservas', error);
+        alert('Erro ao buscar reservas: ' + error.message);
       }
     });
   }
@@ -44,3 +44,4 @@ export class DashboardHoteisComponent implements OnInit {
   }
 
 }
+

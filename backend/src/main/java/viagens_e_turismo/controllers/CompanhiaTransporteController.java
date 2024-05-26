@@ -16,7 +16,7 @@ import viagens_e_turismo.models.CompanhiaTransporte;
 import viagens_e_turismo.services.CompanhiaTransporteService;
 
 @RestController
-@RequestMapping("/api/companhiaTransporte")
+@RequestMapping("/api/companhiasTransporte")
 public class CompanhiaTransporteController {
     @Autowired
     CompanhiaTransporteService companhiaTransporteService;

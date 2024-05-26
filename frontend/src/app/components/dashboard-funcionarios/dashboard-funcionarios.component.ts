@@ -9,7 +9,7 @@ import { Funcionario } from '../funcionario/funcionario';
   standalone: true,
   imports: [],
   templateUrl: './dashboard-funcionarios.component.html',
-  styleUrl: './dashboard-funcionarios.component.scss'
+  styleUrl: '../dashboard/dashboard.component.scss'
 })
 export class DashboardFuncionariosComponent implements OnInit {
   constructor(
@@ -22,6 +22,20 @@ export class DashboardFuncionariosComponent implements OnInit {
 
   ngOnInit() {
     this.listar();
+  }
+
+  remove(funcionarioId: number) {
+    this.service.remove(funcionarioId).subscribe({
+      next: () => {
+        console.log('Funcionario removido com sucesso!');
+        this.funcionarios = this.funcionarios.filter(funcionario => funcionario.id !== funcionarioId);
+      },
+      error:(error) => {
+        console.error('Erro ao remover Funcionario:', error);
+      }
+
+    }
+    );
   }
 
 

@@ -10,7 +10,7 @@ import { NavbarFuncionarioComponent } from '../navbar-funcionario/navbar-funcion
   standalone: true,
   imports: [ NavbarFuncionarioComponent],
   templateUrl: './dashboard-clientes.component.html',
-  styleUrl: './dashboard-clientes.component.scss'
+  styleUrl: '../dashboard/dashboard.component.scss'
 })
 export class DashboardClientesComponent implements OnInit {
   constructor(

@@ -92,4 +92,9 @@ public class PacoteService {
     }
 
 
+    public List<Pacote> findAll(){
+        return pacoteRepository.findAll();
+    }
+
+
 }

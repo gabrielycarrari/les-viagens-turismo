@@ -11259,7 +11259,15 @@ form.user .btn-user {
     clip: rect(67px, 9999px, 68px, 0);
   }
 }
+td{
+  text-wrap: nowrap;
+}
 
+.acoes{
+  min-width: 140px!important;
+  width: 140px!important;
+
+}
 .error:before {
   content: attr(data-text);
   position: absolute;

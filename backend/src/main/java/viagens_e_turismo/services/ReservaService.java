@@ -64,4 +64,7 @@ public class ReservaService {
         reservaRepository.deleteAll(reservas);
     }
 
+     public List<Reserva> findAll(){
+        return reservaRepository.findAll();
+    }
 }

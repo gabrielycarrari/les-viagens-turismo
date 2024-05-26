@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { HotelService } from '../hotel/hotel.service';
+import { AvaliacaoService } from '../avaliacoes/avaliacao.service';
 import { AuthService } from '../autenticacao/auth.service';
 import { Router } from '@angular/router';
-import { Hotel } from '../hotel/hotel';
+import { Avaliacao } from '../avaliacoes/avaliacao';
 
 @Component({
-  selector: 'app-dashboard-hoteis',
+  selector: 'app-dashboard-avaliacoes',
   standalone: true,
   imports: [],
-  templateUrl: './dashboard-hoteis.component.html',
+  templateUrl: './dashboard-avaliacoes.component.html',
   styleUrl: '../dashboard/dashboard.component.scss'
 })
-export class DashboardHoteisComponent implements OnInit {
+export class DashboardAvaliacoesComponent implements OnInit {
   constructor(
-    private service: HotelService,
+    private service: AvaliacaoService,
     private authService : AuthService,
     private router: Router
   ) { }
 
 
-  hoteis: Hotel[] = [];
+  avaliacoes: Avaliacao[] = [];
 
   ngOnInit() {
     this.listar();
@@ -27,13 +27,13 @@ export class DashboardHoteisComponent implements OnInit {
 
   listar(): void {
     this.service.list().subscribe({
-      next: (hoteis) => {
-        this.hoteis = hoteis;
-        console.log("Hoteis recebidos:", hoteis);
+      next: (avaliacoes) => {
+        this.avaliacoes = avaliacoes;
+        console.log("Avaliações recebidas:", avaliacoes);
       },
       error: (error) => {
-        console.error('Erro ao buscar hoteis', error);
-        alert('Erro ao buscar hoteis: ' + error.message);
+        console.error('Erro ao buscar avaliações', error);
+        alert('Erro ao buscar avaliações: ' + error.message);
       }
     });
   }
@@ -44,3 +44,4 @@ export class DashboardHoteisComponent implements OnInit {
   }
 
 }
+
