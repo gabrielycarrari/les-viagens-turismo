@@ -19,8 +19,8 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_sequence")
     @SequenceGenerator(name = "endereco_sequence", sequenceName = "endereco_seq", allocationSize = 1)
     private int id;
-    private String CEP;
-    private String UF;
+    private String cep;
+    private String uf;
     private String cidade;
     private String bairro;
     private String rua;

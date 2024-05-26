@@ -1,10 +1,10 @@
 <!-- <div class="row row-cols-lg-2 py-3"> -->
 <!-- <form [formGroup]="form"> -->
-  <div class="row row-cols-lg-2 py-3" [formGroup]="form">
+  <div class="row row-cols-lg-2 py-3" [formGroup]="enderecoFormGroup">
 
   <mat-form-field class="mb-3" appearance="outline">
     <mat-label>CEP</mat-label>
-    <input matInput type="text" formControlName="CEP" />
+    <input matInput type="text" formControlName="cep" />
     <!-- @if (form.get('endereco')?.get('CEP')?.hasError('required')) {
       <mat-error>Campo obrigatório</mat-error>
     } -->
@@ -17,7 +17,7 @@
 
   <mat-form-field class="mb-3" appearance="outline">
     <mat-label>UF</mat-label>
-    <input matInput type="text" formControlName="UF" />
+    <input matInput type="text" formControlName="uf" />
     <!-- <mat-error *ngIf="form.get('endereco')?.get('UF')?.hasError('required')">Campo obrigatório</mat-error> -->
   </mat-form-field>
 

@@ -1,0 +1,120 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1 class="mb-3 fw-normal titulo fw-bold pt-5 text-center">Alterar Perfil</h1>
+  <form [formGroup]="form">
+  <mat-accordion>
+    <!-- Informações Gerais -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Informações Gerais</mat-panel-title>
+      </mat-expansion-panel-header>
+        <div class="row row-cols-lg-2 py-3 ">
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome" />
+            @if (form.get('nome')?.invalid) {
+              <mat-error>{{"teste"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput type="text" formControlName="cpf"/>
+            @if (form.get('cpf')?.invalid) {
+              <mat-error>{{"cpf"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput type="date" formControlName="data_nascimento"/>
+            @if (form.get('data_nascimento')?.invalid) {
+              <mat-error>{{"data_nascimento"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput type="text" formControlName="telefone"/>
+            @if (form.get('telefone')?.invalid) {
+              <mat-error>{{"telefone"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="nome@email.com"/>
+            @if (form.get('email')?.invalid) {
+              <mat-error>{{"email"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="login"/>
+            @if (form.get('login')?.invalid) {
+              <mat-error>{{"login"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="senha"/>
+            @if (form.get('senha')?.invalid) {
+              <mat-error>{{"senha"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Confirme sua senha</mat-label>
+            <input matInput type="password" [formControl]="passwordConfirm"/>
+            @if (passwordConfirm.invalid) {
+              <mat-error>{{"passwordConfirm"}}</mat-error>
+            }
+          </mat-form-field> -->
+
+          <div class="col col-md-4 ">
+            <button class="btn btn-outline-primary" (click)="openChangePasswordDialog()">
+              <i class="bi bi-pencil"></i>
+                Alterar senha
+            </button>
+
+          </div>
+        </div>
+
+
+
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Endereço</mat-panel-title>
+        <!-- @if (form.get('endereco')?.value == null) {
+          <mat-panel-description>Nenhum endereço cadastrado</mat-panel-description>
+        } -->
+
+      </mat-expansion-panel-header>
+        <app-cadastro-endereco [form]="form"></app-cadastro-endereco>
+      <!-- <mat-form-field class="mb-3" appearance="outline">
+        <mat-label>cep</mat-label>
+        <input matInput type="text" formControlName="cep"/>
+        @if (form.get('cep')?.invalid) {
+          <mat-error>{{"cep"}}</mat-error>
+        }
+      </mat-form-field> -->
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+  <div class="row justify-content-md-center mt-5">
+    <div class="col col-md-4">
+      <button class="btn btn-primary w-100 mt-2" type="submit" [disabled]="hasChanges()" (click)="onSubmit()">Confirmar</button>
+    </div>
+  </div>
+  </form>
+</div>
+
+<app-footer></app-footer>

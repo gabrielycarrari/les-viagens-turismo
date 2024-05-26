@@ -49,24 +49,30 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente update(int id, ClienteRecordDto clienteRecordDto){
-        var cliente = new Cliente();
-        var endereco = new Endereco();
+    public Cliente update(int id, ClienteRecordDto clienteRecordDto) {
+        Optional<Cliente> clienteDb = clienteRepository.findById(id);
 
-        BeanUtils.copyProperties(clienteRecordDto, cliente);
-        BeanUtils.copyProperties(clienteRecordDto.endereco(), endereco);
+        if (clienteDb.isPresent()) {
+            Cliente cliente = clienteDb.get();
+
+            String senha = cliente.getSenha();
+
+            BeanUtils.copyProperties(clienteRecordDto, cliente);
+
+            cliente.setSenha(senha);
+            
+            var endereco = new Endereco();
+            BeanUtils.copyProperties(clienteRecordDto.endereco(), endereco);
+            endereco.setId(cliente.getEndereco().getId());
+            cliente.setEndereco(endereco); 
         
-        cliente.setId(id);
-        if(clienteRecordDto.senha() != null ){
-            String encodedPassword = passwordEncoder.encode(clienteRecordDto.senha());
-            cliente.setSenha(encodedPassword);
+            saveValidation(cliente);
+        
+            return clienteRepository.save(cliente);
+        }else{
+            throw new EntityNotFoundException("Cliente" + id + "não encontrado.");
         }
         
-        cliente.setEndereco(endereco);
-        
-        saveValidation(cliente);
-
-        return clienteRepository.save(cliente);
     }
     
     public Optional<Cliente> findById(int id){

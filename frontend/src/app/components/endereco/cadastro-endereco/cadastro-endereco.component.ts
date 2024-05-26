@@ -23,5 +23,10 @@ export class CadastroEnderecoComponent {
 
   ngOnInit(): void {
     console.log('form', this.form);
+    console.log('Endereco: ', this.form.get('endereco'))
+  }
+
+  get enderecoFormGroup() {
+    return this.form.get('endereco') as FormGroup;
   }
 }
