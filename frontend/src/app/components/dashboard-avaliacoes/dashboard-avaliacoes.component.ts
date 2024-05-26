@@ -3,6 +3,8 @@ import { AvaliacaoService } from '../avaliacoes/avaliacao.service';
 import { AuthService } from '../autenticacao/auth.service';
 import { Router } from '@angular/router';
 import { Avaliacao } from '../avaliacoes/avaliacao';
+import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard-avaliacoes',
@@ -15,7 +17,8 @@ export class DashboardAvaliacoesComponent implements OnInit {
   constructor(
     private service: AvaliacaoService,
     private authService : AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
 
@@ -43,5 +46,33 @@ export class DashboardAvaliacoesComponent implements OnInit {
     this.router.navigate(['']).then(() => window.location.reload());
   }
 
+
+  remove(avaliacaoId: number) {
+    this.service.remove(avaliacaoId).subscribe({
+      next: () => {
+        console.log('Avaliação removida com sucesso!');
+        this.avaliacoes = this.avaliacoes.filter(avaliacao => avaliacao.id !== avaliacaoId);
+      },
+      error:(error) => {
+        console.error('Erro ao remover avaliação:', error);
+      }
+
+    }
+    );
+  }
+
+
+  openConfirmDialog(id: number, nome :String, info : String){
+    const dialogRef = this.dialog.open(DialogDeletarComponent, {
+      width: '350px',
+      data: {nome, info },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.remove(id);
+      }
+    });
+  }
 }
 

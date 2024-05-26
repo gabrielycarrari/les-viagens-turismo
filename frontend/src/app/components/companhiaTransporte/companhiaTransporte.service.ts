@@ -19,4 +19,14 @@ export class CompanhiaTransporteService {
     );
   }
 
+  remove(id: number) {
+    return this.http.delete<any>(`${this.API}/${id}`).pipe(
+      tap(() => console.log('Companhia de Transporte removida com sucesso')),
+      catchError(error => {
+        console.error('Erro ao remover Companhia de Transporte:', error);
+        throw error;
+      })
+    );
+  }
+
 }

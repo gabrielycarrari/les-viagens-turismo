@@ -4,6 +4,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ClienteService } from '../cliente/cliente.service';
 import { Cliente } from '../cliente/cliente';
 import { NavbarFuncionarioComponent } from '../navbar-funcionario/navbar-funcionario.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 
 @Component({
   selector: 'app-dashboard-clientes',
@@ -16,7 +18,8 @@ export class DashboardClientesComponent implements OnInit {
   constructor(
     private service: ClienteService,
     private authService : AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   clientes: Cliente[] = [];
@@ -56,5 +59,19 @@ export class DashboardClientesComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['']).then(() => window.location.reload());
+  }
+
+
+  openConfirmDialog(id: number, nome :String, info : String){
+    const dialogRef = this.dialog.open(DialogDeletarComponent, {
+      width: '250px',
+      data: {nome, info },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.remove(id);
+      }
+    });
   }
 }

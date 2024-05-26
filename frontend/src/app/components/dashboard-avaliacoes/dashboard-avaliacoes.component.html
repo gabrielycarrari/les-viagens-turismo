@@ -170,7 +170,7 @@
                                               <td >{{avaliacao.comentario}}</td>
                                               <td class="acoes">
                                                 <div class="d-flex justify-content-around mx-auto">
-                                                  <button class="btn btn-outline-danger btn-sm ">
+                                                  <button class="btn btn-outline-danger btn-sm " (click)="avaliacao.id && openConfirmDialog(avaliacao.id, avaliacao.id.toString(),'a avalição de ID')">
                                                     <i class="bi bi-trash3-fill"></i>
                                                   </button>
                                                   <button class="btn btn-outline-primary btn-sm">

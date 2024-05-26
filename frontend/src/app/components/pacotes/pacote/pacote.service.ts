@@ -20,4 +20,15 @@ export class PacoteService {
     );
   }
 
+
+  remove(id: number) {
+    return this.http.delete<any>(`${this.API}/${id}`).pipe(
+      tap(() => console.log('Pacote removido com sucesso')),
+      catchError(error => {
+        console.error('Erro ao remover Pacote:', error);
+        throw error;
+      })
+    );
+  }
+
 }

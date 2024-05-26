@@ -20,4 +20,15 @@ export class HotelService {
     );
   }
 
+
+  remove(id: number) {
+    return this.http.delete<any>(`${this.API}/${id}`).pipe(
+      tap(() => console.log('Hotel removido com sucesso')),
+      catchError(error => {
+        console.error('Erro ao remover hotel:', error);
+        throw error;
+      })
+    );
+  }
+
 }

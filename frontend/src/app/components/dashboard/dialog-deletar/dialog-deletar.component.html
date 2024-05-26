@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Confirmar deleção</h2>
+<mat-dialog-content>
+  Deseja realmente apagar {{data.info}} <b>"{{data.nome}}"</b>?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="container text-end">
+    <button mat-dialog-close type="button" class="btn btn-outline-secondary" (click)="onCancel()">Não</button>
+    <button type="button" class="btn btn-outline-danger w-25 ms-2" cdkFocusInitial (click)="onConfirm()">Sim</button>
+  </div>
+</mat-dialog-actions>
+
+
+<!--
+<h2 mat-dialog-title>Alterar Senha</h2>
+<mat-dialog-content>
+  <div class="container text-center">
+    <form [formGroup]="changePasswordForm">
+      <div class="row-cols-1">
+        <mat-form-field class="mt-2 mb-3" appearance="outline">
+          <mat-label>Senha Atual</mat-label>
+          <input matInput type="password" formControlName="currentPassword"/>
+          @if (changePasswordForm.get('currentPassword')?.invalid) {
+            <mat-error>{{"Erro neste campo"}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="row-cols-1">
+        <mat-form-field class="mb-3" appearance="outline">
+          <mat-label>Nova Senha</mat-label>
+          <input matInput type="password" formControlName="newPassword"/>
+          @if (changePasswordForm.get('newPassword')?.invalid) {
+            <mat-error>{{"Não pode estar vazio"}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="row-cols-1">
+        <mat-form-field appearance="outline">
+          <mat-label>Confirme a Nova Senha</mat-label>
+          <input matInput type="password" formControlName="confirmPassword"/>
+          @if (changePasswordForm.get('confirmPassword')?.invalid) {
+            <mat-error>{{"Não pode estar vazio"}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="container text-end">
+    <button type="button" class="btn btn-outline-danger" (click)="onCancel()">Cancelar</button>
+    <button type="button" class="btn btn-outline-primary w-25 ms-2" [disabled]="!changePasswordForm.valid" (click)="onSave()" >Salvar</button>
+  </div>
+</mat-dialog-actions> -->

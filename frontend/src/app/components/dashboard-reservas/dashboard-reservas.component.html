@@ -156,7 +156,7 @@
                                               <td >{{reserva.observacoes}}</td>
                                               <td style="width: 140px;">
                                                 <div class="d-flex justify-content-around mx-auto">
-                                                  <button class="btn btn-outline-danger btn-sm ">
+                                                  <button class="btn btn-outline-danger btn-sm " (click)="reserva.id && openConfirmDialog(reserva.id, reserva.id.toString(),'a reserva de Id')">
                                                     <i class="bi bi-trash3-fill"></i>
                                                   </button>
                                                   <button class="btn btn-outline-primary btn-sm">

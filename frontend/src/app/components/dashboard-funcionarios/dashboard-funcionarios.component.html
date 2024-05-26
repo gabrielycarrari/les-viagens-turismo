@@ -165,7 +165,7 @@
                                               <td class="acoes">
                                                 <div class="d-flex justify-content-around mx-auto">
                                                   <button class="btn btn-outline-danger btn-sm ">
-                                                    <i class="bi bi-trash3-fill" (click)="funcionario.id && remove(funcionario.id)"></i>
+                                                    <i class="bi bi-trash3-fill" (click)="funcionario.id && openConfirmDialog(funcionario.id, funcionario.nome,'o funcionário')"></i>
                                                   </button>
                                                   <button class="btn btn-outline-primary btn-sm">
                                                     <i class="bi bi-pencil-square"></i>

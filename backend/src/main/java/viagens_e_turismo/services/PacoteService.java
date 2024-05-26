@@ -1,11 +1,15 @@
 package viagens_e_turismo.services;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import viagens_e_turismo.dtos.HotelPacoteDto;
 import viagens_e_turismo.dtos.PacoteRecordDto;
 import viagens_e_turismo.dtos.TransportePacoteDto;
@@ -13,9 +17,13 @@ import viagens_e_turismo.models.Endereco;
 import viagens_e_turismo.models.Hotel;
 import viagens_e_turismo.models.HotelPacote;
 import viagens_e_turismo.models.Pacote;
+import viagens_e_turismo.models.Reserva;
 import viagens_e_turismo.models.TransportePacote;
 import viagens_e_turismo.models.Veiculo;
+import viagens_e_turismo.repositories.HotelPacoteRepository;
 import viagens_e_turismo.repositories.PacoteRepository;
+import viagens_e_turismo.repositories.ReservaRepository;
+import viagens_e_turismo.repositories.TransportePacoteRepository;
 
 @Service
 public class PacoteService {
@@ -27,6 +35,15 @@ public class PacoteService {
     private HotelService hotelService;
 
     
+    @Autowired
+    private TransportePacoteRepository transportePacoteRepository;
+
+    @Autowired
+    private HotelPacoteRepository hotelPacoteRepository;
+    
+    @Autowired
+    private ReservaRepository reservaRepository;
+
     @Autowired
     private VeiculoService veiculoService;
 
@@ -96,5 +113,15 @@ public class PacoteService {
         return pacoteRepository.findAll();
     }
 
-
+    public void delete(int id){
+        Pacote pacote = findById(id).orElseThrow(() -> new EntityNotFoundException("Pacote não encontrado com o ID: " + id));
+        List<HotelPacote> hotelPacotes = hotelPacoteRepository.findByPacote(pacote);
+        List<TransportePacote> transportePacotes = transportePacoteRepository.findByPacote(pacote);
+        List<Reserva> reservas = reservaRepository.findByPacote(pacote);
+        reservaRepository.deleteAll(reservas);
+        hotelPacoteRepository.deleteAll(hotelPacotes);
+        transportePacoteRepository.deleteAll(transportePacotes);
+        pacoteRepository.delete(pacote);
+    }
+    
 }

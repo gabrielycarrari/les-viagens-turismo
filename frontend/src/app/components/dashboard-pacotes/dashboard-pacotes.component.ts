@@ -3,6 +3,8 @@ import { PacoteService } from '../pacotes/pacote/pacote.service';
 import { AuthService } from '../autenticacao/auth.service';
 import { Router } from '@angular/router';
 import { Pacote } from '../pacotes/pacote/pacote';
+import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard-pacotes',
@@ -15,7 +17,8 @@ export class DashboardPacotesComponent implements OnInit {
   constructor(
     private service: PacoteService,
     private authService : AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
 
@@ -41,6 +44,34 @@ export class DashboardPacotesComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['']).then(() => window.location.reload());
+  }
+
+
+  remove(pacoteId: number) {
+    this.service.remove(pacoteId).subscribe({
+      next: () => {
+        console.log('Pacote removido com sucesso!');
+        this.pacotes = this.pacotes.filter(pacote => pacote.id !== pacoteId);
+      },
+      error:(error) => {
+        console.error('Erro ao remover Pacote:', error);
+      }
+    }
+    );
+  }
+
+
+  openConfirmDialog(id: number, nome :String, info : String){
+    const dialogRef = this.dialog.open(DialogDeletarComponent, {
+      width: '350px',
+      data: {nome, info },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.remove(id);
+      }
+    });
   }
 
 }

@@ -3,6 +3,8 @@ import { HotelService } from '../hotel/hotel.service';
 import { AuthService } from '../autenticacao/auth.service';
 import { Router } from '@angular/router';
 import { Hotel } from '../hotel/hotel';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 
 @Component({
   selector: 'app-dashboard-hoteis',
@@ -15,7 +17,8 @@ export class DashboardHoteisComponent implements OnInit {
   constructor(
     private service: HotelService,
     private authService : AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
 
@@ -38,9 +41,41 @@ export class DashboardHoteisComponent implements OnInit {
     });
   }
 
+
+  remove(hotelId: number) {
+    this.service.remove(hotelId).subscribe({
+      next: () => {
+        console.log('Hotel removido com sucesso!');
+        this.hoteis = this.hoteis.filter(hotel => hotel.id !== hotelId);
+      },
+      error:(error) => {
+        console.error('Erro ao remover Hotel:', error);
+      }
+    }
+    );
+  }
+
+
+
   logout() {
     this.authService.logout();
     this.router.navigate(['']).then(() => window.location.reload());
   }
+
+
+
+  openConfirmDialog(id: number, nome :String, info : String){
+    const dialogRef = this.dialog.open(DialogDeletarComponent, {
+      width: '250px',
+      data: {nome, info },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.remove(id);
+      }
+    });
+  }
+
 
 }

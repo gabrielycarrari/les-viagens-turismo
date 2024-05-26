@@ -162,7 +162,7 @@
                                               <td>{{companhiaTransporte.cnpj}}</td>
                                               <td class="acoes">
                                                 <div class="d-flex justify-content-around mx-auto">
-                                                  <button class="btn btn-outline-danger btn-sm ">
+                                                  <button class="btn btn-outline-danger btn-sm " (click)="companhiaTransporte.id && openConfirmDialog(companhiaTransporte.id, companhiaTransporte.nome,'a Companhia de Transporte')">
                                                     <i class="bi bi-trash3-fill"></i>
                                                   </button>
                                                   <button class="btn btn-outline-primary btn-sm">
@@ -201,13 +201,5 @@
       <!-- End of Content Wrapper -->
 
   </div>
-
-
-
-
-
-
-
-
 
 </body>

@@ -5,10 +5,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import viagens_e_turismo.dtos.AvaliacaoRecordDto;
 import viagens_e_turismo.models.Avaliacao;
 import viagens_e_turismo.models.Cliente;
+import viagens_e_turismo.models.CompanhiaTransporte;
 import viagens_e_turismo.models.Pacote;
+import viagens_e_turismo.models.Reserva;
 import viagens_e_turismo.repositories.AvaliacaoRepository;
 
 
@@ -58,6 +61,16 @@ public class AvaliacaoService {
 
     public List<Avaliacao> findAll(){
         return avaliacaoRepository.findAll();
+    }
+
+     public Optional<Avaliacao> findById(int id){
+        return avaliacaoRepository.findById(id);
+    }
+
+
+    public void delete(int id){
+    Avaliacao avaliacao = findById(id).orElseThrow(() -> new EntityNotFoundException("Avaliação não encontrada com o ID: " + id));
+    avaliacaoRepository.delete(avaliacao);
     }
 
 

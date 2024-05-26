@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import viagens_e_turismo.dtos.ReservaRecordDto;
 import viagens_e_turismo.models.Cliente;
 import viagens_e_turismo.models.Pacote;
@@ -67,4 +68,11 @@ public class ReservaService {
      public List<Reserva> findAll(){
         return reservaRepository.findAll();
     }
+
+
+    public void delete(int id){
+    Reserva reserva = findById(id).orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada com o ID: " + id));
+    reservaRepository.delete(reserva);
+    }
+    
 }

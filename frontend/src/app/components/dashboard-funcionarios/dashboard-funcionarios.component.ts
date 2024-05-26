@@ -3,11 +3,13 @@ import { AuthService } from '../autenticacao/auth.service';
 import { Router } from '@angular/router';
 import { FuncionarioService } from '../funcionario/funcionario.service';
 import { Funcionario } from '../funcionario/funcionario';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 
 @Component({
   selector: 'app-dashboard-funcionarios',
   standalone: true,
-  imports: [],
+  imports: [DialogDeletarComponent],
   templateUrl: './dashboard-funcionarios.component.html',
   styleUrl: '../dashboard/dashboard.component.scss'
 })
@@ -15,8 +17,11 @@ export class DashboardFuncionariosComponent implements OnInit {
   constructor(
     private service: FuncionarioService,
     private authService : AuthService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
+
+
 
   funcionarios: Funcionario[] = [];
 
@@ -56,4 +61,18 @@ export class DashboardFuncionariosComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['']).then(() => window.location.reload());
   }
+
+    openConfirmDialog(id: number, nome :String, info : String){
+      const dialogRef = this.dialog.open(DialogDeletarComponent, {
+        width: '350px',
+        data: {nome, info },
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.remove(id);
+        }
+      });
+    }
+
 }
