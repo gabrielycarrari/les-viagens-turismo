@@ -19,13 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 export class CadastroEnderecoComponent {
   @Input() form!: FormGroup;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log('form', this.form);
-    console.log('Endereco: ', this.form.get('endereco'))
-  }
-
   get enderecoFormGroup() {
     return this.form.get('endereco') as FormGroup;
   }

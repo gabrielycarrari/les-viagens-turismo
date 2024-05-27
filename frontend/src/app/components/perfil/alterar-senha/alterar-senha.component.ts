@@ -15,6 +15,7 @@ import {
 import { AuthService } from '../../autenticacao/auth.service';
 import { ClienteService } from '../../cliente/cliente.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FuncionarioService } from '../../funcionario/funcionario.service';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -36,21 +37,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AlterarSenhaComponent {
   changePasswordForm: FormGroup;
 
-  // constructor(
-  //   public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-  //   @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  // )
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
-
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AlterarSenhaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private authService: AuthService,
     private clienteService: ClienteService,
-    // private funcionarioService: FuncionarioService,
+    private funcionarioService: FuncionarioService,
     private snackBar: MatSnackBar,
   ) {
     this.changePasswordForm = this.fb.group({
@@ -72,29 +65,33 @@ export class AlterarSenhaComponent {
         senhaAtual: passwords.currentPassword,
         senhaNova: passwords.newPassword
       };
-      if (this.authService.getUserType() === 'CLIENTE') {
+      const tipo = this.data.tipo
+      if (this.authService.getUserType() === 'CLIENTE' || tipo === 'CLIENTE') {
         this.clienteService.alterarSenha(payload).subscribe(
           {
             next: () => {
-              this.snackBar.open('Alteração realizada com sucesso!', '', {
-                duration: 5000,
-                panelClass: ["snackbar-success"]
-              });
+              this.onSuccess();
               this.dialogRef.close();
             },
             error: e => {
-              this.snackBar.open(e.error, '', {
-                duration: 5000,
-                panelClass: ["snackbar-error"]
-              });
+              this.onError(e.error);
               this.changePasswordForm.controls['currentPassword'].setErrors({ 'incorrect': true });
-
             }
           }
         );
       } else {
-        console.log("Funcionario");
-        // this.funcionarioService.
+        this.funcionarioService.alterarSenha(payload).subscribe(
+          {
+            next: () => {
+              this.onSuccess();
+              this.dialogRef.close();
+            },
+            error: e => {
+              this.onError(e.error);
+              this.changePasswordForm.controls['currentPassword'].setErrors({ 'incorrect': true });
+            }
+          }
+        );
       }
     }
   }
@@ -104,13 +101,16 @@ export class AlterarSenhaComponent {
   }
 
   private onSuccess(){
-    this.snackBar.open('Aleração realizada com sucesso!', '', { duration: 5000 });
-    //enviar o nome do cliente/funcionario para a sessão
-    // this.authService.saveSession("CLIENTE", this.form.controls['nome'].value);
-
+    this.snackBar.open('Alteração realizada com sucesso!', '', {
+      duration: 5000,
+      panelClass: ["snackbar-success"]
+    });
   }
 
-  private onError() {
-    this.snackBar.open('Ocorreu um erro...', '', { duration: 5000 });
+  private onError(error: string) {
+    this.snackBar.open(error, '', {
+      duration: 5000,
+      panelClass: ["snackbar-error"]
+    });
   }
 }

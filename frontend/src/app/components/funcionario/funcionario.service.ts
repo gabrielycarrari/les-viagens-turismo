@@ -8,6 +8,7 @@ import { Observable, catchError, first, tap } from 'rxjs';
 })
 export class FuncionarioService {
 
+  private readonly APIComplete = 'localhost:8080/api/funcionarios';
   private readonly API = 'api/funcionarios';
 
 
@@ -19,6 +20,10 @@ export class FuncionarioService {
     );
   }
 
+  getById(id: number): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${this.API}/${id}`).pipe(first());
+  }
+
   remove(id: number) {
     return this.http.delete<any>(`${this.API}/${id}`).pipe(
       tap(() => console.log('Funcionario removido com sucesso')),
@@ -27,6 +32,29 @@ export class FuncionarioService {
         throw error;
       })
     );
+  }
+
+  save(record: Partial<Funcionario>) {
+    if (record.id){
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  private create(record: Partial<Funcionario>) {
+    return this.http.post<Funcionario>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Funcionario>) {
+    return this.http.put<Funcionario>(`${this.API}/${record.id}`, record).pipe(first());
+  }
+
+  login(record: Partial<Funcionario>){
+    return this.http.post(`${this.API}/login`, record).pipe(first());
+  }
+
+  alterarSenha(record: any){
+    return this.http.post(`${this.API}/alterarSenha`, record).pipe(first());
   }
 
 }

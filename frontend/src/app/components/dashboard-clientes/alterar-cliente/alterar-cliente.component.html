@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Alterar Cliente</h2>
+<mat-dialog-content>
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="row justify-content-md-center">
+        <div class="row row-cols-lg-2 py-3">
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome" />
+            @if (form.get('nome')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput type="text" formControlName="cpf"/>
+            @if (form.get('cpf')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput type="date" formControlName="data_nascimento"/>
+            @if (form.get('data_nascimento')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput type="text" formControlName="telefone"/>
+            @if (form.get('telefone')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="nome@email.com"/>
+            @if (form.get('email')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="login"/>
+            @if (form.get('login')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+        </div>
+          <div class="form-endereco">
+            <mat-divider class="w-100"></mat-divider>
+            <p class="my-3">Endereço:</p>
+            <app-cadastro-endereco [form]="form"></app-cadastro-endereco>
+          </div>
+
+        <div class="container text-end">
+          <button type="button" class="btn btn-outline-danger" (click)="onCancel()">Cancelar</button>
+          <button class="btn btn-outline-primary mx-2" (click)="openChangePasswordDialog()">Alterar senha</button>
+          <button class="btn btn-primary w-15" type="submit" (click)="onSubmit()">Confirmar</button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</mat-dialog-content>

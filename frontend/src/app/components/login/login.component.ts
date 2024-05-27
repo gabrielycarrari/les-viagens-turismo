@@ -55,7 +55,7 @@ export class LoginComponent {
         next: response => {
           // Redirecionar com base no tipo de usuário
           if (response.userType === 'FUNCIONARIO') {
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['dashboard-clientes']);
           } else {
             this.router.navigate(['']);
           }

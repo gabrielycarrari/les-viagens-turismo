@@ -3,14 +3,14 @@ import { AuthService } from './../autenticacao/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ClienteService } from '../cliente/cliente.service';
 import { Cliente } from '../cliente/cliente';
-import { NavbarFuncionarioComponent } from '../navbar-funcionario/navbar-funcionario.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AlterarClienteComponent } from './alterar-cliente/alterar-cliente.component';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 
 @Component({
   selector: 'app-dashboard-clientes',
   standalone: true,
-  imports: [ NavbarFuncionarioComponent],
+  imports: [],
   templateUrl: './dashboard-clientes.component.html',
   styleUrl: '../dashboard/dashboard.component.scss'
 })
@@ -51,9 +51,18 @@ export class DashboardClientesComponent implements OnInit {
       error:(error) => {
         console.error('Erro ao remover cliente:', error);
       }
+    });
+  }
 
-    }
-    );
+  openEditDialog( id: number) {
+    const dialogRef = this.dialog.open(AlterarClienteComponent, {
+      data: {idCliente: id},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // window.location.reload();
+      }
+    });
   }
 
   logout() {

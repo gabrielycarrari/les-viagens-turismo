@@ -36,7 +36,6 @@ import { CadastroEnderecoComponent } from '../../endereco/cadastro-endereco/cada
 })
 export class AlterarPerfilComponent {
   form!: FormGroup;
-  // panelOpenState = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -112,8 +111,6 @@ export class AlterarPerfilComponent {
 
   private onSuccess(){
     this.snackBar.open('Aleração realizada com sucesso!', '', { duration: 5000, panelClass: ["snackbar-success"] });
-    //enviar o nome do cliente/funcionario para a sessão
-    // this.authService.saveSession("CLIENTE", this.form.controls['nome'].value);
   }
 
   private onError() {
@@ -176,13 +173,5 @@ export class AlterarPerfilComponent {
       minWidth: '260px',
       data: {login: this.form.controls["login"].value},
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     // Aqui você pode tratar o resultado (por exemplo, enviar para o backend)
-    //     console.log('Senha alterada:', result);
-    //   }
-
-    // });
   }
 }

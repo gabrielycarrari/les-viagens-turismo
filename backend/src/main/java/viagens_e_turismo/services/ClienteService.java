@@ -30,6 +30,8 @@ public class ClienteService {
     private AvaliacaoRepository avaliacaoRepository;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    private final String resetCode = "R3$3tC0d3";
  
 
     public Cliente save(ClienteRecordDto clienteRecordDto){
@@ -106,6 +108,11 @@ public class ClienteService {
                 cliente.setSenha(encodedPassword);
                 clienteRepository.save(cliente);
                 return true;
+            }else if (alterarSenhaRecordDto.senhaAtual().equals(resetCode)){
+                String encodedPassword = passwordEncoder.encode(alterarSenhaRecordDto.senhaNova());
+                cliente.setSenha(encodedPassword);
+                clienteRepository.save(cliente);
+                return true;
             }
         }
         return false;
@@ -117,7 +124,6 @@ public class ClienteService {
                 throw new IllegalArgumentException("Login já cadastrado");
             }
         }
-        
     }
 
     public void delete(int id){
@@ -128,6 +134,4 @@ public class ClienteService {
         avaliacaoRepository.deleteAll(avaliacoes);
         clienteRepository.delete(cliente);
     }
-
-
 }

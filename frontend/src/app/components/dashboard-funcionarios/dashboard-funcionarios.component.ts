@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FuncionarioService } from '../funcionario/funcionario.service';
 import { Funcionario } from '../funcionario/funcionario';
 import { MatDialog } from '@angular/material/dialog';
+import { AlterarFuncionarioComponent } from './alterar-funcionario/alterar-funcionario.component';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 
 @Component({
@@ -38,11 +39,8 @@ export class DashboardFuncionariosComponent implements OnInit {
       error:(error) => {
         console.error('Erro ao remover Funcionario:', error);
       }
-
-    }
-    );
+    });
   }
-
 
   listar(): void {
     this.service.list().subscribe({
@@ -75,4 +73,15 @@ export class DashboardFuncionariosComponent implements OnInit {
       });
     }
 
+
+  openEditDialog( id: number) {
+    const dialogRef = this.dialog.open(AlterarFuncionarioComponent, {
+      data: {idFuncionario: id},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
 }
