@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Hotel } from '../hotel/hotel';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { CadastrarHotelComponent } from './cadastrar-hotel/cadastrar-hotel.component';
 
 @Component({
   selector: 'app-dashboard-hoteis',
@@ -77,5 +78,26 @@ export class DashboardHoteisComponent implements OnInit {
     });
   }
 
+  openCadastroDialog(){
+    const dialogRef = this.dialog.open(CadastrarHotelComponent, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
+
+  openEdicaoDialog(id: number){
+    const dialogRef = this.dialog.open(CadastrarHotelComponent, {
+      data: {idHotel: id},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
 
 }

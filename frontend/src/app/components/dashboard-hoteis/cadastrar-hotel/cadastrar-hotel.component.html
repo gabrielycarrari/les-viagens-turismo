@@ -1,0 +1,123 @@
+<h2 mat-dialog-title>Alterar Cliente</h2>
+<mat-dialog-content>
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="row justify-content-md-center">
+        <div class="row row-cols-lg-2 py-3">
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome" />
+            @if (form.get('nome')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <div>
+            <label>Classificação: </label>
+            <label class="px-3">{{form.get('classificacao')?.value}}</label>
+            <mat-slider class="w-50" min="0" max="5" step="1">
+              <input matSliderThumb formControlName="classificacao">
+            </mat-slider>
+          </div>
+
+          <mat-form-field class="mb-3 w-100" appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput placeholder="Ex. It makes me feel..." formControlName="descricao"></textarea>
+            @if (form.get('descricao')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput type="text" formControlName="telefone"/>
+            @if (form.get('telefone')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="mb-3" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="nome@email.com"/>
+            @if (form.get('email')?.invalid) {
+              <mat-error>{{"Valor Inválido"}}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-accordion multi class="w-100">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Comodidades</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <button class="btn btn-outline-primary mb-3" (click)="adicionarComodidade()">
+                <i class="bi bi-plus-circle"></i> Adicionar
+              </button>
+              <mat-accordion multi>
+                <div formArrayName="comodidades" *ngFor="let comodidade of comodidades.controls; let i = index">
+                  <div [formGroupName]="i">
+                    <mat-expansion-panel [expanded]="true">
+                      <mat-expansion-panel-header>
+                        @if (comodidade.get('nome')?.value) {
+                          <mat-panel-title>
+                            Comodidade: {{ comodidade.get('nome')?.value }}
+                          </mat-panel-title>
+                        }@else{
+                          <mat-panel-title>
+                            Comodidade
+                          </mat-panel-title>
+                        }
+                      </mat-expansion-panel-header>
+                        <div class="row pb-1">
+                          <div class="row-cols-1 col-lg-5">
+
+                            <mat-form-field class="mb-3" appearance="outline">
+                              <mat-label>Nome</mat-label>
+                              <input matInput type="text" formControlName="nome"/>
+                              @if (comodidade.get('nome')?.invalid) {
+                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-6">
+                            <mat-form-field class="mb-3" appearance="outline">
+                              <mat-label>Descrição</mat-label>
+                              <input matInput type="text" formControlName="descricao"/>
+                              @if (comodidade.get('descricao')?.invalid) {
+                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="col-12 col-lg-1">
+
+                            <button class="btn btn-outline-danger btn-sm " (click)="removerComodidade(i)">
+                              <i class="bi bi-trash3-fill"></i>
+                            </button>
+                          </div>
+                        </div>
+                    </mat-expansion-panel>
+                  </div>
+
+                </div>
+
+              </mat-accordion>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+          <div class="form-endereco">
+            <mat-divider class="w-100"></mat-divider>
+            <p class="my-3">Endereço:</p>
+            <app-cadastro-endereco [form]="form"></app-cadastro-endereco>
+          </div>
+
+        <div class="container text-end">
+          <button type="button" class="btn btn-outline-danger" (click)="onCancel()">Cancelar</button>
+          <button class="btn btn-primary w-15 ms-2" type="submit" (click)="onSubmit()">Confirmar</button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</mat-dialog-content>

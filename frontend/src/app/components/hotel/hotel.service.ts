@@ -10,8 +10,6 @@ export class HotelService {
 
   private readonly API = 'api/hoteis';
 
-
-
   constructor(private http: HttpClient) { }
 
   list(): Observable<Hotel[]> {
@@ -19,7 +17,6 @@ export class HotelService {
       first()
     );
   }
-
 
   remove(id: number) {
     return this.http.delete<any>(`${this.API}/${id}`).pipe(
@@ -29,6 +26,25 @@ export class HotelService {
         throw error;
       })
     );
+  }
+
+  getById(id: number): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.API}/${id}`).pipe(first());
+  }
+
+  save(record: Partial<Hotel>) {
+    if (record.id){
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  private create(record: Partial<Hotel>) {
+    return this.http.post<Hotel>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Hotel>) {
+    return this.http.put<Hotel>(`${this.API}/${record.id}`, record).pipe(first());
   }
 
 }

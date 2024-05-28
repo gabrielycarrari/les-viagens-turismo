@@ -75,4 +75,34 @@ public class HotelService {
         hotelRepository.delete(hotel);
     }
 
+    public Hotel update(int id, HotelRecordDto hotelRecordDto) {
+        Optional<Hotel> hotelDb = hotelRepository.findById(id);
+
+        if (hotelDb.isPresent()) {
+            Hotel hotel = hotelDb.get();
+            BeanUtils.copyProperties(hotelRecordDto, hotel);
+
+            List<Comodidade> novasComodidades  = new ArrayList<>();
+            for (ComodidadeRecordDto comodidadeDto : hotelRecordDto.comodidades()) {
+                var comodidade = new Comodidade();
+                comodidade.setId(comodidadeDto.id());
+                comodidade.setNome(comodidadeDto.nome());
+                comodidade.setDescricao(comodidadeDto.descricao());
+                novasComodidades.add(comodidade);
+            }
+
+            hotel.getComodidades().clear();
+            hotel.getComodidades().addAll(novasComodidades);
+            
+            var endereco = new Endereco();
+            BeanUtils.copyProperties(hotelRecordDto.endereco(), endereco);
+            endereco.setId(hotel.getEndereco().getId());
+            hotel.setEndereco(endereco); 
+        
+            return hotelRepository.save(hotel);
+        }else{
+            throw new EntityNotFoundException("Cliente" + id + "não encontrado.");
+        }
+        
+    }
 }
