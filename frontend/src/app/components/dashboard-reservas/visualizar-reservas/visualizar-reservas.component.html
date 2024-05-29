@@ -1,0 +1,64 @@
+<div class="px-5 py-2">
+  <div class="center" style="text-align: center;">
+    <b><h1 mat-dialog-title style=" font-weight: 600; font-size: x-large;">Visualizar Reserva</h1></b>
+  </div>
+<mat-list>
+  <div class="d-flex justify-content-around ">
+    <div class="flex-column ">
+      <mat-list-item>
+        <span matListItemTitle class="item-title" class="item-title">ID Reserva</span>
+        <span matListItemLine >{{ data.id }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle class="item-title" class="item-title">Observações</span>
+        <span matListItemLine >{{ data.observacoes }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matListItemTitle class="item-title" class="item-title">Pacote</span>
+        <span matListItemLine >{{ data.pacote.nome }}</span>
+      </mat-list-item>
+      <mat-list-item class="container text-center">
+        <button class="btn btn-outline-primary" (click)="openVisualizePacoteDialog(data.pacote)">
+            Informações do Pacote
+        </button>
+      </mat-list-item>
+
+
+    </div>
+    <div class="flex-column">
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Cliente</span>
+        <span matListItemLine class="text-wrap">{{ data.cliente.nome }}</span>
+      </mat-list-item>
+
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">CPF</span>
+        <span matListItemLine class="text-wrap">{{ data.cliente.cpf }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Data de Nascimento</span>
+        <span matListItemLine class="text-wrap">{{ data.cliente.data_nascimento | date:"dd/MM/yyyy"}} </span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Telefone</span>
+        <span matListItemLine class="text-wrap">{{ data.cliente.telefone }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Email</span>
+        <span matListItemLine class="text-wrap">{{ data.cliente.email }}</span>
+      </mat-list-item>
+
+    </div>
+  </div>
+  <mat-list-item class="container text-end">
+    <button class="btn btn-outline-danger" (click)="sair()">
+        Fechar
+    </button>
+  </mat-list-item>
+</mat-list>
+</div>

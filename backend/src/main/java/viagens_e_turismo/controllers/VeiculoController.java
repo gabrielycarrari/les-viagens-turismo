@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import viagens_e_turismo.dtos.VeiculoRecordDto;
+import viagens_e_turismo.models.CompanhiaTransporte;
 import viagens_e_turismo.models.Veiculo;
+import viagens_e_turismo.services.CompanhiaTransporteService;
 import viagens_e_turismo.services.VeiculoService;
 
 @RestController
@@ -22,6 +25,8 @@ import viagens_e_turismo.services.VeiculoService;
 public class VeiculoController {
     @Autowired
     VeiculoService veiculoService;
+    @Autowired
+    CompanhiaTransporteService companhiaTransporteService;
 
 
     @PostMapping()
@@ -31,8 +36,8 @@ public class VeiculoController {
 
     @GetMapping("/companhia/{idCompanhia}")
     public ResponseEntity<List<Veiculo>> getById(@PathVariable int idCompanhia){
-        
-        return ResponseEntity.status(HttpStatus.OK).body(veiculoService.findByCompanhia(idCompanhia));
+        CompanhiaTransporte companhiaTransporte = companhiaTransporteService.findById(idCompanhia).orElseThrow(() -> new EntityNotFoundException("Companhia de transporte não encontrado com o ID: " + idCompanhia));
+        return ResponseEntity.status(HttpStatus.OK).body(veiculoService.findByCompanhiaTransporte(companhiaTransporte));
     } 
 
 }
