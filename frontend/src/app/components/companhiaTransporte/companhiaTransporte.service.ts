@@ -29,4 +29,22 @@ export class CompanhiaTransporteService {
     );
   }
 
+  getById(id: number): Observable<CompanhiaTransporte> {
+    return this.http.get<CompanhiaTransporte>(`${this.API}/${id}`).pipe(first());
+  }
+
+  save(record: Partial<CompanhiaTransporte>) {
+    if (record.id){
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  private create(record: Partial<CompanhiaTransporte>) {
+    return this.http.post<CompanhiaTransporte>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<CompanhiaTransporte>) {
+    return this.http.put<CompanhiaTransporte>(`${this.API}/${record.id}`, record).pipe(first());
+  }
 }

@@ -79,7 +79,9 @@ export class DashboardHoteisComponent implements OnInit {
   }
 
   openCadastroDialog(){
-    const dialogRef = this.dialog.open(CadastrarHotelComponent, {});
+    const dialogRef = this.dialog.open(CadastrarHotelComponent, {
+      data: { titulo: "Cadastrar"},
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
@@ -90,7 +92,10 @@ export class DashboardHoteisComponent implements OnInit {
 
   openEdicaoDialog(id: number){
     const dialogRef = this.dialog.open(CadastrarHotelComponent, {
-      data: {idHotel: id},
+      data: {
+        idHotel: id,
+        titulo: "Editar"
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {

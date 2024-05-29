@@ -1,11 +1,14 @@
 package viagens_e_turismo.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -17,13 +20,13 @@ public class CompanhiaTransporte {
     @SequenceGenerator(name = "companhia_sequence", sequenceName = "companhia_seq", allocationSize = 1)
     private int id;
     private String nome;
-    private String CNPJ;
+    private String cnpj;
     private String categoria;
     private String telefone;
     private String email;
     private String descricao;
-    // @OneToMany(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "veiculo_id", referencedColumnName = "id")
-    // private List<Veiculo> veiculos;
+
+    @Transient
+    private List<Veiculo> veiculos;
 
 }

@@ -5,6 +5,7 @@ import { CompanhiaTransporteService } from '../companhiaTransporte/companhiaTran
 import { CompanhiaTransporte } from '../companhiaTransporte/companhiaTransporte';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { CadastrarCompanhiaComponent } from './cadastrar-companhia/cadastrar-companhia.component';
 
 @Component({
   selector: 'app-dashboard-companhias-de-transporte',
@@ -72,6 +73,31 @@ export class DashboardCompanhiasDeTransporteComponent implements OnInit {
     });
   }
 
+  openCadastroDialog(){
+    const dialogRef = this.dialog.open(CadastrarCompanhiaComponent, {
+      data: { titulo: "Cadastrar"},
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
+
+  openEdicaoDialog(id: number){
+    const dialogRef = this.dialog.open(CadastrarCompanhiaComponent, {
+      data: {
+        idCompanhia: id,
+        titulo: "Editar"
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
 
 }

@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import viagens_e_turismo.dtos.AlterarSenhaRecordDto;
-import viagens_e_turismo.dtos.ClienteRecordDto;
 import viagens_e_turismo.dtos.FuncionarioRecordDto;
-import viagens_e_turismo.models.Cliente;
 import viagens_e_turismo.models.Funcionario;
 import viagens_e_turismo.services.FuncionarioService;
 

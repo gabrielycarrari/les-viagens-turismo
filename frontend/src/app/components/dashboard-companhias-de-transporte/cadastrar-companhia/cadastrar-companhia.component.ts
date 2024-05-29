@@ -1,4 +1,4 @@
-import { Comodidade } from './../../comodidade/comodidade';
+import { Comodidade } from '../../comodidade/comodidade';
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
@@ -13,9 +13,11 @@ import { Router } from '@angular/router';
 import { HotelService } from '../../hotel/hotel.service';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { Veiculo } from '../../veiculo/veiculo';
+import { CompanhiaTransporteService } from '../../companhiaTransporte/companhiaTransporte.service';
 
 @Component({
-  selector: 'app-cadastrar-hotel',
+  selector: 'app-cadastrar-companhia',
   standalone: true,
   imports: [
     MatSnackBarModule,
@@ -32,34 +34,36 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSliderModule,
     MatExpansionModule
   ],
-  templateUrl: './cadastrar-hotel.component.html',
-  styleUrl: './cadastrar-hotel.component.scss'
+  templateUrl: './cadastrar-companhia.component.html',
+  styleUrl: './cadastrar-companhia.component.scss'
 })
-export class CadastrarHotelComponent {
+export class CadastrarCompanhiaComponent {
   form!: FormGroup;
   titulo: string = this.data.titulo;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private hotelService: HotelService,
+    private companhiaService: CompanhiaTransporteService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private dialogRef: MatDialogRef<CadastrarHotelComponent>,
+    private dialogRef: MatDialogRef<CadastrarCompanhiaComponent>,
     readonly dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.initForm();
-    if (this.data.idHotel) this.carregarHotel();
+    console.log(this.data.idCompanhia)
+    if (this.data.idCompanhia) this.carregarCompanhia();
   }
 
-  carregarHotel(){
-    this.hotelService.getById(this.data.idHotel).subscribe({
-      next: (hotel) => {
-        this.form.patchValue(hotel);
-        if (hotel.comodidades) {
-          hotel.comodidades.forEach(comodidade => {
-            this.carregarComodidade(comodidade);
+  carregarCompanhia(){
+    this.companhiaService.getById(this.data.idCompanhia).subscribe({
+      next: (companhia) => {
+        this.form.patchValue(companhia);
+        if (companhia.veiculos) {
+          companhia.veiculos.forEach(veiculo => {
+            this.carregarVeiculo(veiculo);
           });
         }
       }
@@ -70,35 +74,25 @@ export class CadastrarHotelComponent {
     this.form = this.formBuilder.group({
       id: [''],
       nome: ['', [Validators.required]],
+      cnpj: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      telefone: ['', [Validators.required] ],
+      telefone: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      classificacao: ['', [Validators.required]],
-      comodidades: this.formBuilder.array([]),
-      endereco: this.formBuilder.group({
-        id: [''],
-        cep: [''],
-        uf: [''],
-        cidade: [''],
-        bairro: [''],
-        rua: [''],
-        numero: [''],
-        pontoReferencia: ['']
-      })
+      categoria: ['', [Validators.required]],
+      veiculos: this.formBuilder.array([])
     });
   }
 
   onSubmit() {
     if (this.validateForm(this.form)) {
       const formValue = this.form.value;
-        this.hotelService.save(formValue).subscribe({
-          next: () => {
-            this.onSuccess();
-            this.dialogRef.close(true);
-          },
-          error: () => this.onError()
-        });
-
+      this.companhiaService.save(formValue).subscribe({
+        next: () => {
+          this.onSuccess();
+          this.dialogRef.close(true);
+        },
+        error: () => this.onError()
+      });
     }else{
       this.form.markAllAsTouched();
     }
@@ -117,7 +111,6 @@ export class CadastrarHotelComponent {
   }
 
   private validateForm(form: FormGroup): boolean {
-    // this.validateAddressFields();
     if (form.invalid) {
       this.snackBar.open('Formulário inválido.', '', { duration: 5000, panelClass: ["snackbar-error"] });
       return false;
@@ -125,49 +118,33 @@ export class CadastrarHotelComponent {
     return true;
   }
 
-  private validateAddressFields(): void {
-    const endereco = this.form.get('endereco') as FormGroup;
-    const hasAddressValue = Object.values(endereco.value).some(value => !!value);
-    const hasChanges = this.form.get('endereco')?.dirty
-
-    if (hasAddressValue && hasChanges) {
-      for (const key in endereco.controls) {
-        endereco.get(key)?.setValidators(Validators.required);
-        endereco.get(key)?.updateValueAndValidity();
-      }
-    } else {
-      for (const key in endereco.controls) {
-        endereco.get(key)?.clearValidators();
-        endereco.get(key)?.updateValueAndValidity();
-      }
-    }
+  get veiculos(): FormArray {
+    return this.form.get('veiculos') as FormArray;
   }
 
-  get comodidades(): FormArray {
-    return this.form.get('comodidades') as FormArray;
-  }
-
-  adicionarComodidade(): void {
-    const comodidadeForm = this.formBuilder.group({
+  adicionarVeiculo(): void {
+    const veiculoForm = this.formBuilder.group({
       id: [''],
       nome: [''],
-      descricao: ['']
+      registro: [''],
+      vagas: ['']
     });
 
-    this.comodidades.push(comodidadeForm);
+    this.veiculos.push(veiculoForm);
   }
 
-  carregarComodidade(comodidade: Comodidade): void {
-    const comodidadeForm = this.formBuilder.group({
-      id: comodidade.id,
-      nome: comodidade.nome,
-      descricao: comodidade.descricao
+  carregarVeiculo(veiculo: Veiculo): void {
+    const veiculoForm = this.formBuilder.group({
+      id: veiculo.id,
+      nome: veiculo.nome,
+      registro: veiculo.registro,
+      vagas: veiculo.vagas
     });
 
-    this.comodidades.push(comodidadeForm);
+    this.veiculos.push(veiculoForm);
   }
 
-  removerComodidade(index: number): void {
-    this.comodidades.removeAt(index);
+  removerVeiculo(index: number): void {
+    this.veiculos.removeAt(index);
   }
 }

@@ -1,3 +1,5 @@
+import { Veiculo } from "../veiculo/veiculo"
+
 export interface CompanhiaTransporte {
   id?: number
   nome: string
@@ -6,4 +8,5 @@ export interface CompanhiaTransporte {
   email: string
   descricao: Date
   cnpj: string
+  veiculos: Veiculo[]
 }

@@ -1,12 +1,15 @@
 package viagens_e_turismo.dtos;
 
+import java.util.List;
 
 public record CompanhiaTransporteRecordDto(
+     int id,
      String nome,
-     String CNPJ,
+     String cnpj,
      String categoria,
      String telefone,
      String email,
-     String descricao
+     String descricao,
+     List<VeiculoRecordDto> veiculos
 ) {
 }

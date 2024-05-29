@@ -101,8 +101,7 @@ public class HotelService {
         
             return hotelRepository.save(hotel);
         }else{
-            throw new EntityNotFoundException("Cliente" + id + "não encontrado.");
+            throw new EntityNotFoundException("Hotel" + id + "não encontrado.");
         }
-        
     }
 }
