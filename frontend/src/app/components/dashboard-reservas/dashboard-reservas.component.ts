@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Reserva } from '../reservas/reserva';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 import { MatDialog } from '@angular/material/dialog';
+import { VisualizarReservasComponent } from './visualizar-reservas/visualizar-reservas.component';
 
 @Component({
   selector: 'app-dashboard-reservas',
@@ -73,5 +74,12 @@ export class DashboardReservasComponent  implements OnInit {
       }
     });
   }
+
+  openVisualizeDialog(reserva:Reserva){
+    const dialogRef = this.dialog.open(VisualizarReservasComponent, {
+      width: '700px',
+      data: reserva,
+    });
+    }
 }
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Hotel } from '../hotel/hotel';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { VisualizarHotelComponent } from './visualizar-hotel/visualizar-hotel.component';
 import { CadastrarHotelComponent } from './cadastrar-hotel/cadastrar-hotel.component';
 
 @Component({
@@ -77,6 +78,15 @@ export class DashboardHoteisComponent implements OnInit {
       }
     });
   }
+
+
+
+  openVisualizeDialog(hotel:Hotel){
+    const dialogRef = this.dialog.open(VisualizarHotelComponent, {
+      width: '500px',
+      data: hotel,
+    });
+    }
 
   openCadastroDialog(){
     const dialogRef = this.dialog.open(CadastrarHotelComponent, {

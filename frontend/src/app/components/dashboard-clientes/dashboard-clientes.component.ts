@@ -6,6 +6,7 @@ import { Cliente } from '../cliente/cliente';
 import { MatDialog } from '@angular/material/dialog';
 import { AlterarClienteComponent } from './alterar-cliente/alterar-cliente.component';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { VisualizarClienteComponent } from './visualizar-cliente/visualizar-cliente.component';
 
 @Component({
   selector: 'app-dashboard-clientes',
@@ -83,4 +84,12 @@ export class DashboardClientesComponent implements OnInit {
       }
     });
   }
+
+
+  openVisualizeDialog(cliente:Cliente){
+    const dialogRef = this.dialog.open(VisualizarClienteComponent, {
+      // width: '300px',
+      data: cliente,
+    });
+    }
 }

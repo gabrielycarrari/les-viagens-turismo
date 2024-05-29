@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Pacote } from '../pacotes/pacote/pacote';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 import { MatDialog } from '@angular/material/dialog';
+import { VisualizarPacotesComponent } from './visualizar-pacotes/visualizar-pacotes.component';
 
 @Component({
   selector: 'app-dashboard-pacotes',
@@ -73,6 +74,13 @@ export class DashboardPacotesComponent implements OnInit {
       }
     });
   }
+
+  openVisualizeDialog(pacote:Pacote){
+    const dialogRef = this.dialog.open(VisualizarPacotesComponent, {
+      width: '700px',
+      data: pacote,
+    });
+    }
 
 }
 

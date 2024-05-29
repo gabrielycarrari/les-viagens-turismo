@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Avaliacao } from '../avaliacoes/avaliacao';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 import { MatDialog } from '@angular/material/dialog';
+import { VisualizarAvaliacaoComponent } from './visualizar-avaliacao/visualizar-avaliacao.component';
 
 @Component({
   selector: 'app-dashboard-avaliacoes',
@@ -74,5 +75,13 @@ export class DashboardAvaliacoesComponent implements OnInit {
       }
     });
   }
+
+
+  openVisualizeDialog(avaliacao:Avaliacao){
+    const dialogRef = this.dialog.open(VisualizarAvaliacaoComponent, {
+      width: '600px',
+      data: avaliacao,
+    });
+    }
 }
 

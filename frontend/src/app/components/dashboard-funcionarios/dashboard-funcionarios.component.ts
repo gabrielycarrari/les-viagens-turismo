@@ -6,6 +6,7 @@ import { Funcionario } from '../funcionario/funcionario';
 import { MatDialog } from '@angular/material/dialog';
 import { AlterarFuncionarioComponent } from './alterar-funcionario/alterar-funcionario.component';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
+import { VisualizarFuncionarioComponent } from './visualizar-funcionario/visualizar-funcionario.component';
 
 @Component({
   selector: 'app-dashboard-funcionarios',
@@ -84,4 +85,13 @@ export class DashboardFuncionariosComponent implements OnInit {
       }
     });
   }
+
+
+
+  openVisualizeDialog(funcionario:Funcionario){
+    const dialogRef = this.dialog.open(VisualizarFuncionarioComponent, {
+      // width: '300px',
+      data: funcionario,
+    });
+    }
 }
