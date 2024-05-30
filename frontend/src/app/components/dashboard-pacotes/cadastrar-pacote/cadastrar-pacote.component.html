@@ -1,0 +1,324 @@
+<h2 mat-dialog-title>{{titulo}} Pacote</h2>
+<mat-dialog-content>
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="row justify-content-md-center">
+        <div class="row py-3">
+          <!-- Informações gerais -->
+          <div class="row-cols-1 col-lg-7">
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" formControlName="nome" />
+              @if (form.get('nome')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="row-cols-1 col-lg-2">
+            <mat-form-field class="mb-3 px-2" appearance="outline">
+              <mat-label>Vagas</mat-label>
+              <input matInput type="number" formControlName="vagas" />
+              @if (form.get('vagas')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="row-cols-1 col-lg-3">
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>&nbsp; Valor Total</mat-label>
+              <input matInput type="number" formControlName="valorTotal" />
+              <span matTextPrefix>R$</span>
+              @if (form.get('valorTotal')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="row-cols-lg-1">
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>Descrição</mat-label>
+              <textarea matInput formControlName="descricao"></textarea>
+              @if (form.get('descricao')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Local Saída -->
+          <mat-accordion multi class="w-100">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Local - Saída</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row pb-1">
+                <div class="row-cols-1 col-lg-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Data Saída</mat-label>
+                    <input matInput [matDatepicker]="dataSaidaPicker" formControlName="dataSaida">
+                    <mat-datepicker-toggle matIconSuffix [for]="dataSaidaPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dataSaidaPicker></mat-datepicker>
+                    @if (form.get('dataSaida')?.invalid) {
+                      <mat-error>{{"Valor Inválido"}}</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="row-cols-1 col-lg-3">
+                  <mat-form-field class="mb-3" appearance="outline">
+                    <mat-label>Hora saída</mat-label>
+                    <input matInput type="time" formControlName="horaSaida"/>
+                    <mat-icon matSuffix>schedule</mat-icon>
+                    @if (form.get('horaSaida')?.invalid) {
+                      <mat-error>{{"Valor Inválido"}}</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <app-cadastro-endereco [form]="form" [nomeForm]="'enderecoSaida'"></app-cadastro-endereco>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!-- Local Chegada -->
+          <mat-accordion multi class="w-100">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Local - Chegada</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row pb-1">
+                <div class="row-cols-1 col-lg-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Data Chegada</mat-label>
+                    <input matInput [matDatepicker]="dataChegadaPicker" formControlName="dataChegada">
+                    <mat-datepicker-toggle matIconSuffix [for]="dataChegadaPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dataChegadaPicker></mat-datepicker>
+                    @if (form.get('dataChegada')?.invalid) {
+                      <mat-error>{{"Valor Inválido"}}</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+                <div class="row-cols-1 col-lg-3">
+                  <mat-form-field class="mb-3" appearance="outline">
+                    <mat-label>Hora chegada</mat-label>
+                    <input matInput type="time" formControlName="horaChegada"/>
+                    <mat-icon matSuffix>schedule</mat-icon>
+                    @if (form.get('horaChegada')?.invalid) {
+                      <mat-error>{{"Valor Inválido"}}</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+              <app-cadastro-endereco [form]="form" [nomeForm]="'enderecoDestino'"></app-cadastro-endereco>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!-- Hoteis -->
+          <mat-accordion multi class="w-100">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Hoteis</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <button class="btn btn-outline-primary mb-3" (click)="adicionarHotelPacote()">
+                <i class="bi bi-plus-circle"></i> Adicionar
+              </button>
+              <mat-accordion multi>
+                <div formArrayName="hotelPacote" *ngFor="let hotelPacote of hotelPacote.controls; let i = index">
+                  <div [formGroupName]="i">
+                    <mat-expansion-panel [expanded]="true">
+                      <mat-expansion-panel-header>
+                        @if (getNomeHotel(i)) {
+                          <mat-panel-title>
+                            Hotel: {{ getNomeHotel(i) }}
+                          </mat-panel-title>
+                        }@else{
+                          <mat-panel-title>
+                            Hotel
+                          </mat-panel-title>
+                        }
+                      </mat-expansion-panel-header>
+                        <div class="row pb-1">
+                          <div class="row-cols-1 col-lg-7">
+                            <mat-form-field class="mb-3" appearance="outline" >
+                              <mat-label>Hotel</mat-label>
+                              <mat-select (selectionChange)="onHotelChange(i, $event.value)" formControlName="hotel">
+                                @for (hotel of hoteis; track hotel) {
+                                  <mat-option [value]="hotel">{{ hotel.nome }}</mat-option>
+                                }
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-3">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Data Entrada</mat-label>
+                              <input matInput [matDatepicker]="dataEntradaPicker" formControlName="dataEntrada">
+                              <mat-datepicker-toggle matIconSuffix [for]="dataEntradaPicker"></mat-datepicker-toggle>
+                              <mat-datepicker #dataEntradaPicker></mat-datepicker>
+                              @if (form.get('dataEntrada')?.invalid) {
+                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-1">
+                            <button class="btn btn-outline-danger btn-sm" (click)="removerHotelPacote(i)">
+                              <i class="bi bi-trash3-fill"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="row pb-1">
+                          <div class="row-cols-1 col-lg-4">
+                            <mat-form-field class="mb-3" appearance="outline">
+                              <mat-label>Tipo Diária</mat-label>
+                              <input matInput type="text" formControlName="tipoDiaria"/>
+                              @if (form.get('tipoDiaria')?.invalid) {
+                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-3">
+                            <mat-form-field class="mb-3 px-2" appearance="outline">
+                              <mat-label>Qtd Diárias</mat-label>
+                              <input matInput type="number" formControlName="qtdDiarias"/>
+                              @if (form.get('qtdDiarias')?.invalid) {
+                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                        </div>
+                    </mat-expansion-panel>
+                  </div>
+                </div>
+              </mat-accordion>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!-- Transportes -->
+          <mat-accordion multi class="w-100">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Transportes</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <p><mat-slide-toggle
+                [formControl]="isUnico"
+                labelPosition="before"
+                color="primary"
+                class="mb-2"
+                matTooltip="O endereço de chegada e de saída são os mesmos do pacote">
+                  Veículo Único:
+              </mat-slide-toggle></p>
+
+              @if (!isUnico.value) {
+                <button class="btn btn-outline-primary mb-3" (click)="adicionarTransportePacote()">
+                  <i class="bi bi-plus-circle"></i> Adicionar
+                </button>
+              }
+
+              <mat-accordion multi>
+                <div formArrayName="transportePacote" *ngFor="let transporte of transportePacote.controls; let i = index" >
+                  <div [formGroupName]="i" >
+                    <mat-expansion-panel [expanded]="true">
+                      <mat-expansion-panel-header>
+                        @if (getNomeVeiculo(i)) {
+                          <mat-panel-title>
+                            Veiculo: {{ getNomeCompanhia(i) +": " + getNomeVeiculo(i) }}
+                          </mat-panel-title>
+                        }@else{
+                          <mat-panel-title>
+                            Veiculo
+                          </mat-panel-title>
+                        }
+                      </mat-expansion-panel-header>
+                        @if (isUnico.value) {
+                          <div class="row pb-1">
+                            <div class="row-cols-1 col-lg-6">
+                              <mat-form-field class="mb-3" appearance="outline" >
+                                <mat-label>Companhia</mat-label>
+                                <mat-select (selectionChange)="onCompanhiaChange(i, $event.value.id, $event.value)">
+                                  @for (companhia of companhiasTransporte; track companhia) {
+                                    <mat-option [value]="companhia">{{ companhia.nome }}</mat-option>
+                                  }
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="row-cols-1 col-lg-6">
+                              <mat-form-field class="mb-3" appearance="outline" >
+                                <mat-label>Veiculo</mat-label>
+                                <mat-select (selectionChange)="onVeiculoChange(i, $event.value)">
+                                  @for (veiculo of veiculosSelect; track veiculo) {
+                                    <mat-option [value]="veiculo">{{ veiculo.nome }}</mat-option>
+                                  }
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        } @else{
+                          <div class="row pb-1">
+                            <div class="row-cols-1 col-lg-6">
+                              <mat-form-field class="mb-3" appearance="outline" >
+                                <mat-label>Companhia</mat-label>
+                                <mat-select (selectionChange)="onCompanhiaChange(i, $event.value.id, $event.value)">
+                                  @for (companhia of companhiasTransporte; track companhia) {
+                                    <mat-option [value]="companhia">{{ companhia.nome }}</mat-option>
+                                  }
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="row-cols-1 col-lg-5">
+                              <mat-form-field class="mb-3" appearance="outline" >
+                                <mat-label>Veiculo</mat-label>
+                                <mat-select (selectionChange)="onVeiculoChange(i, $event.value)">
+                                  @for (veiculo of veiculosSelect; track veiculo) {
+                                    <mat-option [value]="veiculo">{{ veiculo.nome }}</mat-option>
+                                  }
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="row-cols-1 col-lg-1">
+                              <button class="btn btn-outline-danger btn-sm" (click)="removerTransportePacote(i)">
+                                <i class="bi bi-trash3-fill"></i>
+                              </button>
+                            </div>
+                            <h4>Endereço Saída</h4>
+                            <p><mat-slide-toggle
+                              formControlName="isIgualEnderecoSaida"
+                              labelPosition="before"
+                              color="primary"
+                              class="mb-2">
+                                Endereço de saída igual ao do pacote:
+                            </mat-slide-toggle></p>
+
+                            @if(!transporte.get('isIgualEnderecoSaida')?.value) {
+                              <app-cadastro-endereco [form]="getFormEnderecoTransportePacote(i)" [nomeForm]="'enderecoSaida'"></app-cadastro-endereco>
+                            }
+
+                            <mat-divider class="mb-3"></mat-divider>
+
+                            <h4>Endereço Chegada</h4>
+                            <p><mat-slide-toggle
+                              formControlName="isIgualEnderecoChegada"
+                              labelPosition="before"
+                              color="primary"
+                              class="mb-2">
+                                Endereço de chegada igual ao do pacote:
+                            </mat-slide-toggle></p>
+
+                            @if(!transporte.get('isIgualEnderecoChegada')?.value) {
+                              <app-cadastro-endereco [form]="getFormEnderecoTransportePacote(i)" [nomeForm]="'enderecoChegada'"></app-cadastro-endereco>
+                            }
+                          </div>
+                        }
+                    </mat-expansion-panel>
+                  </div>
+                </div>
+              </mat-accordion>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="container text-end">
+          <button type="button" class="btn btn-outline-danger" (click)="onCancel()">Cancelar</button>
+          <button class="btn btn-primary w-15 ms-2" type="submit" (click)="onSubmit()">Confirmar</button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</mat-dialog-content>

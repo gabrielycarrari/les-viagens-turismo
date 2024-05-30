@@ -10,8 +10,6 @@ export class PacoteService {
 
   private readonly API = 'api/pacotes';
 
-
-
   constructor(private http: HttpClient) { }
 
   list(): Observable<Pacote[]> {
@@ -20,6 +18,9 @@ export class PacoteService {
     );
   }
 
+  getById(id: number): Observable<Pacote> {
+    return this.http.get<Pacote>(`${this.API}/${id}`).pipe(first());
+  }
 
   remove(id: number) {
     return this.http.delete<any>(`${this.API}/${id}`).pipe(
@@ -29,6 +30,21 @@ export class PacoteService {
         throw error;
       })
     );
+  }
+
+  save(record: Partial<Pacote>) {
+    if (record.id){
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  private create(record: Partial<Pacote>) {
+    return this.http.post<Pacote>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Pacote>) {
+    return this.http.put<Pacote>(`${this.API}/${record.id}`, record).pipe(first());
   }
 
 }

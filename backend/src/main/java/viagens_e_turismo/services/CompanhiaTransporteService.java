@@ -1,5 +1,4 @@
 package viagens_e_turismo.services;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -11,17 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
-import viagens_e_turismo.dtos.ComodidadeRecordDto;
 import viagens_e_turismo.dtos.CompanhiaTransporteRecordDto;
-import viagens_e_turismo.dtos.HotelRecordDto;
 import viagens_e_turismo.dtos.VeiculoRecordDto;
-import viagens_e_turismo.models.Comodidade;
 import viagens_e_turismo.models.CompanhiaTransporte;
-import viagens_e_turismo.models.Endereco;
-import viagens_e_turismo.models.Hotel;
 import viagens_e_turismo.models.Veiculo;
 import viagens_e_turismo.repositories.CompanhiaTransporteRepository;
-import viagens_e_turismo.repositories.PacoteRepository;
 import viagens_e_turismo.repositories.TransportePacoteRepository;
 import viagens_e_turismo.repositories.VeiculoRepository;
 
@@ -79,7 +72,6 @@ public class CompanhiaTransporteService {
         if (companhiaTransporteDb.isPresent()) {
             CompanhiaTransporte companhiaTransporte = companhiaTransporteDb.get();
             BeanUtils.copyProperties(companhiaTransporteRecordDto, companhiaTransporte);
-
 
             Set<Veiculo> veiculosAtuais = new HashSet<>(veiculoRepository.findByCompanhiaTransporte(companhiaTransporte));
             Set<Integer> veiculosIdsRecebidos = new HashSet<>();

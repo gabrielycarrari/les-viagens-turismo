@@ -26,6 +26,6 @@ public class Veiculo {
     
     @ManyToOne
     @JoinColumn(name="companhia_transporte_id")
-    @JsonIgnore
+    
     private CompanhiaTransporte companhiaTransporte; 
 }

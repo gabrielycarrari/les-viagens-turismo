@@ -5,10 +5,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.EntityNotFoundException;
 import viagens_e_turismo.dtos.VeiculoRecordDto;
 import viagens_e_turismo.models.CompanhiaTransporte;
-import viagens_e_turismo.models.Hotel;
 import viagens_e_turismo.models.Veiculo;
 import viagens_e_turismo.repositories.VeiculoRepository;
 
@@ -42,4 +40,7 @@ public class VeiculoService {
         return veiculoRepository.findByCompanhiaTransporte(companhiaTransporte);
     }
 
+    public List<Veiculo> findAll(){
+        return veiculoRepository.findAll();
+    }
 }

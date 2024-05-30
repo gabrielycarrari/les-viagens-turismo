@@ -80,6 +80,7 @@ export class DashboardCompanhiasDeTransporteComponent implements OnInit {
       data: companhiaTransporte,
     });
   }
+  
   openCadastroDialog(){
     const dialogRef = this.dialog.open(CadastrarCompanhiaComponent, {
       data: { titulo: "Cadastrar"},

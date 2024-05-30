@@ -6,6 +6,7 @@ import { Pacote } from '../pacotes/pacote/pacote';
 import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 import { MatDialog } from '@angular/material/dialog';
 import { VisualizarPacotesComponent } from './visualizar-pacotes/visualizar-pacotes.component';
+import { CadastrarPacoteComponent } from './cadastrar-pacote/cadastrar-pacote.component';
 
 @Component({
   selector: 'app-dashboard-pacotes',
@@ -80,7 +81,33 @@ export class DashboardPacotesComponent implements OnInit {
       width: '700px',
       data: pacote,
     });
-    }
+  }
 
+  openCadastroDialog(){
+    const dialogRef = this.dialog.open(CadastrarPacoteComponent, {
+      data: { titulo: "Cadastrar"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
+
+  openEdicaoDialog(id: number){
+    const dialogRef = this.dialog.open(CadastrarPacoteComponent, {
+      data: {
+        idPacote: id,
+        titulo: "Editar"
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        window.location.reload();
+      }
+    });
+  }
 }
 

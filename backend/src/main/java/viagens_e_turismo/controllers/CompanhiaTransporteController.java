@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import viagens_e_turismo.dtos.CompanhiaTransporteRecordDto;
-import viagens_e_turismo.dtos.HotelRecordDto;
 import viagens_e_turismo.models.CompanhiaTransporte;
-import viagens_e_turismo.models.Hotel;
 import viagens_e_turismo.models.Veiculo;
 import viagens_e_turismo.services.CompanhiaTransporteService;
 import viagens_e_turismo.services.VeiculoService;
@@ -49,6 +47,9 @@ public class CompanhiaTransporteController {
         if(companhiaTransporte.isPresent()){
             List<Veiculo> veiculos = veiculoService.findByCompanhiaTransporte(companhiaTransporte.get()); 
             if (veiculos != null){
+                for (Veiculo v: veiculos){
+                    v.setCompanhiaTransporte(null);
+                }
                 companhiaTransporte.get().setVeiculos(veiculos);
             }
             return ResponseEntity.status(HttpStatus.OK).body(companhiaTransporte.get());

@@ -40,4 +40,9 @@ public class VeiculoController {
         return ResponseEntity.status(HttpStatus.OK).body(veiculoService.findByCompanhiaTransporte(companhiaTransporte));
     } 
 
+    @GetMapping()
+    public ResponseEntity<List<Veiculo>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(veiculoService.findAll());
+    } 
+
 }

@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public record PacoteRecordDto( 
+    int id,
     String nome,
     String descricao,
     EnderecoRecordDto enderecoSaida,
