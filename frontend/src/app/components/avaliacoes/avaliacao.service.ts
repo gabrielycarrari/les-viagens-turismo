@@ -35,5 +35,26 @@ export class AvaliacaoService {
     );
   }
 
+  getAvaliacaoByPacoteAndCliente(pacoteId: number, clienteId: number): Observable<Avaliacao> {
+    console.log("entrou aq")
+    return this.http.get<Avaliacao>(`${this.API}/pacote/${pacoteId}/cliente/${clienteId}`).pipe(
+      first()
+    );
+  }
+
+  save(record: Partial<Avaliacao>) {
+    if (record.id){
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  private create(record: Partial<Avaliacao>) {
+    return this.http.post<Avaliacao>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Avaliacao>) {
+    return this.http.put<Avaliacao>(`${this.API}/${record.id}`, record).pipe(first());
+  }
 
 }

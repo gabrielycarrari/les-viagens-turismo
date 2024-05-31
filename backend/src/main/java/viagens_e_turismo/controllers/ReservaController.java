@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import viagens_e_turismo.dtos.HotelRecordDto;
 import viagens_e_turismo.dtos.ReservaRecordDto;
+import viagens_e_turismo.models.Hotel;
 import viagens_e_turismo.models.Reserva;
 import viagens_e_turismo.services.ReservaService;
 
@@ -31,6 +35,11 @@ public class ReservaController {
     @GetMapping()
     public ResponseEntity<List<Reserva>> findAll(){
         return ResponseEntity.status(HttpStatus.OK).body(reservaService.findAll());
+    }  
+
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<List<Reserva>> findByCliente(@PathVariable int idCliente){
+        return ResponseEntity.status(HttpStatus.OK).body(reservaService.findByCliente(idCliente));
     } 
 
     @DeleteMapping("/{id}")

@@ -29,23 +29,22 @@ public class AvaliacaoService {
 
    
     public Avaliacao save(AvaliacaoRecordDto avaliacaoRecordDto){    
-        
-            var avaliacao = new Avaliacao();
-            BeanUtils.copyProperties(avaliacaoRecordDto, avaliacao);
+        var avaliacao = new Avaliacao();
+        BeanUtils.copyProperties(avaliacaoRecordDto, avaliacao);
 
-            Optional<Cliente> optionalCliente = clienteService.findById(avaliacaoRecordDto.cliente().getId());
-            if(optionalCliente.isPresent()){
-                avaliacao.setCliente(optionalCliente.get());
-            }else {
-                throw new RuntimeException("Cliente com ID: " + avaliacaoRecordDto.cliente().getId() + " não encontrado.");
-            } 
+        Optional<Cliente> optionalCliente = clienteService.findById(avaliacaoRecordDto.cliente().getId());
+        if(optionalCliente.isPresent()){
+            avaliacao.setCliente(optionalCliente.get());
+        }else {
+            throw new RuntimeException("Cliente com ID: " + avaliacaoRecordDto.cliente().getId() + " não encontrado.");
+        } 
 
-            Optional<Pacote> optionalPacote = pacoteService.findById(avaliacaoRecordDto.pacote().getId());
-            if(optionalPacote.isPresent()){
-                avaliacao.setPacote(optionalPacote.get());
-            }else {
-                throw new RuntimeException("Pacote com ID: " + avaliacaoRecordDto.pacote().getId() + " não encontrado.");
-            } 
+        Optional<Pacote> optionalPacote = pacoteService.findById(avaliacaoRecordDto.pacote().getId());
+        if(optionalPacote.isPresent()){
+            avaliacao.setPacote(optionalPacote.get());
+        }else {
+            throw new RuntimeException("Pacote com ID: " + avaliacaoRecordDto.pacote().getId() + " não encontrado.");
+        } 
        
         return avaliacaoRepository.save(avaliacao);
     }
@@ -61,14 +60,38 @@ public class AvaliacaoService {
         return avaliacaoRepository.findAll();
     }
 
-     public Optional<Avaliacao> findById(int id){
+    public Optional<Avaliacao> findById(int id){
         return avaliacaoRepository.findById(id);
+    }
+
+    public Avaliacao findByPacoteAndCliente(int pacoteId, int clienteId){
+        Optional<Pacote> optionalPacote = pacoteService.findById(pacoteId);
+        Optional<Cliente> optionalCliente = clienteService.findById(clienteId);
+
+        if(optionalPacote.isPresent() && optionalCliente.isPresent()){
+            return avaliacaoRepository.findByPacoteAndCliente(optionalPacote.get(), optionalCliente.get());
+        }else{
+            throw new EntityNotFoundException("Pacote ou Cliente não encontrado.");
+        }
     }
 
 
     public void delete(int id){
-    Avaliacao avaliacao = findById(id).orElseThrow(() -> new EntityNotFoundException("Avaliação não encontrada com o ID: " + id));
-    avaliacaoRepository.delete(avaliacao);
+        Avaliacao avaliacao = findById(id).orElseThrow(() -> new EntityNotFoundException("Avaliação não encontrada com o ID: " + id));
+        avaliacaoRepository.delete(avaliacao);
+    }
+
+    public Avaliacao update(int id, AvaliacaoRecordDto avaliacaoRecordDto) {
+        Optional<Avaliacao> avaliacaoDb = avaliacaoRepository.findById(id);
+
+        if (avaliacaoDb.isPresent()) {
+            Avaliacao avaliacao = avaliacaoDb.get();
+            BeanUtils.copyProperties(avaliacaoRecordDto, avaliacao);
+            
+            return avaliacaoRepository.save(avaliacao);
+        }else{
+            throw new EntityNotFoundException("Avaliação" + id + "não encontrado.");
+        } 
     }
 
     public List<Avaliacao> findByPacote(Pacote pacote) {

@@ -9,9 +9,8 @@ import viagens_e_turismo.models.Cliente;
 import viagens_e_turismo.models.Pacote;
 
 
-
-
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Integer> {
- List<Avaliacao> findByCliente(Cliente cliente);
- List<Avaliacao> findByPacote(Pacote cliente);
+    List<Avaliacao> findByCliente(Cliente cliente);
+    List<Avaliacao> findByPacote(Pacote cliente);
+    Avaliacao findByPacoteAndCliente(Pacote pacote, Cliente cliente);
 }

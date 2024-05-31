@@ -103,18 +103,56 @@
         }
       }
       @if (reservas){
-        <mat-list-item>
-          <span matListItemTitle class="item-title">Endereço</span>
-          <span matListItemLine class="text-wrap">Nenhum endereço cadastrado.</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span matListItemTitle class="item-title">Endereço</span>
-          <span matListItemLine class="text-wrap">Nenhum endereço cadastrado.</span>
-        </mat-list-item>
-        <mat-list-item>
-          <span matListItemTitle class="item-title">Endereço</span>
-          <span matListItemLine class="text-wrap">Nenhum endereço cadastrado.</span>
-        </mat-list-item>
+        @if (reservasCliente.length > 0){
+          <h3 class="ps-3 pt-3 fw-medium">Reservas:</h3>
+          <mat-divider></mat-divider>
+          @for (reserva of reservasCliente; track reserva){
+            <mat-list-item>
+              <span matListItemTitle class="item-title">{{ reserva.pacote.nome }}</span>
+              <span matListItemLine class="text-wrap">Locais: {{ reserva.pacote.enderecoSaida?.cidade }} → {{ reserva.pacote.enderecoDestino?.cidade }}</span>
+              <span matListItemLine class="text-wrap">Data de Saída: {{ reserva.pacote.dataSaida }}</span>
+              @if (avaliacoes[reservasCliente.indexOf(reserva)]) {
+                <span matListItemLine class="pt-1 text-wrap d-flex align-items-center">Avaliação:&nbsp;
+                  @for (i of [0, 1, 2, 3, 4]; track i){
+                    @if (i < avaliacoes[reservasCliente.indexOf(reserva)].qtdEstrelas){
+                      <mat-icon [inline]="true" class="justify-content-center">star</mat-icon>
+                    }@else {
+                      <mat-icon [inline]="true" class="justify-content-center">star_border</mat-icon>
+                    }
+                  }
+                </span>
+              }@else {
+                <span matListItemLine class="text-wrap">Avaliação: Não avaliado</span>
+              }
+            </mat-list-item>
+            <button class="btn btn-outline-primary btn-sm d-flex align-items-center ms-3 mb-3 mt-2" (click)="openAvaliarPacoteDialog(reserva)">
+              <mat-icon [inline]="true" class="justify-content-center pe-1">rate_review</mat-icon>
+              @if (avaliacoes[reservasCliente.indexOf(reserva)]) {
+                Editar Avaliação
+              }@else {
+                Avaliar Pacote
+              }
+            </button>
+            <mat-divider class="pb-2"></mat-divider>
+
+          }
+        }@else {
+          <div class="d-flex justify-content-center mt-5 m-4">
+            <p class="text-center d-flex align-items-center">
+              Poxa, você não fez nenhuma reserva ainda
+              <i class="ps-2 bi bi-emoji-frown fs-5"></i>
+            </p>
+          </div>
+          <p class="d-flex justify-content-center mb-2">Encontre o seu Pacote ideal aqui:</p>
+          <div class="d-flex justify-content-center">
+            <div class="btn btn-outline-primary rounded-pill mt-2 me-1 mb-3 d-flex ps-3 justify-content-center align-items-center"
+                  style="width: 200px;"
+                  (click)="navigateToPacotes()">
+              <p class="mb-1 pe-2">Ver mais pacotes</p>
+              <i class="bi bi-arrow-right-short"></i>
+            </div>
+          </div>
+        }
       }
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, first, tap } from 'rxjs';
 import { Reserva } from './reserva';
+import { Cliente } from '../cliente/cliente';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,11 @@ export class ReservaService {
     );
   }
 
-
+  getReservasByCliente(idCliente: number): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`${this.API}/cliente/${idCliente}`).pipe(
+      first()
+    );
+  }
 
   remove(id: number) {
     return this.http.delete<any>(`${this.API}/${id}`).pipe(

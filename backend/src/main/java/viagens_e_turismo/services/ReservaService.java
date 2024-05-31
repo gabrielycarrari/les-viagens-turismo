@@ -27,7 +27,6 @@ public class ReservaService {
     private PacoteService pacoteService;
 
 
-   
     public List<Reserva> save(ReservaRecordDto reservaRecordDto){    
         List<Reserva> reservas = new ArrayList<Reserva>();
         for( int i = 0 ; i < reservaRecordDto.quantidade(); i++){
@@ -65,14 +64,21 @@ public class ReservaService {
         reservaRepository.deleteAll(reservas);
     }
 
-     public List<Reserva> findAll(){
+    public List<Reserva> findAll(){
         return reservaRepository.findAll();
     }
 
+    public List<Reserva> findByCliente(int idCliente){
+        Optional<Cliente> cliente = clienteService.findById(idCliente);
+        if(!cliente.isPresent()){
+            throw new EntityNotFoundException("Cliente não encontrado com o ID: " + idCliente);
+        }
+        return reservaRepository.findByCliente(cliente.get());
+    }
 
     public void delete(int id){
-    Reserva reserva = findById(id).orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada com o ID: " + id));
-    reservaRepository.delete(reserva);
+        Reserva reserva = findById(id).orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada com o ID: " + id));
+        reservaRepository.delete(reserva);
     }
     
 }

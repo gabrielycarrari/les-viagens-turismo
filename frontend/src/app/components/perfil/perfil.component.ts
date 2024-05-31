@@ -7,17 +7,22 @@ import { AuthService } from '../autenticacao/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Cliente } from '../cliente/cliente';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
+import { Reserva } from '../reservas/reserva';
+import { ReservaService } from '../reservas/reserva.service';
+import { MatIconModule } from '@angular/material/icon';
+import { AvaliacaoService } from '../avaliacoes/avaliacao.service';
+import { Avaliacao } from '../avaliacoes/avaliacao';
+import { AvaliarPacoteComponent } from './avaliar-pacote/avaliar-pacote.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -28,8 +33,6 @@ import { CommonModule } from '@angular/common';
     FooterComponent,
     MatSidenavModule,
     CommonModule,
-    // BrowserModule,
-    // BrowserAnimationsModule,
     MatListModule,
     MatToolbarModule,
     FormsModule,
@@ -38,6 +41,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatIconModule
   ],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
@@ -46,21 +50,26 @@ export class PerfilComponent {
   cliente: Cliente | null = null;
   informacoes = true;
   reservas = false;
+  reservasCliente: Reserva[] = [];
   activeLink: string = 'informacoes';
+  avaliacoes: Avaliacao[] = [];
 
   constructor(
     private clienteService: ClienteService,
     // private funcionarioService: FuncionarioService,
+    private reservaService: ReservaService,
+    private avaliacaoService: AvaliacaoService,
     private router: Router,
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private _formBuilder: FormBuilder
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.carregarDados();
-    console.log(this.cliente)
+    this.carregarReservas();
   }
+
 
   carregarDados(): void {
     if (this.authService.getUserType() === 'CLIENTE') {
@@ -81,11 +90,42 @@ export class PerfilComponent {
     });
   }
 
+  carregarReservas(){
+    this.reservaService.getReservasByCliente(this.authService.getId()).subscribe({
+      next: (reservas) => {
+        this.reservasCliente = reservas;
+      },
+      error: () => {
+        this.snackBar.open('Ocorreu um erro ao carregar as reservas.', '', { duration: 5000 });
+      }
+    });
+  }
+
+  carregarAvaliacoes(){
+    for(let i = 0; i < this.reservasCliente.length; i++){
+      const reserva = this.reservasCliente[i];
+      if (reserva.pacote.id == null) continue;
+
+      this.avaliacaoService.getAvaliacaoByPacoteAndCliente(reserva.pacote.id, this.authService.getId()).subscribe({
+        next: (avaliacao) => {
+          this.avaliacoes[i] = avaliacao;
+        },
+        error: () => {
+          this.snackBar.open('Ocorreu um erro ao carregar a avaliação.', '', { duration: 5000 });
+        }
+      });
+    }
+    console.log(this.avaliacoes)
+  }
+
   private carregarFuncionario(id: number){}
 
   navigateToAlterar(): void {
-    console.log("entrou")
     this.router.navigate(['/alterar-perfil']);
+  }
+
+  navigateToPacotes(): void {
+    this.router.navigate(['pacotes']);
   }
 
   setActiveLink(link: string) {
@@ -96,7 +136,26 @@ export class PerfilComponent {
     } else if (link === 'reservas') {
       this.informacoes = false;
       this.reservas = true;
+
+      this.carregarAvaliacoes();
     }
+  }
+
+  openAvaliarPacoteDialog(reserva: Reserva) {
+    const dialogRef = this.dialog.open(AvaliarPacoteComponent, {
+      width: '500px',
+      minWidth: '260px',
+      data: {
+        reserva: reserva,
+        avaliacao: this.avaliacoes[this.reservasCliente.indexOf(reserva)]
+      },
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: () => {
+        this.carregarAvaliacoes();
+      }
+    });
   }
 
 }
