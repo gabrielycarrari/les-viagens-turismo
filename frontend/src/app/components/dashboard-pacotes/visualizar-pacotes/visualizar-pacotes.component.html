@@ -254,7 +254,9 @@
                 <mat-expansion-panel>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                   {{transporte.veiculo?.companhiaTransporte?.nome}}
+
+                   {{transporte.veiculo?.nome + ": " + transporte.enderecoSaida?.cidade + " para "+ transporte.enderecoChegada?.cidade}}
+                   <!-- {{transporte.veiculo?.companhiaTransporte?.nome}} -->
                   </mat-panel-title>
 
                 </mat-expansion-panel-header>

@@ -1,0 +1,39 @@
+.backgroundSection{
+  background-image:  url(../../../assets/images/rio.webp);
+  height: 550px;
+  background-position: center -200px ;
+  //background-size: cover;
+
+}
+
+h1{
+  color:white;
+  font-family: "Roboto", sans-serif;
+  font-size: 100px;
+  padding-top: 220px;
+  margin-bottom: 20px;
+  font-weight: bolder;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.527);
+}
+
+h3{
+  color:white;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.527);
+}
+
+
+.form-control:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.form-control::placeholder, .form-control {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  text-align: left;
+}

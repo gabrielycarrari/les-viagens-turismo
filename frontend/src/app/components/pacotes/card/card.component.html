@@ -1,33 +1,31 @@
-<div class="position-relative card-pacote rounded-3 mt-5 shadow-lg ">
-    
-    <div class="foto">
-        <img class="rounded-top-3" src="../../../assets/images/tour-rio.jpg" alt="" style="width: 100%;">
-    </div>
+<div class="position-relative card-pacote rounded-3 mt-0 shadow-lg">
+  <div class="foto">
+    <img class="rounded-top-3" src="../../../assets/images/tour-rio.jpg" alt="" style="width: 100%;">
+  </div>
 
-    <div class="duracao position-absolute rounded-1 d-flex flex-column align-items-center justify-content-center ">
-        <p class="m-0" style="color: white; font-weight: 550">4 Dias / 5 Noites</p>
-    </div>
-    
-    <div class="p-3 mt-3">
-        <h1><b>Pacote para Rio de Janeiro</b></h1>
-        <p>A partir de <b>Qui 15 de Jun</b> até <b>Seg 01 Jul</b></p>
-            <div class="d-flex">
-                <div>
-                    <p><b>9.6 - Excelente</b> (2043)</p>
-                </div>
-                <div class="mx-auto d-flex gap-1">
-                    <i class="bi bi-geo-alt-fill"></i>
-                    <p class="">Rio de Janeiro</p>
-                </div>
-            </div>
-    </div>
-    
-    <hr class="m-0 mb-3">
-    
-    <div class="ms-3 ">
-        <p class="m-0 mb-2" style="font-size: medium;">Preço por Pessoa:</p>
-        <p class="m-0" style="font-size: large;">R$ <span style="font-size: xx-large;">422</span></p>
-        <p class="m-0 mt-1">Taxas e impostos não inclusos</p>
-    </div>
+  <!-- <div class="duracao position-absolute rounded-1 d-flex flex-column align-items-center justify-content-center">
+    <p class="m-0" style="color: white; font-weight: 550">4 Dias / 5 Noites</p>
+  </div> -->
 
+  <div class="p-3 mt-3">
+    <h1><b>{{ pacote.nome }}</b></h1>
+    <p>A partir de <b>{{ pacote.dataSaida | date: 'EEEE, d \'de\' MMMM' }}</b> até <b>{{ pacote.dataChegada | date: 'EEEE, d \'de\' MMMM' }}</b></p>
+    <div class="d-flex">
+      <div>
+        <p><b>{{ media | number: '1.1-1' }} - {{ resumo }} </b> ({{ qtdAvaliacoes }} avaliações)</p>
+      </div>
+      <div class="mx-auto d-flex gap-1">
+        <i class="bi bi-geo-alt-fill"></i>
+        <p class="">{{ pacote.enderecoDestino?.uf }}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="m-0 mb-3">
+
+  <div class="ms-3">
+    <p class="m-0 mb-2" style="font-size: medium;">Preço por Pessoa:</p>
+    <p class="m-0" style="font-size: large;">R$ <span style="font-size: xx-large;">{{ pacote.valorTotal }}</span></p>
+    <p class="m-0 mt-1">Taxas e impostos não inclusos</p>
+  </div>
 </div>

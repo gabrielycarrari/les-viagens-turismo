@@ -12,16 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import viagens_e_turismo.dtos.AvaliacaoRecordDto;
 import viagens_e_turismo.models.Avaliacao;
+import viagens_e_turismo.models.Pacote;
 import viagens_e_turismo.services.AvaliacaoService;
+import viagens_e_turismo.services.PacoteService;
 
 @RestController
 @RequestMapping("/api/avaliacoes")
 public class AvaliacaoController {
     @Autowired
     AvaliacaoService avaliacaoService;
+    @Autowired
+    PacoteService pacoteService;
 
 
     @PostMapping()
@@ -39,6 +44,12 @@ public class AvaliacaoController {
         avaliacaoService.delete(id);
         return ResponseEntity.ok("{\"message\":\"Avaliação apagada com sucesso\"}");
     }
+
+    @GetMapping("/pacote/{idPacote}")
+    public ResponseEntity<List<Avaliacao>> getByPacote(@PathVariable int idPacote){
+        Pacote pacote = pacoteService.findById(idPacote).orElseThrow(() -> new EntityNotFoundException("Pacote não encontrado com o ID: " + idPacote));
+        return ResponseEntity.status(HttpStatus.OK).body(avaliacaoService.findByPacote(pacote));
+    } 
 
 
 }

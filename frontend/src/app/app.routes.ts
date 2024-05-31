@@ -65,5 +65,9 @@ export const routes: Routes = [
   {
     path: "dashboard-avaliacoes",
     component: DashboardAvaliacoesComponent
+  },
+  {
+    path: "pacotes",
+    component: DashboardPacotesComponent
   }
 ];

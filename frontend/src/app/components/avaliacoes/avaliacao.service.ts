@@ -19,6 +19,12 @@ export class AvaliacaoService {
     );
   }
 
+  listByPacote(id:number): Observable<Avaliacao[]> {
+    return this.http.get<Avaliacao[]>(`${this.API}/pacote/${id}`).pipe(
+      first()
+    );
+  }
+
   remove(id: number) {
     return this.http.delete<any>(`${this.API}/${id}`).pipe(
       tap(() => console.log('Companhia de Transporte removida com sucesso')),
