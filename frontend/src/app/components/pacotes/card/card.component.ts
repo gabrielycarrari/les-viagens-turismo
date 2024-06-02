@@ -60,21 +60,21 @@ export class CardComponent implements OnInit, OnChanges {
     if(this.media == 0){
       this.resumo="Não Avaliado"
     }
-    else if(this.media > 0 && this.media <=3 ){
+    else if(this.media > 0 && this.media <=1 ){
       this.resumo="Ruim"
     }
-    else if(this.media > 3 && this.media <= 5){
+    else if(this.media > 1 && this.media <= 2){
       this.resumo="Regular"
     }
 
-    else if(this.media > 5 && this.media <= 7){
+    else if(this.media > 2 && this.media <= 3){
       this.resumo="Bom"
     }
 
-    else if(this.media > 7 && this.media <= 8){
+    else if(this.media > 3 && this.media <= 4){
       this.resumo="Muito Bom"
     }
-    else if(this.media > 8 && this.media <= 10){
+    else if(this.media > 4 && this.media <= 5){
       this.resumo="Excelente"
     }
   }

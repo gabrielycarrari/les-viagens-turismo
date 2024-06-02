@@ -41,4 +41,8 @@ export class SectionPacotesComponent {
     });
   }
 
+
+  onCardClick(pacote: Pacote): void {
+    this.router.navigate(['/pagina-pacote', pacote.id]);
+  }
 }

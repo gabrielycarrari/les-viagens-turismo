@@ -5,6 +5,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { Pacote } from './pacote/pacote';
 import { PacoteService } from './pacote/pacote.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pacotes',
@@ -20,7 +21,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 })
 export class PacotesComponent implements OnInit {
 
-  constructor(private service: PacoteService,){}
+  constructor(private service: PacoteService,private router: Router,){}
 
   pacotes: Pacote[] = [];
   pacotesFiltrados: Pacote[] = [];
@@ -53,5 +54,10 @@ export class PacotesComponent implements OnInit {
     this.pacotesFiltrados = this.pacotes.filter(pacote =>
       pacote.enderecoDestino?.cidade.toLowerCase().includes(cidade.toLowerCase())
     );
+  }
+
+
+  onCardClick(pacote: Pacote): void {
+    this.router.navigate(['/pagina-pacote', pacote.id]);
   }
 }

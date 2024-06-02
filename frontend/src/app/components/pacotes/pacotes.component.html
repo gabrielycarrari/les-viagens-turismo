@@ -52,7 +52,7 @@
 
       @for (pacote of pacotesFiltrados; track pacote) {
         <div class="col mx-4"> <!-- Margem inferior para espaçamento vertical -->
-          <app-card [pacote]="pacote" class="mx-1"> <!-- Margem horizontal para espaçamento horizontal -->
+          <app-card [pacote]="pacote" (click)="onCardClick(pacote)" class="mx-1"> <!-- Margem horizontal para espaçamento horizontal -->
           </app-card>
         </div>
       }

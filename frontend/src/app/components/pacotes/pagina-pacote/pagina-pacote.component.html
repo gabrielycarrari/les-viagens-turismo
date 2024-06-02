@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="d-flex">
+    <div class="d-flex flex-column mt-5" style="height: 400px;">
+      <h1>{{pacote.nome}}</h1>
+
+      <div class="d-flex gap-1 mt-2">
+        <i class="bi bi-geo-alt-fill" style="font-size: 18px;"></i>
+        <p style="font-size: 20px;">{{pacote.enderecoDestino?.cidade+ ", "+ pacote.enderecoDestino?.uf }}</p>
+      </div>
+
+      <div class="d-flex gap-1 mt-1">
+        <i class="bi bi-calendar-week-fill" style="font-size: 18px;"></i>
+        <p style="font-size: 18px;">{{ pacote.dataSaida | date: 'd/MM/y' }}</p>
+      </div>
+
+      <p style="font-size: 20px; margin-top: 50px;">{{pacote.descricao }}</p>
+
+
+
+      <div class="my-auto">
+        <p class="m-0 mb-2" style="font-size: medium;">Preço por Pessoa:</p>
+        <p class="m-0" style="font-size: large;">R$ <span style="font-size: xx-large;">{{ pacote.valorTotal }}</span></p>
+        <p class="m-0 mt-1">Taxas e impostos não inclusos</p>
+        <button class="btn btn-outline-success mt-3" style="width: 100%;" (click)="iniciarProcessoReserva()">
+          Realizar Reserva
+        </button>
+      </div>
+
+    </div>
+    <div class="backgroundSection ms-auto"></div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container">
+  <div class="d-flex">
+    <div class="d-flex flex-column " >
+      <div class="d-flex gap-1 mt-2">
+        <i class="bi bi-check-all" style="font-size: 25px;"></i>
+        <p style="font-size: 30px; font-weight:500;">Este pacote inclui:</p>
+      </div>
+
+      @if (pacote.hotelPacote) {
+
+      <div class="card-pacote p-3">
+        <div class="d-flex flex-column">
+          <div class="d-flex gap-2">
+            <i class="bi bi-building-fill-check" style="font-size: 20px;"></i>
+            <p style="font-size: 20px;font-weight:600">Hospedagem</p>
+          </div>
+        </div>
+        @for (hospedagem of pacote.hotelPacote; track hospedagem) {
+        <div class="d-flex gap-2 mt-2">
+          <i class="bi bi-patch-check-fill" style="font-size: 20px;"></i>
+          <p style="font-size: 20px; ">{{hospedagem.hotel.nome }}</p>
+
+          <div class="gap-1 d-flex" style="margin-top: 1px;">
+            @for (estrela of [].constructor(hospedagem.hotel.classificacao); track estrela) {
+              <i class="bi bi-star-fill"></i>
+            }
+            @for (estrela of [].constructor((hospedagem.hotel.classificacao-5)*-1); track estrela) {
+              <i class="bi bi-star"></i>
+            }
+
+          </div>
+          <div class="d-flex ms-auto gap-1 ">
+            <i class="bi bi-calendar-week-fill" style="font-size: 18px;"></i>
+            <p style="font-size: 18px;">{{ hospedagem.dataEntrada| date: 'd/MM/y' }}</p>
+          </div>
+        </div>
+        }
+        </div>
+      }
+
+
+
+    </div>
+
+
+    @if (pacote.transportePacote) {
+        <div class="d-flex flex-column ms-5" style="margin-top: 38px;" >
+
+        <div class="card-pacote-transporte p-3">
+          <div class="d-flex flex-column">
+            <div class="d-flex gap-2">
+              <i class="bi bi-airplane-fill" style="font-size: 20px;"></i>
+              <p style="font-size: 20px;font-weight:600">Transporte</p>
+            </div>
+          </div>
+          @for (transporte of pacote.transportePacote; track transporte) {
+          <div class="d-flex gap-2 mt-2">
+            <i class="bi bi-patch-check-fill" style="font-size: 20px;"></i>
+            <p style="font-size: 20px; ">{{transporte.veiculo?.companhiaTransporte?.nome }}</p>
+
+            <div class="d-flex ms-auto gap-1 ">
+              <i class="bi bi-compass" style="font-size: 18px;"></i>
+              <p style="font-size: 18px;">{{ transporte.veiculo?.nome}}</p>
+            </div>
+          </div>
+          <div class="d-flex ms-auto gap-1 ">
+            <i class="bi bi-globe-americas" style="font-size: 18px;"></i>
+            <p style="font-size: 18px;">{{ transporte.enderecoSaida?.cidade + " -> " +transporte.enderecoChegada?.cidade}}</p>
+          </div>
+          }
+          </div>
+        </div>
+        }
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<app-footer></app-footer>

@@ -14,7 +14,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center ">
           @for (pacote of pacotes; track pacote) {
             <div class="col mx-0"> <!-- Margem inferior para espaçamento vertical -->
-              <app-card [pacote]="pacote" class="mx-1"> <!-- Margem horizontal para espaçamento horizontal -->
+              <app-card [pacote]="pacote" (click)="onCardClick(pacote)" class="mx-1"> <!-- Margem horizontal para espaçamento horizontal -->
               </app-card>
             </div>
           }

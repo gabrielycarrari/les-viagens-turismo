@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, first, tap } from 'rxjs';
 import { Reserva } from './reserva';
 import { Cliente } from '../cliente/cliente';
+import { ReservaDTO } from './reserva.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,16 @@ export class ReservaService {
       })
     );
   }
+
+  private create(record: ReservaDTO) {
+    return this.http.post<Reserva>(this.API, record).pipe(first());
+  }
+
+  save(record: ReservaDTO) {
+
+    return this.create(record);
+  }
+
+
 
 }
