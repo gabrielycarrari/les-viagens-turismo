@@ -11,6 +11,7 @@ import { CadastroEnderecoComponent } from '../../endereco/cadastro-endereco/cada
 import { MatDivider } from '@angular/material/divider';
 import { FuncionarioService } from '../../funcionario/funcionario.service';
 import { AlterarSenhaComponent } from '../../perfil/alterar-senha/alterar-senha.component';
+import { Validadores } from '../../validadores/validadores';
 
 @Component({
   selector: 'app-alterar-funcionario',
@@ -53,10 +54,10 @@ export class AlterarFuncionarioComponent {
     this.form = this.formBuilder.group({
       id: [''],
       login: ['', [Validators.required] ],
-      cpf: ['', [Validators.required] ],
+      cpf: ['', [Validators.required, Validadores.cpf] ],
       nome: ['', [Validators.required] ],
       data_nascimento: ['', [Validators.required] ],
-      telefone: ['', [Validators.required] ],
+      telefone: ['', [Validators.required, Validadores.telefone] ],
       email: ['', [Validators.required, Validators.email] ],
     });
   }
@@ -118,5 +119,17 @@ export class AlterarFuncionarioComponent {
         tipo: "FUNCIONARIO"
       },
     });
+  }
+
+  getMensagemError(controlName: string): string {
+    const control = this.form.get(controlName);
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('cpfInvalido')) return 'CPF inválido';
+    if (control.hasError('email')) return 'Email inválido';
+    if (control.hasError('telefoneInvalido')) return 'Telefone inválido';
+
+    return 'Valor inválido';
   }
 }

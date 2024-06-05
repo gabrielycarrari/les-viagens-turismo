@@ -15,6 +15,7 @@ import { AuthService } from '../../autenticacao/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlterarSenhaComponent } from '../alterar-senha/alterar-senha.component';
 import { CadastroEnderecoComponent } from '../../endereco/cadastro-endereco/cadastro-endereco.component';
+import { Validadores } from '../../validadores/validadores';
 
 
 @Component({
@@ -57,10 +58,10 @@ export class AlterarPerfilComponent {
     this.form = this.formBuilder.group({
       id: [''],
       login: ['', [Validators.required] ],
-      cpf: ['', [Validators.required] ],
+      cpf: ['', [Validators.required, Validadores.cpf] ],
       nome: ['', [Validators.required] ],
       data_nascimento: ['', [Validators.required] ],
-      telefone: ['', [Validators.required] ],
+      telefone: ['', [Validators.required, Validadores.telefone] ],
       email: ['', [Validators.required, Validators.email] ],
       endereco: this.formBuilder.group({
         id: [''],
@@ -132,8 +133,11 @@ export class AlterarPerfilComponent {
 
     if (hasAddressValue) {
       for (const key in endereco.controls) {
-        endereco.get(key)?.setValidators(Validators.required);
+        console.log(key, key == 'cep')
+        if(key == 'cep') endereco.get(key)?.addValidators(Validadores.cep);
+        endereco.get(key)?.addValidators(Validators.required);
         endereco.get(key)?.updateValueAndValidity();
+
       }
     } else {
       for (const key in endereco.controls) {
@@ -173,5 +177,17 @@ export class AlterarPerfilComponent {
       minWidth: '260px',
       data: {login: this.form.controls["login"].value},
     });
+  }
+
+  getMensagemError(controlName: string): string {
+    const control = this.form.get(controlName);
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('cpfInvalido')) return 'CPF inválido';
+    if (control.hasError('email')) return 'Email inválido';
+    if (control.hasError('telefoneInvalido')) return 'Telefone inválido';
+
+    return 'Valor inválido';
   }
 }

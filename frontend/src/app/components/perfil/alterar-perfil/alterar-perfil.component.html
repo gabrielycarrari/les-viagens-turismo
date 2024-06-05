@@ -14,7 +14,7 @@
           <mat-label>Nome</mat-label>
           <input matInput type="text" formControlName="nome" />
           @if (form.get('nome')?.invalid) {
-            <mat-error>{{"teste"}}</mat-error>
+            <mat-error>{{ getMensagemError('nome')}}</mat-error>
           }
         </mat-form-field>
 
@@ -22,7 +22,7 @@
           <mat-label>CPF</mat-label>
           <input matInput type="text" formControlName="cpf"/>
           @if (form.get('cpf')?.invalid) {
-            <mat-error>{{"cpf"}}</mat-error>
+            <mat-error>{{ getMensagemError("cpf") }}</mat-error>
           }
         </mat-form-field>
 
@@ -30,7 +30,7 @@
           <mat-label>Data de Nascimento</mat-label>
           <input matInput type="date" formControlName="data_nascimento"/>
           @if (form.get('data_nascimento')?.invalid) {
-            <mat-error>{{"data_nascimento"}}</mat-error>
+            <mat-error>{{ getMensagemError("data_nascimento") }}</mat-error>
           }
         </mat-form-field>
 
@@ -38,7 +38,7 @@
           <mat-label>Telefone</mat-label>
           <input matInput type="text" formControlName="telefone"/>
           @if (form.get('telefone')?.invalid) {
-            <mat-error>{{"telefone"}}</mat-error>
+            <mat-error>{{ getMensagemError("telefone") }}</mat-error>
           }
         </mat-form-field>
 
@@ -46,7 +46,7 @@
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" placeholder="nome@email.com"/>
           @if (form.get('email')?.invalid) {
-            <mat-error>{{"email"}}</mat-error>
+            <mat-error>{{ getMensagemError("email") }}</mat-error>
           }
         </mat-form-field>
 
@@ -54,7 +54,7 @@
           <mat-label>Username</mat-label>
           <input matInput type="text" formControlName="login"/>
           @if (form.get('login')?.invalid) {
-            <mat-error>{{"login"}}</mat-error>
+            <mat-error>{{ getMensagemError("login") }}</mat-error>
           }
         </mat-form-field>
 

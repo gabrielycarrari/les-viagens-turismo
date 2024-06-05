@@ -8,7 +8,7 @@
             <mat-label>Nome</mat-label>
             <input matInput type="text" formControlName="nome" />
             @if (form.get('nome')?.invalid) {
-              <mat-error>{{"Valor Inválido"}}</mat-error>
+              <mat-error>{{ getMensagemError("nome") }}</mat-error>
             }
           </mat-form-field>
 
@@ -18,13 +18,16 @@
             <mat-slider class="w-50" min="0" max="5" step="1">
               <input matSliderThumb formControlName="classificacao">
             </mat-slider>
+            @if (form.get('classificacao')?.invalid) {
+              <mat-error>{{ getMensagemError("classificacao") }}</mat-error>
+            }
           </div>
 
           <mat-form-field class="mb-3 w-100" appearance="outline">
             <mat-label>Descrição</mat-label>
             <textarea matInput placeholder="Ex. It makes me feel..." formControlName="descricao"></textarea>
             @if (form.get('descricao')?.invalid) {
-              <mat-error>{{"Valor Inválido"}}</mat-error>
+              <mat-error>{{ getMensagemError("descricao") }}</mat-error>
             }
           </mat-form-field>
 
@@ -32,7 +35,7 @@
             <mat-label>Telefone</mat-label>
             <input matInput type="text" formControlName="telefone"/>
             @if (form.get('telefone')?.invalid) {
-              <mat-error>{{"Valor Inválido"}}</mat-error>
+              <mat-error>{{ getMensagemError("telefone") }}</mat-error>
             }
           </mat-form-field>
 
@@ -40,7 +43,7 @@
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email" placeholder="nome@email.com"/>
             @if (form.get('email')?.invalid) {
-              <mat-error>{{"Valor Inválido"}}</mat-error>
+              <mat-error>{{ getMensagemError("email") }}</mat-error>
             }
           </mat-form-field>
 
@@ -74,7 +77,7 @@
                               <mat-label>Nome</mat-label>
                               <input matInput type="text" formControlName="nome"/>
                               @if (comodidade.get('nome')?.invalid) {
-                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                                <mat-error>{{ getMensagemError("nome", i) }}</mat-error>
                               }
                             </mat-form-field>
                           </div>
@@ -83,7 +86,7 @@
                               <mat-label>Descrição</mat-label>
                               <input matInput type="text" formControlName="descricao"/>
                               @if (comodidade.get('descricao')?.invalid) {
-                                <mat-error>{{"Valor Inválido"}}</mat-error>
+                                <mat-error>{{ getMensagemError("descricao", i) }}</mat-error>
                               }
                             </mat-form-field>
                           </div>

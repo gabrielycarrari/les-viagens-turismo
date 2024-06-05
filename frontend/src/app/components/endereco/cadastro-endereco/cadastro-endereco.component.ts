@@ -26,4 +26,13 @@ export class CadastroEnderecoComponent {
     }
     return this.form.get('endereco') as FormGroup;
   }
+
+  getMensagemError(controlName: string): string {
+    const control = this.enderecoFormGroup.get(controlName);
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('cepInvalido')) return 'CEP inválido';
+    return 'Valor inválido';
+  }
 }

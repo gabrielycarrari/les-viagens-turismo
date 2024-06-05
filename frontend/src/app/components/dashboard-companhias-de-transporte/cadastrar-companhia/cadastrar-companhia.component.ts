@@ -15,6 +15,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Veiculo } from '../../veiculo/veiculo';
 import { CompanhiaTransporteService } from '../../companhiaTransporte/companhiaTransporte.service';
+import { Validadores } from '../../validadores/validadores';
 
 @Component({
   selector: 'app-cadastrar-companhia',
@@ -74,9 +75,9 @@ export class CadastrarCompanhiaComponent {
     this.form = this.formBuilder.group({
       id: [''],
       nome: ['', [Validators.required]],
-      cnpj: ['', [Validators.required]],
+      cnpj: ['', [Validators.required, Validadores.cnpj]],
       descricao: ['', [Validators.required]],
-      telefone: ['', [Validators.required]],
+      telefone: ['', [Validators.required, Validadores.telefone]],
       email: ['', [Validators.required, Validators.email]],
       categoria: ['', [Validators.required]],
       veiculos: this.formBuilder.array([])
@@ -84,6 +85,7 @@ export class CadastrarCompanhiaComponent {
   }
 
   onSubmit() {
+    this.validateVeiculos();
     if (this.validateForm(this.form)) {
       const formValue = this.form.value;
       this.companhiaService.save(formValue).subscribe({
@@ -118,6 +120,20 @@ export class CadastrarCompanhiaComponent {
     return true;
   }
 
+  private validateVeiculos(){
+    let veiculos = this.veiculos;
+    for (let i = 0; i < veiculos.length; i++) {
+      let veiculo = veiculos.at(i);
+      veiculo.get('nome')?.addValidators(Validators.required);
+      veiculo.get('nome')?.updateValueAndValidity();
+      veiculo.get('registro')?.addValidators(Validators.required);
+      veiculo.get('registro')?.updateValueAndValidity();
+      veiculo.get('vagas')?.setValidators(Validators.required);
+      veiculo.get('vagas')?.addValidators(Validators.min(1));
+      veiculo.get('vagas')?.updateValueAndValidity();
+    }
+  }
+
   get veiculos(): FormArray {
     return this.form.get('veiculos') as FormArray;
   }
@@ -127,7 +143,7 @@ export class CadastrarCompanhiaComponent {
       id: [''],
       nome: [''],
       registro: [''],
-      vagas: ['']
+      vagas: ['', [Validators.min(1)]]
     });
 
     this.veiculos.push(veiculoForm);
@@ -146,5 +162,26 @@ export class CadastrarCompanhiaComponent {
 
   removerVeiculo(index: number): void {
     this.veiculos.removeAt(index);
+  }
+
+  getMensagemError(controlName: string, index: number = 0): string {
+    let control;
+    if(index > 0){
+      control = this.veiculos.at(index).get(controlName);
+    }else {
+      control = this.form.get(controlName);
+    }
+
+    if(controlName == 'vagas') console.log(control)
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('cpfInvalido')) return 'CPF inválido';
+    if (control.hasError('cnpjInvalido')) return 'CNPJ inválido';
+    if (control.hasError('email')) return 'Email inválido';
+    if (control.hasError('telefoneInvalido')) return 'Telefone inválido';
+    if (control.hasError('min')) return 'Valor mínimo inválido';
+
+    return 'Valor inválido';
   }
 }

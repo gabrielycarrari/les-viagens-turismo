@@ -172,6 +172,9 @@ export class CadastrarPacoteComponent {
   }
 
   onSubmit() {
+    this.validateHoteis();
+    this.validateTransportes();
+
     if (this.validateForm(this.form)) {
       this.tratarEnderecos();
       const formValue = this.form.value;
@@ -379,5 +382,43 @@ export class CadastrarPacoteComponent {
       }
       transportePacote.get('isIgualEnderecoChegada')?.disabled;
     }
+  }
+
+  private validateHoteis(){
+    for (let i = 0; i < this.hotelPacote.length; i++) {
+      let hotelPacote = this.hotelPacote.at(i);
+      hotelPacote.get('hotel')?.addValidators(Validators.required);
+      hotelPacote.get('hotel')?.updateValueAndValidity();
+      hotelPacote.get('tipoDiaria')?.addValidators(Validators.required);
+      hotelPacote.get('tipoDiaria')?.updateValueAndValidity();
+      hotelPacote.get('dataEntrada')?.setValidators(Validators.required);
+      hotelPacote.get('dataEntrada')?.updateValueAndValidity();
+    }
+  }
+
+  private validateTransportes(){
+    for (let i = 0; i < this.transportePacote.length; i++) {
+      let tp = this.transportePacote.at(i);
+      tp.get('veiculo')?.addValidators(Validators.required);
+      tp.get('veiculo')?.updateValueAndValidity();
+
+    }
+  }
+
+  getMensagemError(controlName: string, form: string = '', index: number = 0): string {
+    let control;
+    if (form == 'hotel') {
+      control = this.hotelPacote.at(index).get(controlName);
+    } else if (form == 'transporte') {
+      control = this.transportePacote.at(index).get(controlName);
+    } else{
+      control = this.form.get(controlName);
+    }
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('min')) return 'Valor mínimo inválido';
+
+    return 'Valor inválido';
   }
 }

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { CadastroEnderecoComponent } from '../../endereco/cadastro-endereco/cadastro-endereco.component';
 import { MatDivider } from '@angular/material/divider';
 import { AlterarSenhaComponent } from '../../perfil/alterar-senha/alterar-senha.component';
+import { Validadores } from '../../validadores/validadores';
 
 @Component({
   selector: 'app-alterar-cliente',
@@ -52,11 +53,11 @@ export class AlterarClienteComponent {
     this.form = this.formBuilder.group({
       id: [''],
       login: ['', [Validators.required] ],
-      cpf: ['', [Validators.required] ],
+      cpf: ['', [Validators.required, Validadores.cpf]],
       nome: ['', [Validators.required] ],
       data_nascimento: ['', [Validators.required] ],
-      telefone: ['', [Validators.required] ],
-      email: ['', [Validators.required, Validators.email] ],
+      telefone: ['', [Validators.required, Validadores.telefone]],
+      email: ['', [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
         id: [''],
         cep: [''],
@@ -146,5 +147,17 @@ export class AlterarClienteComponent {
         tipo: 'CLIENTE'
       },
     });
+  }
+
+  getMensagemError(controlName: string): string {
+    const control = this.form.get(controlName);
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('cpfInvalido')) return 'CPF inválido';
+    if (control.hasError('email')) return 'Email inválido';
+    if (control.hasError('telefoneInvalido')) return 'Telefone inválido';
+
+    return 'Valor inválido';
   }
 }

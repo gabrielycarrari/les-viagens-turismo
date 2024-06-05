@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { HotelService } from '../../hotel/hotel.service';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { Validadores } from '../../validadores/validadores';
 
 @Component({
   selector: 'app-cadastrar-hotel',
@@ -71,7 +72,7 @@ export class CadastrarHotelComponent {
       id: [''],
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      telefone: ['', [Validators.required] ],
+      telefone: ['', [Validators.required, Validadores.telefone]],
       email: ['', [Validators.required, Validators.email]],
       classificacao: ['', [Validators.required]],
       comodidades: this.formBuilder.array([]),
@@ -89,6 +90,7 @@ export class CadastrarHotelComponent {
   }
 
   onSubmit() {
+    this.validateComodidades()
     if (this.validateForm(this.form)) {
       const formValue = this.form.value;
         this.hotelService.save(formValue).subscribe({
@@ -123,6 +125,14 @@ export class CadastrarHotelComponent {
       return false;
     }
     return true;
+  }
+
+  private validateComodidades(): void {
+    for (let i = 0; i < this.comodidades.length; i++) {
+      let comodidade = this.comodidades.at(i);
+      comodidade.get('nome')?.addValidators(Validators.required);
+      comodidade.get('nome')?.updateValueAndValidity();
+    }
   }
 
   private validateAddressFields(): void {
@@ -169,5 +179,23 @@ export class CadastrarHotelComponent {
 
   removerComodidade(index: number): void {
     this.comodidades.removeAt(index);
+  }
+
+  getMensagemError(controlName: string, index: number = 0): string {
+    let control;
+    if(index > 0){
+      control = this.comodidades.at(index).get(controlName);
+    }else {
+      control = this.form.get(controlName);
+    }
+
+    if(controlName == 'vagas') console.log(control)
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('email')) return 'Email inválido';
+    if (control.hasError('telefoneInvalido')) return 'Telefone inválido';
+
+    return 'Valor inválido';
   }
 }

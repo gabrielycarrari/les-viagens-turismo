@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { Router } from '@angular/router';
 import { AuthService } from '../../autenticacao/auth.service';
+import { Validadores } from '../../validadores/validadores';
 
 @Component({
   selector: 'app-cadastro',
@@ -48,16 +49,16 @@ export class CadastroClienteComponent implements OnInit {
       id: [''],
       login: ['', [Validators.required] ],
       senha: ['', [Validators.required] ],
-      cpf: ['', [Validators.required] ],
+      cpf: ['', [Validators.required, Validadores.cpf] ],
       nome: ['', [Validators.required] ],
       data_nascimento: ['', [Validators.required] ],
-      telefone: ['', [Validators.required] ],
+      telefone: ['', [Validators.required, Validadores.telefone] ],
       email: ['', [Validators.required, Validators.email] ],
       endereco: this.formBuilder.group({
         id: [''],
       })
     });
-    this.passwordConfirm = new FormControl('', [Validators.required]);
+    this.passwordConfirm = new FormControl('', [Validators.required, Validadores.confirmPassword(this.form)]);
   }
 
   onSubmit() {
@@ -101,6 +102,25 @@ export class CadastroClienteComponent implements OnInit {
 
   get name() {
     return this.form.get('nome');
+  }
+
+  getMensagemError(controlName: string): string {
+    let control = null;
+
+    if (controlName == "passwordConfirm") {
+      control = this.passwordConfirm;
+    }else {
+      control = this.form.get(controlName);
+    }
+
+    if (control == null) return 'Erro desconhecido'
+    if (control.hasError('required')) return 'Campo obrigatório';
+    if (control.hasError('cpfInvalido')) return 'CPF inválido';
+    if (control.hasError('email')) return 'Email inválido';
+    if (control.hasError('telefoneInvalido')) return 'Telefone inválido';
+    if (control.hasError('confirmPasswordInvalid')) return 'Senhas não conferem';
+
+    return 'Valor inválido';
   }
 
 }
