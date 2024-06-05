@@ -85,4 +85,9 @@ public class ClienteController {
 
     }
 
+    @GetMapping("/totalClientes")
+    public ResponseEntity<Integer> getTotalClientes(){
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.getTotalClientes());
+    }
+
 }

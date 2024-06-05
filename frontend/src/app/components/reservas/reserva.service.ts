@@ -12,8 +12,6 @@ export class ReservaService {
 
   private readonly API = 'api/reservas';
 
-
-
   constructor(private http: HttpClient) { }
 
   list(): Observable<Reserva[]> {
@@ -47,6 +45,8 @@ export class ReservaService {
     return this.create(record);
   }
 
-
+  getGanhoTotal() {
+    return this.http.get<number>(`${this.API}/ganhoTotal`).pipe(first());
+  }
 
 }

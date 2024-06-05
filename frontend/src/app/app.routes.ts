@@ -13,6 +13,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { DashboardReservasComponent } from './components/dashboard-reservas/dashboard-reservas.component';
 import { DashboardAvaliacoesComponent } from './components/dashboard-avaliacoes/dashboard-avaliacoes.component';
 import { PaginaPacoteComponent } from './components/pacotes/pagina-pacote/pagina-pacote.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "dashboard",
+    component: DashboardComponent
   },
   {
     path: "dashboard-clientes",

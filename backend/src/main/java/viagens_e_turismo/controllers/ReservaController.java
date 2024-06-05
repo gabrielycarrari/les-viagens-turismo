@@ -48,4 +48,9 @@ public class ReservaController {
         return ResponseEntity.ok("{\"message\":\"Reserva apagada com sucesso\"}");
     }
 
+    @GetMapping("/ganhoTotal")
+    public ResponseEntity<Float> getGanhoTotal(){
+        return ResponseEntity.status(HttpStatus.OK).body(reservaService.getGanhoTotal());
+    } 
+
 }

@@ -134,4 +134,8 @@ public class ClienteService {
         avaliacaoRepository.deleteAll(avaliacoes);
         clienteRepository.delete(cliente);
     }
+
+    public Integer getTotalClientes(){
+        return clienteRepository.getTotalClientes();
+    }
 }

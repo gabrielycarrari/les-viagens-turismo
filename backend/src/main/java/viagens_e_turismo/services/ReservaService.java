@@ -80,5 +80,8 @@ public class ReservaService {
         Reserva reserva = findById(id).orElseThrow(() -> new EntityNotFoundException("Reserva não encontrada com o ID: " + id));
         reservaRepository.delete(reserva);
     }
-    
+   
+    public Float getGanhoTotal(){
+        return reservaRepository.getGanhoTotal();
+    }
 }

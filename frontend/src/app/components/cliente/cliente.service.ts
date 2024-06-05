@@ -54,4 +54,8 @@ export class ClienteService {
       })
     );
   }
+
+  getTotalClientes() {
+    return this.http.get<number>(`${this.API}/totalClientes`).pipe(first());
+  }
 }
