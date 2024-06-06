@@ -1,10 +1,11 @@
+import { Pacote } from './../../pacotes/pacote/pacote';
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
+import {MatStepper, MatStepperModule} from '@angular/material/stepper';
 import { CommonModule } from '@angular/common';
 import { MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
@@ -50,14 +51,11 @@ import { ReservaService } from '../reserva.service';
 })
 export class RealizarReservaComponent implements OnInit{
 
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
   form!: FormGroup;
   constructor(private formBuilder: FormBuilder,public dialogRef: MatDialogRef<RealizarReservaComponent> , @Inject(MAT_DIALOG_DATA) public data: any,private router: Router,public dialog: MatDialog, public clienteService:ClienteService,private snackBar: MatSnackBar, public reservaService: ReservaService ) {}
 
-
-
-  secondFormGroup = this.formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
 
 
   checkBoxChecked: boolean = false;
@@ -67,18 +65,52 @@ export class RealizarReservaComponent implements OnInit{
   ngOnInit() {
     this.initForm();
     this.carregarReserva();
+    this.initFirstFormGroup();
+    this.initSecondFormGroup();
   }
 
+  eventoSubmit(stepper: MatStepper){
+    stepper.next()
+ }
+
+ private initFirstFormGroup(): void {
+  this.firstFormGroup = this.formBuilder.group({
+    confirmacao: [false, Validators.requiredTrue]
+  });
+}
+
+private initSecondFormGroup(): void {
+  this.secondFormGroup = this.formBuilder.group({
+    confirmacao: [false, Validators.requiredTrue]
+  });
+}
+
+
+  quantidadeExcedeVagas():{ [key: string]: boolean } | null{
+    const quantidade = this.form.get('quantidade')?.value;
+    const vagasDisponiveis = this.data.pacote.vagas;
+    if(quantidade > vagasDisponiveis){
+      return { 'quantidadeExcedeVagas': true };
+    }else{
+      return null
+    }
+  }
 
 
   initForm(): void {
     this.form = this.formBuilder.group({
       id: [''],
-      quantidade: ['', [Validators.required]],
+      quantidade: ['', [Validators.required,Validators.min(1)]],
       observacoes: [''],
       pacote: [''],
       cliente: ['']
     });
+
+    this.form.get('quantidade')?.setValidators([
+      Validators.required,
+      Validators.min(1),
+      this.quantidadeExcedeVagas.bind(this)
+    ]);
   }
 
 

@@ -104,7 +104,7 @@ export class AlterarClienteComponent {
   }
 
   private onSuccess(){
-    this.snackBar.open('Aleração realizada com sucesso!', '', { duration: 5000, panelClass: ["snackbar-success"] });
+    this.snackBar.open('Alteração realizada com sucesso!', '', { duration: 5000, panelClass: ["snackbar-success"] });
   }
 
   private onError() {

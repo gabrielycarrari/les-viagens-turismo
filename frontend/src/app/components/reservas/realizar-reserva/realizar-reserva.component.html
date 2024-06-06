@@ -2,8 +2,8 @@
   <div class="center" style="text-align: center;">
     <b><h1 mat-dialog-title style=" font-weight: 600; font-size: x-large;">Realizar Reserva</h1></b>
   </div>
-<mat-stepper  [linear]=true  #stepper>
-  <mat-step >
+<mat-stepper  linear  #stepper>
+  <mat-step [stepControl]="firstFormGroup" >
     <ng-template matStepLabel>Confirmar Dados</ng-template>
     <mat-list>
       <div class="d-flex justify-content-around ">
@@ -46,15 +46,16 @@
       </div>
     </mat-list>
 
-
-    <div class="d-flex  justify-content-between mt-4">
-      <mat-checkbox matListItemTitle [(ngModel)]="checkBoxChecked"><span style="font-weight: 400;">Confirmo meus dados!</span></mat-checkbox>
-      <button type="button" matStepperNext class="btn btn-primary" [disabled]="!checkBoxChecked">Próximo</button>
+    <div class="d-flex justify-content-between mt-3">
+      <form [formGroup]="firstFormGroup">
+        <mat-checkbox formControlName="confirmacao" color="primary" required>
+          <span style="font-weight: 400;">Confirmo o pacote desejado!</span>
+        </mat-checkbox>
+      </form>
+      <button type="button" matStepperNext class="btn btn-primary" [disabled]="!firstFormGroup.valid">Próximo</button>
     </div>
-
-
   </mat-step>
-  <mat-step >
+  <mat-step [stepControl]="secondFormGroup" >
     <!-- [stepControl]="secondFormGroup" -->
       <ng-template matStepLabel>Confirmar Pacote</ng-template>
       <div class="px-5 pt-2">
@@ -354,12 +355,14 @@
       </div>
 
 
-    <div class="d-flex  justify-content-between mt-3">
-      <mat-checkbox matListItemTitle [(ngModel)]="checkBoxChecked2"><span style="font-weight: 400;">Confirmo o pacote desejado!</span></mat-checkbox>
-      <button type="button" matStepperNext class="btn btn-primary" [disabled]="!checkBoxChecked2">Próximo</button>
-
-    </div>
-
+      <div class="d-flex justify-content-between mt-3">
+        <form [formGroup]="secondFormGroup">
+          <mat-checkbox formControlName="confirmacao" color="primary" required>
+            <span style="font-weight: 400;">Confirmo o pacote desejado!</span>
+          </mat-checkbox>
+        </form>
+        <button type="button" matStepperNext class="btn btn-primary" [disabled]="!secondFormGroup.valid">Próximo</button>
+      </div>
 
   </mat-step>
   <mat-step>
@@ -370,7 +373,7 @@
       <div class="container text-start">
         <form [formGroup]="form">
           <div class="row-cols-lg-1">
-            <mat-form-field class="mb-3" appearance="outline">
+            <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Observações</mat-label>
               <textarea matInput formControlName="observacoes"></textarea>
               @if (form.get('observacoes')?.invalid) {
@@ -379,14 +382,33 @@
             </mat-form-field>
           </div>
 
-          <div class="form-check pt-2 pb-3 g-3">
-            <label for="quantidade">
+          <div class="row-cols-lg-2 pt-2 pb-3 g-3">
+            <mat-form-field class="mb-3 px-0" appearance="outline">
+              <mat-label>Quantidade de Reservas</mat-label>
+
+              <input matInput type="number" formControlName="quantidade" />
+              @if (form.get('quantidade')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+            <!-- <label for="quantidade">
               Quantas reservas deseja realizar?
             </label>
-            <input style="width: 40px; margin-left: 20px;" type="number" value="quantidade" id="quantidade" formControlName="quantidade">
+            <input matInput style="width: 40px; margin-left: 20px;" type="number" value="quantidade" id="quantidade" formControlName="quantidade"> -->
           </div>
         </form>
       </div>
+
+<!--
+      <div class="row-cols-1 col-lg-2">
+        <mat-form-field class="mb-3 px-2" appearance="outline">
+          <mat-label>Vagas</mat-label>
+          <input matInput type="number" formControlName="vagas" />
+          @if (form.get('vagas')?.invalid) {
+            <mat-error>{{"Valor Inválido"}}</mat-error>
+          }
+        </mat-form-field>
+      </div> -->
 
     </mat-dialog-content>
     <mat-dialog-actions>

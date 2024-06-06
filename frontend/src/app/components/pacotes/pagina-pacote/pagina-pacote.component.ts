@@ -38,6 +38,7 @@ export class PaginaPacoteComponent implements OnInit {
     }
   }
 
+
   // carregarDados(): void {
   //   if (this.authService.getUserType() === 'CLIENTE') {
   //     this.carregarCliente(this.authService.getId());
@@ -53,7 +54,11 @@ export class PaginaPacoteComponent implements OnInit {
           const clienteId = this.authService.getId();
           this.clienteService.getById(clienteId).subscribe({
             next: (cliente: Cliente) => {
-              this.openReservaDialog(cliente, this.pacote);
+              if(this.pacote.vagas > 0){
+                this.openReservaDialog(cliente, this.pacote);
+              } else{
+                this.snackBar.open('O pacote não possui vagas disponíveis...', '', { duration: 5000, panelClass: ["snackbar-error"] });
+              }
             },
             error: (err) => {
               console.error('Erro ao obter o cliente:', err);
@@ -70,14 +75,26 @@ export class PaginaPacoteComponent implements OnInit {
     });
   }
 
+  reloadPacote(){
+    if (this.pacote && this.pacote.id !== undefined) {
+      const pacoteId = this.pacote.id;
+      this.pacoteService.getById(pacoteId).subscribe(pacote => {
+        this.pacote = pacote;
+      })
+    } else {
+
+    }
+  }
 
 
   openReservaDialog(cliente:Cliente, pacote:Pacote){
     const dialogRef = this.dialog.open(RealizarReservaComponent, {
       width: '800px',
       height: '550px',
-
       data: {cliente , pacote}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        this.reloadPacote();
     });
   }
 }

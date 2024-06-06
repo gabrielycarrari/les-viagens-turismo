@@ -125,14 +125,22 @@
                 <span matListItemLine class="text-wrap">Avaliação: Não avaliado</span>
               }
             </mat-list-item>
-            <button class="btn btn-outline-primary btn-sm d-flex align-items-center ms-3 mb-3 mt-2" (click)="openAvaliarPacoteDialog(reserva)">
-              <mat-icon [inline]="true" class="justify-content-center pe-1">rate_review</mat-icon>
-              @if (avaliacoes[reservasCliente.indexOf(reserva)]) {
-                Editar Avaliação
-              }@else {
-                Avaliar Pacote
-              }
-            </button>
+            <div class="d-flex">
+              <button class="btn btn-outline-primary btn-sm d-flex align-items-center ms-3 mb-3 mt-2" (click)="openAvaliarPacoteDialog(reserva)">
+                <mat-icon [inline]="true" class="justify-content-center pe-1">rate_review</mat-icon>
+                @if (avaliacoes[reservasCliente.indexOf(reserva)]) {
+                  Editar Avaliação
+                }@else {
+                  Avaliar Pacote
+                }
+              </button>
+
+              <button class="btn btn-outline-danger btn-sm d-flex align-items-center ms-3 mb-3 mt-2" (click)="canRemoveReserva(reserva.pacote.dataSaida, reserva.pacote.horaSaida, reserva)">
+                <mat-icon [inline]="true" class="justify-content-center pe-1">cancel</mat-icon> Cancelar Reserva
+              </button>
+            </div>
+
+
             <mat-divider class="pb-2"></mat-divider>
 
           }

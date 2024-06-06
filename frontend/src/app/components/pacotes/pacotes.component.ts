@@ -58,6 +58,7 @@ export class PacotesComponent implements OnInit {
 
 
   onCardClick(pacote: Pacote): void {
+    window.scrollTo(0, 0);
     this.router.navigate(['/pagina-pacote', pacote.id]);
   }
 }

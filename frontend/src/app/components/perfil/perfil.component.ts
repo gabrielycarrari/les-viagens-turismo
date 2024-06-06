@@ -23,6 +23,7 @@ import { AvaliacaoService } from '../avaliacoes/avaliacao.service';
 import { Avaliacao } from '../avaliacoes/avaliacao';
 import { AvaliarPacoteComponent } from './avaliar-pacote/avaliar-pacote.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogDeletarComponent } from '../dashboard/dialog-deletar/dialog-deletar.component';
 
 
 @Component({
@@ -111,7 +112,7 @@ export class PerfilComponent {
           this.avaliacoes[i] = avaliacao;
         },
         error: () => {
-          this.snackBar.open('Ocorreu um erro ao carregar a avaliação.', '', { duration: 5000 });
+          this.snackBar.open('Ocorreu um erro ao carregar a avaliação.', '', { duration: 5000, panelClass: ["snackbar-error"] });
         }
       });
     }
@@ -140,6 +141,95 @@ export class PerfilComponent {
       this.carregarAvaliacoes();
     }
   }
+
+
+  timeToString(time: any): string {
+    if (typeof time === 'string') {
+      return time;
+    }
+    const hours = time.hours ? String(time.hours).padStart(2, '0') : '00';
+    const minutes = time.minutes ? String(time.minutes).padStart(2, '0') : '00';
+    const seconds = time.seconds ? String(time.seconds).padStart(2, '0') : '00';
+    return `${hours}:${minutes}:${seconds}`;
+  }
+
+  canRemoveReserva(dataSaida: any, horaSaida: any, reserva: Reserva): boolean {
+    const currentDateTime = new Date();
+
+    // Check if dataSaida is a string and convert it to a Date object if necessary
+    if (typeof dataSaida === 'string') {
+      dataSaida = new Date(dataSaida);
+      if (isNaN(dataSaida.getTime())) {
+        console.error('Invalid date string:', dataSaida);
+        return false;
+      }
+    } else if (!(dataSaida instanceof Date)) {
+      console.error('dataSaida is not a valid Date object:', dataSaida);
+      return false;
+    }
+
+    // Convert horaSaida to string in HH:mm:ss format
+    const horaSaidaString = this.timeToString(horaSaida);
+
+    // Split dataSaida and horaSaidaString into parts
+    const dateParts = dataSaida.toISOString().split('T')[0].split('-');
+    const timeParts = horaSaidaString.split(':');
+
+    // Create a Date object for the date and time of departure
+    const dataHoraSaida = new Date(
+      parseInt(dateParts[0]), // year
+      parseInt(dateParts[1]) - 1, // month (0-based index)
+      parseInt(dateParts[2]), // day
+      parseInt(timeParts[0]), // hours
+      parseInt(timeParts[1]), // minutes
+      parseInt(timeParts[2]) // seconds
+    );
+
+    // Calculate the difference in milliseconds
+    const timeDifference = dataHoraSaida.getTime() - currentDateTime.getTime();
+    console.log(timeDifference);
+
+    if (timeDifference > 24 * 60 * 60 * 1000) {
+      if (reserva && reserva.id !== undefined) {
+        this.openConfirmDialog(reserva.id, reserva.id.toString(), 'a reserva de Id');
+      }
+      return true;
+    } else {
+      this.snackBar.open('Não é possível cancelar reservas com menos de 24 horas de antecedência.', '', { duration: 5000 , panelClass: ["snackbar-error"] });
+      return false;
+    }
+  }
+
+
+
+
+  remove(reservaId: number) {
+    this.reservaService.remove(reservaId).subscribe({
+      next: () => {
+        console.log('Reserva removida com sucesso!');
+      },
+      error:(error) => {
+        console.error('Erro ao remover Reserva:', error);
+      }
+    }
+    );
+  }
+
+
+  openConfirmDialog(id: number, nome :String, info : String){
+    const dialogRef = this.dialog.open(DialogDeletarComponent, {
+      width: '350px',
+      data: {nome, info },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.remove(id);
+      }
+    });
+  }
+
+
 
   openAvaliarPacoteDialog(reserva: Reserva) {
     const dialogRef = this.dialog.open(AvaliarPacoteComponent, {

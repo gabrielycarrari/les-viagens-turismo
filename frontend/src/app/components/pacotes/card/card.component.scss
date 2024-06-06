@@ -21,3 +21,10 @@
 h1{
     font-family: "Arial";
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%; /* Ajuste conforme necessário */
+}

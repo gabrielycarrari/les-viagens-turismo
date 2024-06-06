@@ -57,7 +57,7 @@ export class LoginComponent {
           if (response.userType === 'FUNCIONARIO') {
             this.router.navigate(['dashboard-clientes']);
           } else {
-            this.router.navigate(['']);
+            this.location.back();
           }
         },
         error: error => {
