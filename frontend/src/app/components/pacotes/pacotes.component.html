@@ -32,7 +32,7 @@
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 justify-content-start ms-1 mb-0 ">
 
       @for (pacote of pacotesFiltrados; track pacote) {
-        <div class="col mx-4"> <!-- Margem inferior para espaçamento vertical -->
+        <div class="col mx-4 px-5"> <!-- Margem inferior para espaçamento vertical -->
           <app-card [pacote]="pacote" (click)="onCardClick(pacote)" class="mx-1"> <!-- Margem horizontal para espaçamento horizontal -->
           </app-card>
         </div>

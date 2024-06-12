@@ -161,7 +161,11 @@
                                                 <td>{{cliente.data_nascimento}}</td>
                                                 <td>{{cliente.telefone}}</td>
                                                 <td>{{cliente.email}}</td>
-                                                <td>{{cliente.endereco?.bairro +", "+cliente.endereco?.cidade}}</td>
+                                                @if (cliente.endereco?.bairro && cliente.endereco?.cidade) {
+                                                  <td>{{cliente.endereco?.bairro +", "+cliente.endereco?.cidade}}</td>
+                                                } @else {
+                                                  <td>O Cliente não possui endereço cadastrado.</td>
+                                                }
                                                 <td>{{cliente.login}}</td>
                                                 <td style="max-width: 200px; text-wrap: wrap;">{{cliente.senha}}</td>
                                                 <td class="acoes">

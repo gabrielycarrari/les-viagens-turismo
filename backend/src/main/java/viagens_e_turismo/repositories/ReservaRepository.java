@@ -14,6 +14,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
      List<Reserva> findByCliente(Cliente cliente);
      List<Reserva> findByPacote(Pacote pacote);
 
-     @Query("SELECT SUM(p.valorTotal) FROM Reserva r INNER JOIN r.pacote p;")
+     @Query("SELECT SUM(p.valorTotal) FROM Reserva r INNER JOIN r.pacote p")
      Float getGanhoTotal();
 }

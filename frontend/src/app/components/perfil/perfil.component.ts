@@ -194,7 +194,13 @@ export class PerfilComponent {
         this.openConfirmDialog(reserva.id, reserva.id.toString(), 'a reserva de Id');
       }
       return true;
-    } else {
+
+    } else if( timeDifference < 0){
+      this.snackBar.open('Não é possível cancelar reservas de pacotes que já aconteceram.', '', { duration: 5000 , panelClass: ["snackbar-error"] });
+      return false;
+
+    }
+     else {
       this.snackBar.open('Não é possível cancelar reservas com menos de 24 horas de antecedência.', '', { duration: 5000 , panelClass: ["snackbar-error"] });
       return false;
     }
@@ -207,6 +213,7 @@ export class PerfilComponent {
     this.reservaService.remove(reservaId).subscribe({
       next: () => {
         console.log('Reserva removida com sucesso!');
+        this.reservasCliente = this.reservasCliente.filter(reserva => reserva.id !== reservaId);
       },
       error:(error) => {
         console.error('Erro ao remover Reserva:', error);
@@ -223,8 +230,9 @@ export class PerfilComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result==true) {
         this.remove(id);
+        this.carregarReservas();
       }
     });
   }
