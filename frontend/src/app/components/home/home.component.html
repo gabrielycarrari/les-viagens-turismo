@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+
+<main>
+  <section>
+    <div class="container">
+      <div class="overflow-hidden p-3 p-md-5 m-md-3 text-start row  ">
+        <div class="col-6 col-md-6 d-flex flex-column justify-content-center">
+          <h1 class="display-3 fw-bold nome-empresa">TURIS.ME</h1>
+          <h3 class="fw-normal text-muted mb-3">O lugar perfeito para encontrar a viagem dos seus sonhos</h3>
+          <div class="gap-3">
+            <a href="pacotes">Conheça nossos pacotes</a>
+          </div>
+        </div>
+        <div class="col-6 d-flex flex-row-reverse fundo mb-3">
+          <img width="120%" src="../../../assets/images/fundo-site.png" alt="" >
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="form-section">
+    <div class="row">
+      <div class="text d-flex flex-column justify-content-center">
+        <h3>
+            Fique por dentro das tendências!
+        </h3>
+        <p>Se inscreva ao lado para receber novidades semanalmente sobre viagens, incluindo as melhores datas para comprar sua passagem pelo melhor preço do mercado.</p>
+      </div>
+
+      <form >
+          <label for="name">Name</label>
+          <input id="name" formControlName="name"/>
+          <label for="email">Email</label>
+          <input id="email" formControlName="email"/>
+          <div class="text-center">
+            <button type="button" class="btn btn-outline-light py-2 col-4">Inscreva-se</button>
+          </div>
+      </form>
+    </div>
+  </section>
+
+  <app-section-pacotes></app-section-pacotes>
+
+
+</main>
+<app-footer></app-footer>

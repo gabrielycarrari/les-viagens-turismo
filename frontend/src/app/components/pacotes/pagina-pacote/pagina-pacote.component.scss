@@ -1,0 +1,33 @@
+.backgroundSection{
+  background-image:  url(../../../../assets/images/tour-rio.jpg);
+  height: 500px;
+  width: 50%;
+  background-position: center -200px ;
+  border-radius: 1%;
+  //background-size: cover;
+
+}
+
+h1{
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.card-pacote{
+  background-color: white;
+  height: 100px;
+  width: 600px;
+  border: 1px solid #e1e1e0;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.card-pacote-transporte{
+  background-color: white;
+  height: 125px;
+  width: 600px;
+  border: 1px solid #e1e1e0;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+

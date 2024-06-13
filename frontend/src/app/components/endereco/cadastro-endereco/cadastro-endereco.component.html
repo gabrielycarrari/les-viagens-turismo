@@ -1,0 +1,58 @@
+<div class="row row-cols-lg-2 py-3" [formGroup]="enderecoFormGroup">
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>CEP</mat-label>
+    <input matInput type="text" formControlName="cep" />
+    @if (form.get('endereco')?.get('cep')?.invalid) {
+      <mat-error> {{ getMensagemError('cep') }} </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>UF</mat-label>
+    <input matInput type="text" formControlName="uf" />
+    @if (form.get('endereco')?.get('uf')?.invalid) {
+      <mat-error> {{ getMensagemError('uf') }} </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Cidade</mat-label>
+    <input matInput type="text" formControlName="cidade" />
+    @if (form.get('endereco')?.get('cidade')?.invalid) {
+      <mat-error> {{ getMensagemError('cidade') }} </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Bairro</mat-label>
+    <input matInput type="text" formControlName="bairro" />
+    @if (form.get('endereco')?.get('bairro')?.invalid) {
+      <mat-error> {{ getMensagemError('bairro') }} </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Rua</mat-label>
+    <input matInput type="text" formControlName="rua" />
+    @if (form.get('endereco')?.get('rua')?.invalid) {
+      <mat-error> {{ getMensagemError('rua') }} </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Número</mat-label>
+    <input matInput type="text" formControlName="numero" />
+    @if (form.get('endereco')?.get('numero')?.invalid) {
+      <mat-error> {{ getMensagemError('numero') }} </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="mb-3" appearance="outline">
+    <mat-label>Ponto de Referência</mat-label>
+    <input matInput type="text" formControlName="pontoReferencia" />
+    @if (form.get('endereco')?.get('pontoReferencia')?.invalid) {
+      <mat-error> {{ getMensagemError('pontoReferencia') }} </mat-error>
+    }
+  </mat-form-field>
+
+</div>

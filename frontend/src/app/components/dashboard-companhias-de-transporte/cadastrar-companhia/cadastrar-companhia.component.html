@@ -1,0 +1,138 @@
+<h2 mat-dialog-title>{{titulo}} Companhia de Transporte</h2>
+<mat-dialog-content>
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="row justify-content-md-center">
+        <div class="row py-3">
+
+          <div class="row-cols-lg-3">
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" formControlName="nome" />
+              @if (form.get('nome')?.invalid) {
+                <mat-error>{{ getMensagemError("nome") }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="mb-3 px-2" appearance="outline">
+              <mat-label>Categoria</mat-label>
+              <input matInput type="text" formControlName="categoria" />
+              @if (form.get('categoria')?.invalid) {
+                <mat-error>{{ getMensagemError("categoria") }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>CNPJ</mat-label>
+              <input matInput type="text" formControlName="cnpj" />
+              @if (form.get('cnpj')?.invalid) {
+                <mat-error>{{ getMensagemError("cnpj") }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="row-cols-lg-1">
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>Descrição</mat-label>
+              <textarea matInput formControlName="descricao"></textarea>
+              @if (form.get('descricao')?.invalid) {
+                <mat-error>{{ getMensagemError("descricao") }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="row-cols-lg-2">
+            <mat-form-field class="mb-3" appearance="outline">
+              <mat-label>Telefone</mat-label>
+              <input matInput type="text" formControlName="telefone"/>
+              @if (form.get('telefone')?.invalid) {
+                <mat-error>{{ getMensagemError("telefone") }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="mb-3 ps-2" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="nome@email.com"/>
+              @if (form.get('email')?.invalid) {
+                <mat-error>{{ getMensagemError("email") }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <mat-accordion multi class="w-100">
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Veículos</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <button class="btn btn-outline-primary mb-3" (click)="adicionarVeiculo()">
+                <i class="bi bi-plus-circle"></i> Adicionar
+              </button>
+              <mat-accordion multi>
+                <div formArrayName="veiculos" *ngFor="let veiculo of veiculos.controls; let i = index">
+                  <div [formGroupName]="i">
+                    <mat-expansion-panel [expanded]="true">
+                      <mat-expansion-panel-header>
+                        @if (veiculo.get('nome')?.value) {
+                          <mat-panel-title>
+                            Veiculo: {{ veiculo.get('nome')?.value }}
+                          </mat-panel-title>
+                        }@else{
+                          <mat-panel-title>
+                            Veiculo
+                          </mat-panel-title>
+                        }
+                      </mat-expansion-panel-header>
+                        <div class="row pb-1">
+                          <div class="row-cols-1 col-lg-5">
+                            <mat-form-field class="mb-3" appearance="outline">
+                              <mat-label>Nome</mat-label>
+                              <input matInput type="text" formControlName="nome"/>
+                              @if (veiculo.get('nome')?.invalid) {
+                                <mat-error>{{ getMensagemError("nome", i) }}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-4">
+                            <mat-form-field class="mb-3" appearance="outline">
+                              <mat-label>Registro</mat-label>
+                              <input matInput type="text" formControlName="registro"/>
+                              @if (veiculo.get('registro')?.invalid) {
+                                <mat-error>{{ getMensagemError("registro", i) }}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-2">
+                            <mat-form-field class="mb-3" appearance="outline">
+                              <mat-label>Vagas</mat-label>
+                              <input matInput type="number" formControlName="vagas"/>
+                              @if (veiculo.get('vagas')?.invalid) {
+                                <mat-error>{{ getMensagemError("vagas", i) }}</mat-error>
+                              }
+                            </mat-form-field>
+                          </div>
+                          <div class="row-cols-1 col-lg-1">
+                            <button class="btn btn-outline-danger btn-sm" (click)="removerVeiculo(i)">
+                              <i class="bi bi-trash3-fill"></i>
+                            </button>
+                          </div>
+                        </div>
+                    </mat-expansion-panel>
+                  </div>
+
+                </div>
+
+              </mat-accordion>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="container text-end">
+          <button type="button" class="btn btn-outline-danger" (click)="onCancel()">Cancelar</button>
+          <button class="btn btn-primary w-15 ms-2" type="submit" (click)="onSubmit()">Confirmar</button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</mat-dialog-content>

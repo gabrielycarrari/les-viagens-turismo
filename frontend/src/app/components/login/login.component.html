@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-lg-3 text-center text-lg-start ">
+    <form class="mt-5" [formGroup]="form" >
+      <h1 class="mb-3 fw-normal titulo fw-bold py-5">Login</h1>
+
+      <div class="row-cols-1">
+        <mat-form-field class="mb-3" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="login"/>
+          @if (form.get('login')?.invalid) {
+            <mat-error>{{"login"}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="row-cols-1">
+        <mat-form-field class="mb-3" appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" formControlName="senha"/>
+          @if (form.get('senha')?.invalid) {
+            <mat-error>{{"senha"}}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-check text-start pt-2 pb-3">
+            <input class="form-check-input" type="checkbox" value="rememberme" id="rememberme">
+            <label class="form-check-label" for="rememberme">
+              Lembrar de mim
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="text-end pt-2 pb-3">
+            <a class="text-body-tertiary" href="#">Esqueceu a senha?</a>
+          </div>
+        </div>
+      </div>
+        <button class="btn btn-primary w-100 mt-3 py-2 " type="submit" (click)="onSubmit()">Entrar</button>
+
+        <div class="py-3 text-body-secondary text-center">
+          <p>Não possui uma conta? <a class="text-body-secondary" href="cadastro"> Cadastre-se</a></p>
+        </div>
+    </form>
+    <div class="col-lg-7 d-lg-block d-none d-flex offset-1">
+      <img width="100%" src="../../../assets/images/fundo-login.png" alt="fundo login">
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

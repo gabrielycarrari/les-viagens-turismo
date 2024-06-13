@@ -1,0 +1,404 @@
+<div class="px-5 py-2">
+  <div class="center" style="text-align: center;">
+    <b><h1 mat-dialog-title style=" font-weight: 600; font-size: x-large;">Visualizar Pacote</h1></b>
+  </div>
+<mat-list>
+  <div class="d-flex justify-content-around ">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+        <mat-tab label="Informações Gerais">
+        <div class="d-flex justify-content-around ">
+          <div class="flex-column">
+            <mat-list-item>
+              <span matListItemTitle class="item-title" class="item-title">Nome</span>
+              <span matListItemLine >{{ data.nome }}</span>
+            </mat-list-item>
+
+            <mat-list-item>
+              <span matListItemTitle class="item-title" class="item-title">ID</span>
+              <span matListItemLine >{{ data.id }}</span>
+            </mat-list-item>
+
+            <mat-list-item>
+            <span matListItemTitle class="item-title ">Descrição</span>
+            <span matListItemLine  class="wrap-text text-justify">{{ data.descricao}}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle class="item-title">Vagas</span>
+            <span matListItemLine >{{ data.vagas}}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle class="item-title">Valor Total</span>
+            <span matListItemLine >{{"R$"+data.valorTotal}}</span>
+          </mat-list-item>
+
+        </div>
+        <div class="flex-column">
+        <mat-tab-group>
+          <mat-tab label="Saída">
+            <div class="d-flex justify-content-around ">
+
+              <div class="flex-collumn">
+                <mat-list-item>
+                  <span matListItemTitle class="item-title" class="item-title">Data Saída</span>
+                  <span matListItemLine >{{ data.dataSaida | date:"dd/MM/yyyy" }}</span>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <span matListItemTitle class="item-title" class="item-title">Horário Saída</span>
+                  <span matListItemLine >{{ data.horaSaida }}</span>
+                </mat-list-item>
+                <mat-list-item>
+                  <span matListItemTitle class="item-title">CEP</span>
+                  <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.cep }}</span>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <span matListItemTitle class="item-title">UF</span>
+                  <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.uf | uppercase }}</span>
+                </mat-list-item>
+
+            </div>
+            <div class="flex-collumn">
+              <mat-list-item>
+                <span matListItemTitle class="item-title">Cidade</span>
+                <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.cidade }}</span>
+              </mat-list-item>
+
+              <mat-list-item>
+                <span matListItemTitle class="item-title">Bairro</span>
+                <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.bairro }}</span>
+              </mat-list-item>
+
+              <mat-list-item>
+                <span matListItemTitle class="item-title">Rua</span>
+                <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.rua }}</span>
+              </mat-list-item>
+
+              <mat-list-item>
+                <span matListItemTitle class="item-title">Ponto de Referência</span>
+                <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.pontoReferencia }}</span>
+              </mat-list-item>
+
+            </div>
+          </div>
+
+          </mat-tab>
+          <mat-tab label="Destino">
+            <div class="d-flex justify-content-around ">
+
+
+              <div class="flex-collumn">
+
+
+              <mat-list-item>
+                <span matListItemTitle class="item-title" class="item-title">Data Chegada</span>
+                <span matListItemLine >{{ data.dataChegada | date:"dd/MM/yyyy" }}</span>
+              </mat-list-item>
+
+              <mat-list-item>
+                <span matListItemTitle class="item-title" class="item-title">Horário Chegada</span>
+                <span matListItemLine >{{ data.horaChegada }}</span>
+              </mat-list-item>
+              <mat-list-item>
+                <span matListItemTitle class="item-title">CEP</span>
+                <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.cep }}</span>
+              </mat-list-item>
+
+              <mat-list-item>
+                <span matListItemTitle class="item-title">UF</span>
+              <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.uf | uppercase }}</span>
+            </mat-list-item>
+          </div>
+          <div class="flex-collumn">
+
+
+            <mat-list-item>
+              <span matListItemTitle class="item-title">Cidade</span>
+              <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.cidade }}</span>
+            </mat-list-item>
+
+            <mat-list-item>
+              <span matListItemTitle class="item-title">Bairro</span>
+              <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.bairro }}</span>
+            </mat-list-item>
+
+            <mat-list-item>
+              <span matListItemTitle class="item-title">Rua</span>
+              <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.rua }}</span>
+            </mat-list-item>
+
+            <!-- <mat-list-item>
+              <span matListItemTitle class="item-title">Numero</span>
+              <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.numero }}</span>
+            </mat-list-item> -->
+
+            <mat-list-item>
+              <span matListItemTitle class="item-title">Ponto de Referência</span>
+              <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.pontoReferencia }}</span>
+            </mat-list-item>
+          </div>
+          </div>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+    </div>
+      </mat-tab>
+
+      <mat-tab label="Hospedagens">
+
+        @if (data.hotelPacote) {
+          <mat-accordion class="me-3 mt-3" >
+            <div class="mx-5 mt-2">
+
+              @for (hospedagem of data.hotelPacote; track hospedagem) {
+                <mat-expansion-panel class="">
+                  <mat-expansion-panel-header>
+                  <mat-panel-title>
+                   {{hospedagem.hotel.nome}}
+                  </mat-panel-title>
+
+                </mat-expansion-panel-header>
+
+                <mat-list-item>
+                  <span matListItemTitle class="item-title">ID Hospedagem</span>
+                  <span matListItemLine >{{ hospedagem.id}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                  <span matListItemTitle class="item-title" class="item-title">Localização Hotel</span>
+                  <span matListItemLine >{{ hospedagem.hotel.endereco?.cidade }}</span>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <span matListItemTitle class="item-title" class="item-title">Tipo Diária</span>
+                  <span matListItemLine >{{ hospedagem.tipoDiaria }}</span>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <span matListItemTitle class="item-title">Quantidade de Diárias</span>
+                  <span matListItemLine >{{ hospedagem.qtdDiarias}}</span>
+                </mat-list-item>
+
+
+              </mat-expansion-panel>
+            }
+          </div>
+          </mat-accordion>
+
+        }@else {
+          <mat-list-item>
+            <span matListItemTitle class="item-title">O pacote não possui Hospedagens cadastradas</span>
+          </mat-list-item>
+        }
+
+
+      </mat-tab>
+      <mat-tab label="Transportes">
+        @if (data.transportePacote) {
+          <mat-accordion class="me-3 mt-3" >
+            <div class="mx-5 mt-2">
+
+              @for (transporte of data.transportePacote; track transporte) {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+
+                   {{transporte.veiculo?.nome + ": " + transporte.enderecoSaida?.cidade + " para "+ transporte.enderecoChegada?.cidade}}
+                   <!-- {{transporte.veiculo?.companhiaTransporte?.nome}} -->
+                  </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <div class="flex-collumn">
+                <div class="d-flex justify-content-around">
+                 <div class="flex-collumn">
+                   <mat-list-item>
+                     <span matListItemTitle class="item-title">ID Viagem</span>
+                     <span matListItemLine >{{ transporte.id}}</span>
+                   </mat-list-item>
+                 </div>
+                 <div class="flex-collumn">
+                   <mat-list-item>
+                     <span matListItemTitle class="item-title" class="item-title">Veículo</span>
+                     <span matListItemLine >{{ transporte.veiculo?.nome }}</span>
+                   </mat-list-item>
+                 </div>
+                </div>
+              </div>
+              <div class="flex-collumn">
+                <mat-tab-group>
+                  <mat-tab label="Endereço Saída">
+                    <div class="d-flex justify-content-around ">
+
+                      <div class="flex-collumn">
+
+                        <mat-list-item>
+                          <span matListItemTitle class="item-title">CEP</span>
+                          <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.cep }}</span>
+                        </mat-list-item>
+
+                        <mat-list-item>
+                          <span matListItemTitle class="item-title">UF</span>
+                          <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.uf | uppercase }}</span>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <span matListItemTitle class="item-title">Cidade</span>
+                          <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.cidade }}</span>
+                        </mat-list-item>
+
+                      </div>
+                      <div class="flex-collumn">
+
+
+                        <mat-list-item>
+                          <span matListItemTitle class="item-title">Bairro</span>
+                          <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.bairro }}</span>
+                        </mat-list-item>
+
+                        <mat-list-item>
+                          <span matListItemTitle class="item-title">Rua</span>
+                          <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.rua }}</span>
+                        </mat-list-item>
+
+                        <!-- <mat-list-item>
+                        <span matListItemTitle class="item-title">Numero</span>
+                        <span matListItemLine class="text-wrap">{{ data.enderecoSaida?.numero }}</span>
+                      </mat-list-item> -->
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title">Ponto de Referência</span>
+                        <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.pontoReferencia }}</span>
+                      </mat-list-item>
+
+                    </div>
+                  </div>
+
+                  </mat-tab>
+                  <mat-tab label="Endereço Destino">
+                    <div class="d-flex justify-content-around ">
+
+
+                      <div class="flex-collumn">
+
+
+
+                        <mat-list-item>
+                          <span matListItemTitle class="item-title">CEP</span>
+                          <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.cep }}</span>
+                      </mat-list-item>
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title">UF</span>
+                      <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.uf | uppercase }}</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Cidade</span>
+                      <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.cidade }}</span>
+                    </mat-list-item>
+
+                  </div>
+                  <div class="flex-collumn">
+
+
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Bairro</span>
+                      <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.bairro }}</span>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Rua</span>
+                      <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.rua }}</span>
+                    </mat-list-item>
+
+                    <!-- <mat-list-item>
+                      <span matListItemTitle class="item-title">Numero</span>
+                      <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.numero }}</span>
+                    </mat-list-item> -->
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Ponto de Referência</span>
+                      <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.pontoReferencia }}</span>
+                    </mat-list-item>
+                  </div>
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+          </div>
+        </mat-expansion-panel>
+      }
+    </div>
+          </mat-accordion>
+
+        }@else {
+          <mat-list-item>
+            <span matListItemTitle class="item-title">O pacote não possui transportes cadastrados</span>
+          </mat-list-item>
+        }
+
+      </mat-tab>
+    </mat-tab-group>
+    <!-- <div class="flex-column ">
+
+
+
+    </div> -->
+    <!-- <div class="flex-column">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Informações Gerais
+            </mat-panel-title>
+            <mat-panel-description>
+              Type your name and age
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Destination
+            </mat-panel-title>
+            <mat-panel-description>
+              Type the country name
+              <mat-icon>map</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Day of the trip
+            </mat-panel-title>
+            <mat-panel-description>
+              Inform the date you wish to travel
+              <mat-icon>date_range</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+
+
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </div> -->
+  </div>
+  <mat-list-item class="container text-end">
+    <button class="btn btn-outline-danger" (click)="sair()">
+        Fechar
+    </button>
+  </mat-list-item>
+</mat-list>
+</div>

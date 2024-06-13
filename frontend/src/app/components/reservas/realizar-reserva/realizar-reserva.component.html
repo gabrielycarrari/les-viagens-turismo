@@ -1,0 +1,429 @@
+<div class="p-5">
+  <div class="center" style="text-align: center;">
+    <b><h1 mat-dialog-title style=" font-weight: 600; font-size: x-large;">Realizar Reserva</h1></b>
+  </div>
+<mat-stepper  linear  #stepper>
+  <mat-step [stepControl]="firstFormGroup" >
+    <ng-template matStepLabel>Confirmar Dados</ng-template>
+    <mat-list>
+      <div class="d-flex justify-content-around ">
+        <div class="flex-column ">
+          <mat-list-item>
+            <span matListItemTitle class="item-title" class="item-title">Nome</span>
+            <span matListItemLine >{{ data.cliente.nome }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle class="item-title">CPF</span>
+            <span matListItemLine class="text-wrap">{{ data.cliente.cpf }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle class="item-title">Data de Nascimento</span>
+            <span matListItemLine class="text-wrap">{{ data.cliente.data_nascimento | date:"dd/MM/yyyy"}} </span>
+          </mat-list-item>
+
+        </div>
+        <div class="flex-column">
+
+          <mat-list-item>
+            <span matListItemTitle class="item-title">Telefone</span>
+            <span matListItemLine class="text-wrap">{{ data.cliente.telefone }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle class="item-title">Email</span>
+            <span matListItemLine class="text-wrap">{{ data.cliente.email }}</span>
+          </mat-list-item>
+
+          <mat-list-item class="mt-3">
+            <button class="btn btn-outline-primary"  (click)="data.cliente.id && openEditDialog(data.cliente.id)">
+              <i class="bi bi-pencil"></i>
+                Alterar Dados
+            </button>
+          </mat-list-item>
+        </div>
+      </div>
+    </mat-list>
+
+    <div class="d-flex justify-content-between mt-3">
+      <form [formGroup]="firstFormGroup">
+        <mat-checkbox formControlName="confirmacao" color="primary" required>
+          <span style="font-weight: 400;">Confirmo o pacote desejado!</span>
+        </mat-checkbox>
+      </form>
+      <button type="button" matStepperNext class="btn btn-primary" [disabled]="!firstFormGroup.valid">Próximo</button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" >
+    <!-- [stepControl]="secondFormGroup" -->
+      <ng-template matStepLabel>Confirmar Pacote</ng-template>
+      <div class="px-5 pt-2">
+        <div class="center" style="text-align: center;">
+          <b><h1 mat-dialog-title style=" font-weight: 600; font-size: large; margin-bottom: 0px;margin-top: 0px;">{{ data.pacote.nome }}</h1></b>
+        </div>
+      <mat-list>
+        <div class="d-flex justify-content-around ">
+
+          <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+              <mat-tab label="Informações Gerais">
+
+              <div class="d-flex justify-content-around ">
+              <mat-tab-group>
+                <mat-tab label="Saída">
+                  <div class="d-flex justify-content-around ">
+
+                    <div class="flex-collumn">
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title" class="item-title">Data Saída</span>
+                        <span matListItemLine >{{ data.pacote.dataSaida | date:"dd/MM/yyyy" }}</span>
+                      </mat-list-item>
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title" class="item-title">Horário Saída</span>
+                        <span matListItemLine >{{ data.pacote.horaSaida }}</span>
+                      </mat-list-item>
+
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title">UF</span>
+                        <span matListItemLine class="text-wrap">{{data.pacote.enderecoSaida?.uf | uppercase }}</span>
+                      </mat-list-item>
+
+                  </div>
+                  <div class="flex-collumn">
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Cidade</span>
+                      <span matListItemLine class="text-wrap">{{ data.pacote.enderecoSaida?.cidade }}</span>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Bairro</span>
+                      <span matListItemLine class="text-wrap">{{ data.pacote.enderecoSaida?.bairro }}</span>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">Ponto de Referência</span>
+                      <span matListItemLine class="text-wrap">{{ data.pacote.enderecoSaida?.pontoReferencia }}</span>
+                    </mat-list-item>
+
+                  </div>
+                </div>
+
+                </mat-tab>
+                <mat-tab label="Destino">
+                  <div class="d-flex justify-content-around ">
+
+
+                    <div class="flex-collumn">
+
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title" class="item-title">Data Chegada</span>
+                      <span matListItemLine >{{ data.pacote.dataChegada | date:"dd/MM/yyyy" }}</span>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title" class="item-title">Horário Chegada</span>
+                      <span matListItemLine >{{ data.pacote.horaChegada }}</span>
+                    </mat-list-item>
+
+
+                    <mat-list-item>
+                      <span matListItemTitle class="item-title">UF</span>
+                    <span matListItemLine class="text-wrap">{{ data.pacote.enderecoDestino?.uf | uppercase }}</span>
+                  </mat-list-item>
+                </div>
+                <div class="flex-collumn">
+
+
+                  <mat-list-item>
+                    <span matListItemTitle class="item-title">Cidade</span>
+                    <span matListItemLine class="text-wrap">{{ data.pacote.enderecoDestino?.cidade }}</span>
+                  </mat-list-item>
+
+                  <mat-list-item>
+                    <span matListItemTitle class="item-title">Bairro</span>
+                    <span matListItemLine class="text-wrap">{{ data.pacote.enderecoDestino?.bairro }}</span>
+                  </mat-list-item>
+
+                  <mat-list-item>
+                    <span matListItemTitle class="item-title">Ponto de Referência</span>
+                    <span matListItemLine class="text-wrap">{{ data.pacote.enderecoDestino?.pontoReferencia }}</span>
+                  </mat-list-item>
+                </div>
+                </div>
+                </mat-tab>
+
+              </mat-tab-group>
+            </div>
+            </mat-tab>
+
+            <mat-tab label="Hospedagens">
+
+              @if (data.pacote.hotelPacote) {
+                <mat-accordion class="me-3 mt-3" >
+                  <div class="mx-5 mt-2">
+
+                    @for (hospedagem of data.pacote.hotelPacote; track hospedagem) {
+                      <mat-expansion-panel class="">
+                        <mat-expansion-panel-header>
+                        <mat-panel-title>
+                         {{hospedagem.hotel.nome}}
+                        </mat-panel-title>
+
+                      </mat-expansion-panel-header>
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title">ID Hospedagem</span>
+                        <span matListItemLine >{{ hospedagem.id}}</span>
+                      </mat-list-item>
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title" class="item-title">Localização Hotel</span>
+                        <span matListItemLine >{{ hospedagem.hotel.endereco?.cidade }}</span>
+                      </mat-list-item>
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title" class="item-title">Tipo Diária</span>
+                        <span matListItemLine >{{ hospedagem.tipoDiaria }}</span>
+                      </mat-list-item>
+
+                      <mat-list-item>
+                        <span matListItemTitle class="item-title">Quantidade de Diárias</span>
+                        <span matListItemLine >{{ hospedagem.qtdDiarias}}</span>
+                      </mat-list-item>
+
+
+                    </mat-expansion-panel>
+                  }
+                </div>
+                </mat-accordion>
+
+              }@else {
+                <mat-list-item>
+                  <span matListItemTitle class="item-title">O pacote não possui Hospedagens cadastradas</span>
+                </mat-list-item>
+              }
+
+
+            </mat-tab>
+            <mat-tab label="Transportes">
+              @if (data.pacote.transportePacote) {
+                <mat-accordion class="me-3 mt-3" >
+                  <div class="mx-5 mt-2">
+
+                    @for (transporte of data.pacote.transportePacote; track transporte) {
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+
+                         {{transporte.veiculo?.nome + ": " + transporte.enderecoSaida?.cidade + " para "+ transporte.enderecoChegada?.cidade}}
+                         <!-- {{transporte.veiculo?.companhiaTransporte?.nome}} -->
+                        </mat-panel-title>
+
+                      </mat-expansion-panel-header>
+                      <div class="flex-collumn">
+                      <div class="d-flex justify-content-around">
+                       <div class="flex-collumn">
+                         <mat-list-item>
+                           <span matListItemTitle class="item-title">ID Viagem</span>
+                           <span matListItemLine >{{ transporte.id}}</span>
+                         </mat-list-item>
+                       </div>
+                       <div class="flex-collumn">
+                         <mat-list-item>
+                           <span matListItemTitle class="item-title" class="item-title">Veículo</span>
+                           <span matListItemLine >{{ transporte.veiculo?.nome }}</span>
+                         </mat-list-item>
+                       </div>
+                      </div>
+                    </div>
+                    <div class="flex-collumn">
+                      <mat-tab-group>
+                        <mat-tab label="Endereço Saída">
+                          <div class="d-flex justify-content-around ">
+
+                            <div class="flex-collumn">
+
+                              <mat-list-item>
+                                <span matListItemTitle class="item-title">CEP</span>
+                                <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.cep }}</span>
+                              </mat-list-item>
+
+                              <mat-list-item>
+                                <span matListItemTitle class="item-title">UF</span>
+                                <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.uf | uppercase }}</span>
+                              </mat-list-item>
+                              <mat-list-item>
+                                <span matListItemTitle class="item-title">Cidade</span>
+                                <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.cidade }}</span>
+                              </mat-list-item>
+
+                            </div>
+                            <div class="flex-collumn">
+
+
+                              <mat-list-item>
+                                <span matListItemTitle class="item-title">Bairro</span>
+                                <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.bairro }}</span>
+                              </mat-list-item>
+
+                              <mat-list-item>
+                                <span matListItemTitle class="item-title">Rua</span>
+                                <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.rua }}</span>
+                              </mat-list-item>
+
+
+                            <mat-list-item>
+                              <span matListItemTitle class="item-title">Ponto de Referência</span>
+                              <span matListItemLine class="text-wrap">{{ transporte.enderecoSaida?.pontoReferencia }}</span>
+                            </mat-list-item>
+
+                          </div>
+                        </div>
+
+                        </mat-tab>
+                        <mat-tab label="Endereço Destino">
+                          <div class="d-flex justify-content-around ">
+
+
+                            <div class="flex-collumn">
+
+
+
+                              <mat-list-item>
+                                <span matListItemTitle class="item-title">CEP</span>
+                                <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.cep }}</span>
+                            </mat-list-item>
+
+                            <mat-list-item>
+                              <span matListItemTitle class="item-title">UF</span>
+                            <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.uf | uppercase }}</span>
+                          </mat-list-item>
+                          <mat-list-item>
+                            <span matListItemTitle class="item-title">Cidade</span>
+                            <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.cidade }}</span>
+                          </mat-list-item>
+
+                        </div>
+                        <div class="flex-collumn">
+
+
+
+                          <mat-list-item>
+                            <span matListItemTitle class="item-title">Bairro</span>
+                            <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.bairro }}</span>
+                          </mat-list-item>
+
+                          <mat-list-item>
+                            <span matListItemTitle class="item-title">Rua</span>
+                            <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.rua }}</span>
+                          </mat-list-item>
+
+                          <!-- <mat-list-item>
+                            <span matListItemTitle class="item-title">Numero</span>
+                            <span matListItemLine class="text-wrap">{{ data.enderecoDestino?.numero }}</span>
+                          </mat-list-item> -->
+
+                          <mat-list-item>
+                            <span matListItemTitle class="item-title">Ponto de Referência</span>
+                            <span matListItemLine class="text-wrap">{{ transporte.enderecoChegada?.pontoReferencia }}</span>
+                          </mat-list-item>
+                        </div>
+                      </div>
+                    </mat-tab>
+
+                  </mat-tab-group>
+                </div>
+              </mat-expansion-panel>
+            }
+          </div>
+                </mat-accordion>
+
+              }@else {
+                <mat-list-item>
+                  <span matListItemTitle class="item-title">O pacote não possui transportes cadastrados</span>
+                </mat-list-item>
+              }
+
+            </mat-tab>
+          </mat-tab-group>
+
+        </div>
+
+      </mat-list>
+      </div>
+
+
+      <div class="d-flex justify-content-between mt-3">
+        <form [formGroup]="secondFormGroup">
+          <mat-checkbox formControlName="confirmacao" color="primary" required>
+            <span style="font-weight: 400;">Confirmo o pacote desejado!</span>
+          </mat-checkbox>
+        </form>
+        <button type="button" matStepperNext class="btn btn-primary" [disabled]="!secondFormGroup.valid">Próximo</button>
+      </div>
+
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Finalizar Reserva</ng-template>
+
+
+    <mat-dialog-content>
+      <div class="container text-start">
+        <form [formGroup]="form">
+          <div class="row-cols-lg-1">
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Observações</mat-label>
+              <textarea matInput formControlName="observacoes"></textarea>
+              @if (form.get('observacoes')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="row-cols-lg-2 pt-2 pb-3 g-3">
+            <mat-form-field class="mb-3 px-0" appearance="outline">
+              <mat-label>Quantidade de Reservas</mat-label>
+
+              <input matInput type="number" formControlName="quantidade" />
+              @if (form.get('quantidade')?.invalid) {
+                <mat-error>{{"Valor Inválido"}}</mat-error>
+              }
+            </mat-form-field>
+            <!-- <label for="quantidade">
+              Quantas reservas deseja realizar?
+            </label>
+            <input matInput style="width: 40px; margin-left: 20px;" type="number" value="quantidade" id="quantidade" formControlName="quantidade"> -->
+          </div>
+        </form>
+      </div>
+
+<!--
+      <div class="row-cols-1 col-lg-2">
+        <mat-form-field class="mb-3 px-2" appearance="outline">
+          <mat-label>Vagas</mat-label>
+          <input matInput type="number" formControlName="vagas" />
+          @if (form.get('vagas')?.invalid) {
+            <mat-error>{{"Valor Inválido"}}</mat-error>
+          }
+        </mat-form-field>
+      </div> -->
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <div class="container text-end">
+        <button type="button" class="btn btn-outline-danger" (click)="onCancel()">Cancelar</button>
+        <button type="button" class="btn btn-outline-success w-25 ms-2" (click)="onSave()">Efetuar Reserva!</button>
+      </div>
+    </mat-dialog-actions>
+
+
+<!--
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div> -->
+  </mat-step>
+</mat-stepper>
+</div>

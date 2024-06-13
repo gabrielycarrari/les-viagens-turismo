@@ -1,0 +1,52 @@
+<div class="px-5 py-2">
+  <div class="center" style="text-align: center;">
+    <b><h1 mat-dialog-title style=" font-weight: 600; font-size: x-large;">Visualizar Funcionário</h1></b>
+  </div>
+<mat-list>
+  <div class="d-flex justify-content-around ">
+    <div class="flex-column ">
+      <mat-list-item>
+        <span matListItemTitle class="item-title" class="item-title">Nome</span>
+        <span matListItemLine >{{ data.nome }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title" class="item-title">ID</span>
+        <span matListItemLine >{{ data.id }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">CPF</span>
+        <span matListItemLine class="text-wrap">{{ data.cpf }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Data de Nascimento</span>
+        <span matListItemLine class="text-wrap">{{ data.data_nascimento | date:"dd/MM/yyyy"}} </span>
+      </mat-list-item>
+      </div>
+      <div class="flex-column ">
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Telefone</span>
+        <span matListItemLine class="text-wrap">{{ data.telefone }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Email</span>
+        <span matListItemLine class="text-wrap">{{ data.email }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <span matListItemTitle class="item-title">Username</span>
+        <span matListItemLine class="text-wrap">{{ data.login }}</span>
+      </mat-list-item>
+    </div>
+
+      </div>
+  <mat-list-item class="container text-end">
+    <button class="btn btn-outline-danger" (click)="sair()">
+        Fechar
+    </button>
+  </mat-list-item>
+</mat-list>
+</div>
